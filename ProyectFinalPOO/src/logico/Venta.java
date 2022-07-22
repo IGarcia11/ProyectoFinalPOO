@@ -1,6 +1,7 @@
 package logico;
 
 import java.sql.Date;
+import java.util.ArrayList;
 
 public class Venta {
 	
@@ -10,6 +11,7 @@ public class Venta {
 	private int codeFactura;
 	Cliente client;
 	Empleado employee;
+	private ArrayList<Plan> misPlanes;
 
 	public Venta(String codeVenta, Date diaVenta, float montoTotal, int codeFactura, Cliente client, Empleado employee) {
 		super();
@@ -19,6 +21,7 @@ public class Venta {
 		this.codeFactura = codeFactura;
 		this.client = client;
 		this.employee = employee;
+		this.misPlanes = new ArrayList<>();
 	}
 
 	public String getCodeVenta() {
@@ -69,6 +72,23 @@ public class Venta {
 		this.employee = employee;
 	}
 
+	public ArrayList<Plan> getMisPlanes() {
+		return misPlanes;
+	}
+
+	public float montoTotal() {
+		float total = 0;
+		for(int i = 0; i<misPlanes.size(); i++) {
+			total+= misPlanes.get(i).precioPlan();
+		}
+		return total;
+	}
+	
+	public void insertarPlan(Plan p1) {
+		misPlanes.add(p1);
+	}
+
 
 
 }
+

@@ -75,7 +75,6 @@ public class Altice {
 		return null;
 	}
 	
-	
 	public int cantVentasByEmpleado(String nombreEmpleado)
 	{
 		Empleado empleado = null;
@@ -94,4 +93,18 @@ public class Altice {
 		}	
 		return cantVentaComerciante;
 	}
+	
+	/*public float totalFactura (Factura bill) {
+		float suma = 0;
+		
+		for (Venta queso : f.getMisquesos()) {
+			suma += queso.precioTotal();
+		}
+		return suma;
+	}*/
+	
+	
+	
 }
+
+
