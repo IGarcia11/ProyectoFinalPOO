@@ -59,11 +59,6 @@ public class Factura {
 	public void insertarPlanesFactura(Plan p1) {
 		misPlanes.add(p1);
 	}
-
-
-	
-	
-	
 	
 }
 

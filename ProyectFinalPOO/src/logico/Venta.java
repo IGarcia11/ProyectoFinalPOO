@@ -1,14 +1,3 @@
-/*package logico;
-
-public class Venta {
-
-	public Venta() {
-		// TODO Auto-generated constructor stub
-	}
-
-}
-*/
-
 package logico;
 
 import java.sql.Date;
