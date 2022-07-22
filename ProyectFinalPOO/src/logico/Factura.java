@@ -12,7 +12,7 @@ public class Factura {
 	
 	public Factura(String codeFactura, Cliente micliente, Date fechaFactura) {
 		super();
-		this.setCodeFactura(codeFactura);
+		this.codeFactura = codeFactura;
 		this.micliente = micliente;
 		this.fechaFactura = fechaFactura;
 		this.misPlanes = new ArrayList<>();
@@ -20,12 +20,12 @@ public class Factura {
 
 
 	public String getCodeFactura() {
-		return codeFactura;
+		return codeFactura;  	
 	}
 
 	public void setCodeFactura(String codeFactura) {
 		this.codeFactura = codeFactura;
-	}
+	}	
 
 	public Cliente getMicliente() {
 		return micliente;
@@ -55,10 +55,15 @@ public class Factura {
 		return total;
 	}
 	
+	
 	public void insertarPlanesFactura(Plan p1) {
 		misPlanes.add(p1);
 	}
-	
-	
 
+
+	
+	
+	
+	
 }
+

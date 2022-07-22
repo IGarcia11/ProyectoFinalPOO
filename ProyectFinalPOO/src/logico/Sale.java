@@ -1,21 +1,14 @@
-/*package logico;
-
-public class Venta {
-
-	public Venta() {
-		// TODO Auto-generated constructor stub
-	}
-
-}
-*/
-
 package logico;
 
 import java.sql.Date;
 import java.util.ArrayList;
 
-public class Venta {
-	
+import logico.Cliente;
+import logico.Empleado;
+import logico.Plan;
+
+public class Sale {
+
 	private String codeVenta;
 	private Date diaVenta;
 	private int codeFactura;
@@ -23,7 +16,7 @@ public class Venta {
 	Empleado employee;
 	private ArrayList<Plan> misPlanes;
 
-	public Venta(String codeVenta, Date diaVenta, int codeFactura, Cliente client, Empleado employee) {
+	public Sale(String codeVenta, Date diaVenta, int codeFactura, Cliente client, Empleado employee) {
 		super();
 		this.codeVenta = codeVenta;
 		this.diaVenta = diaVenta;
@@ -92,10 +85,8 @@ public class Venta {
 	}
 
 	
-	public Venta(int codeFactura) {
-		super();
-		this.codeFactura = codeFactura;
-	}
+	
+
+
 
 }
-
