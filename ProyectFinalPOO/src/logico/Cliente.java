@@ -1,5 +1,7 @@
 package logico;
 
+import java.util.ArrayList;
+
 public class Cliente {
 
 	private String cedCliente;
@@ -9,9 +11,12 @@ public class Cliente {
 	private String telefono;
 	private char sexo;
 	private int cantPuntosAcumulados;
+	private ArrayList<Factura> misFacturas;
+	private ArrayList<Plan> misPlanes;
+	private ArrayList<Venta> misCompras;
 
 	public Cliente(String cedCliente, String nombreCliente, String apellidoCliente, String direccion, String telefono,
-			char sexo, int cantPuntosAcumulados) {
+			char sexo) {
 		super();
 		this.cedCliente = cedCliente;
 		this.nombreCliente = nombreCliente;
@@ -19,7 +24,10 @@ public class Cliente {
 		this.direccion = direccion;
 		this.telefono = telefono;
 		this.sexo = sexo;
-		this.cantPuntosAcumulados = cantPuntosAcumulados;
+		this.cantPuntosAcumulados = 0;
+		this.misFacturas = new ArrayList<>();
+		this.misPlanes = new ArrayList<>();
+		this.misCompras = new ArrayList<>();
 	}
 
 	public String getCedCliente() {
@@ -74,8 +82,28 @@ public class Cliente {
 		return cantPuntosAcumulados;
 	}
 
-	public void setCantPuntosAcumulados(int cantPuntosAcumulados) {
-		this.cantPuntosAcumulados = cantPuntosAcumulados;
+	public ArrayList<Factura> getMisFacturas() {
+		return misFacturas;
+	}
+
+	public ArrayList<Plan> getMisPlanes() {
+		return misPlanes;
+	}
+
+	public ArrayList<Venta> getMisCompras() {
+		return misCompras;
+	}
+	
+	public void insertarFactura(Factura f1) {
+		misFacturas.add(f1);
+	}
+	
+	public void insertarVenta(Venta v1) {
+		misCompras.add(v1);
+	}
+	
+	public void insertarPlan(Plan p1) {
+		misPlanes.add(p1);
 	}
 
 }
