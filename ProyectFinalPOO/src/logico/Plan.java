@@ -1,18 +1,18 @@
 package logico;
 
+import java.util.ArrayList;
+
 public class Plan {
 	
 	private String nombre;
 	private String estado;
-	private Servicio[] serviciosPlan;
-	private int cantServicios;
+	private ArrayList<Servicio> serviciosPlan;
 	
-	public Plan(String nombre, String estado) {
+	public Plan(String nombre) {
 		super();
 		this.nombre = nombre;
-		this.estado = estado;
-		this.serviciosPlan = new Servicio[2];
-		this.cantServicios = 0;
+		this.estado = "Activo";
+		this.serviciosPlan = new ArrayList<>();
 	}
 
 	public String getNombre() {
@@ -31,32 +31,31 @@ public class Plan {
 		this.estado = estado;
 	}
 
-	public Servicio[] getServiciosPlan() {
-		return serviciosPlan;
-	}
 
-	public int getCantServicios() {
-		return cantServicios;
+	public ArrayList<Servicio> getServiciosPlan() {
+		return serviciosPlan;
 	}
 
 	public float precioPlan() {
 		float precioPlan = 0;
 		float precio = 0;
 		int cant = 0;
-		for (int i = 0; i<cantServicios; i++) {
-			precio+= serviciosPlan[i].costo();
+		for (int i = 0; i<serviciosPlan.size(); i++) {
+			precio+= serviciosPlan.get(i).costo();
 			cant++;
 		}
+		if(cant==1) {
+			precioPlan = precio;
+		}
 		if (cant==2) {
-			precioPlan = (precio * 30)/100;
+			precioPlan = (precio * 85)/100;
 		}else if(cant==3) {
-			precioPlan = (precio * 45)/100;
+			precioPlan = (precio * 70)/100;
 		}
 		return precioPlan;
 	}
 	
 	public void insertarServicio(Servicio se1) {
-		serviciosPlan[cantServicios] = se1;
-		cantServicios++;
+		serviciosPlan.add(se1);
 	}
 }
