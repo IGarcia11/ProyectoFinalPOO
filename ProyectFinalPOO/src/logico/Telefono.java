@@ -24,33 +24,8 @@ public class Telefono extends Servicio {
 	}
 
 	@Override
-	public int velocidadB() {
-		// TODO Auto-generated method stub
-		return 0;
+	public String capacidad() {
+		String min = Integer.toString(minutos)+" minutos";
+		return min;
 	}
-
-	@Override
-	public int velocidadS() {
-		// TODO Auto-generated method stub
-		return 0;
-	}
-
-	@Override
-	public int minutos() {
-		// TODO Auto-generated method stub
-		return minutos;
-	}
-
-	@Override
-	public int canalesLoc() {
-		// TODO Auto-generated method stub
-		return 0;
-	}
-
-	@Override
-	public int canalesHD() {
-		// TODO Auto-generated method stub
-		return 0;
-	}
-
 }

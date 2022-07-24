@@ -34,33 +34,11 @@ public class Television extends Servicio {
 	}
 
 	@Override
-	public int velocidadB() {
-		// TODO Auto-generated method stub
-		return 0;
-	}
-
-	@Override
-	public int velocidadS() {
-		// TODO Auto-generated method stub
-		return 0;
-	}
-
-	@Override
-	public int minutos() {
-		// TODO Auto-generated method stub
-		return 0;
-	}
-
-	@Override
-	public int canalesLoc() {
-		// TODO Auto-generated method stub
-		return cantCanalesLocales;
-	}
-
-	@Override
-	public int canalesHD() {
-		// TODO Auto-generated method stub
-		return cantCanalesHD;
+	public String capacidad() {
+		String cL =Integer.toString(cantCanalesLocales);
+		String cH =Integer.toString(cantCanalesHD);
+		String capacidad= cL+" Loc./ "+cH+" HD";
+		return capacidad;
 	}
 
 }

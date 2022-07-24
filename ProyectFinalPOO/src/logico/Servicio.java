@@ -8,9 +8,6 @@ public abstract class Servicio {
 	}
 
 	public abstract float costo();
-	public abstract int velocidadB();
-	public abstract int velocidadS();
-	public abstract int minutos();
-	public abstract int canalesLoc();
-	public abstract int canalesHD();
+	public abstract String capacidad();
+
 }

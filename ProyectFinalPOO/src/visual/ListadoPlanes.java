@@ -17,6 +17,8 @@ import logico.Television;
 
 import javax.swing.JScrollPane;
 import javax.swing.JTable;
+import java.awt.event.ActionListener;
+import java.awt.event.ActionEvent;
 
 public class ListadoPlanes extends JDialog {
 
@@ -79,6 +81,11 @@ public class ListadoPlanes extends JDialog {
 			}
 			{
 				JButton cancelButton = new JButton("Cancelar");
+				cancelButton.addActionListener(new ActionListener() {
+					public void actionPerformed(ActionEvent e) {
+						dispose();
+					}
+				});
 				cancelButton.setActionCommand("Cancel");
 				buttonPane.add(cancelButton);
 			}
@@ -93,19 +100,19 @@ public class ListadoPlanes extends JDialog {
 		for(int i = 0; i<Altice.getInstance().getMisPlanes().size(); i++) {
 			row[0] = Altice.getInstance().getMisPlanes().get(i).getNombre();
 			row[4] = Altice.getInstance().getMisPlanes().get(i).precioPlan();
+			row[1] = "N/A";
+			row[2] = "N/A";
+			row[3] = "N/A";
 			for(int j = 0; j<Altice.getInstance().getMisPlanes().get(i).getServiciosPlan().size(); j++) {
 				if(Altice.getInstance().getMisPlanes().get(i).getServiciosPlan().get(j) instanceof Internet) {
-					row[1] = Altice.getInstance().getMisPlanes().get(i).getServiciosPlan().get(j).velocidadB()+" Mbps / "+Altice.getInstance().getMisPlanes().get(i).getServiciosPlan().get(j).velocidadS()+" Mbps";
+					row[1] = Altice.getInstance().getMisPlanes().get(i).getServiciosPlan().get(j).capacidad();
 				}
 				if(Altice.getInstance().getMisPlanes().get(i).getServiciosPlan().get(j) instanceof Telefono) {
-					row[2] = Altice.getInstance().getMisPlanes().get(i).getServiciosPlan().get(j).minutos();
+					row[2] = Altice.getInstance().getMisPlanes().get(i).getServiciosPlan().get(j).capacidad();
 				}
 				if(Altice.getInstance().getMisPlanes().get(i).getServiciosPlan().get(j) instanceof Television) {
-					row[3] = Altice.getInstance().getMisPlanes().get(i).getServiciosPlan().get(j).canalesLoc()+" Loc. / "+Altice.getInstance().getMisPlanes().get(i).getServiciosPlan().get(j).canalesHD()+" HD";
+					row[3] = Altice.getInstance().getMisPlanes().get(i).getServiciosPlan().get(j).capacidad();
 				}
-				/*row[1] = Altice.getInstance().getMisPlanes().get(i).getServiciosPlan().get(j).velocidadB()+" Mbps / "+Altice.getInstance().getMisPlanes().get(i).getServiciosPlan().get(j).velocidadS()+" Mbps";
-				row[2] = Altice.getInstance().getMisPlanes().get(i).getServiciosPlan().get(j).minutos();
-				row[3] = Altice.getInstance().getMisPlanes().get(i).getServiciosPlan().get(j).canalesLoc()+"Loc. / "+Altice.getInstance().getMisPlanes().get(i).getServiciosPlan().get(j).canalesHD()+"HD";*/
 			}
 			model.addRow(row);
 		}

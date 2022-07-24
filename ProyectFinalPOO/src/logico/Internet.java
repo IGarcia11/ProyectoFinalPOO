@@ -34,35 +34,10 @@ public class Internet extends Servicio {
 	}
 
 	@Override
-	public int velocidadB() {
-		// TODO Auto-generated method stub
-		return velocidadBajada;
+	public String capacidad() {
+		String vB = Integer.toString(velocidadBajada);
+		String vS = Integer.toString(velocidadSubida);
+		String capacidad = vB+"Mbps / "+vS+"Mbps"; 
+		return capacidad;
 	}
-
-	@Override
-	public int velocidadS() {
-		// TODO Auto-generated method stub
-		return velocidadSubida;
-	}
-
-	@Override
-	public int minutos() {
-		// TODO Auto-generated method stub
-		return 0;
-	}
-
-	@Override
-	public int canalesLoc() {
-		// TODO Auto-generated method stub
-		return 0;
-	}
-
-	@Override
-	public int canalesHD() {
-		// TODO Auto-generated method stub
-		return 0;
-	}
-
-
-
 }

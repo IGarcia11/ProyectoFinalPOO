@@ -61,7 +61,7 @@ public class RegistrarPlan extends JDialog {
 	 */
 	public RegistrarPlan() {
 		setTitle("Registrar Plan");
-		setBounds(100, 100, 450, 420);
+		setBounds(100, 100, 480, 420);
 		setLocationRelativeTo(null);
 		getContentPane().setLayout(new BorderLayout());
 		contentPanel.setBorder(new EmptyBorder(5, 5, 5, 5));
@@ -70,7 +70,7 @@ public class RegistrarPlan extends JDialog {
 		
 		JPanel panel = new JPanel();
 		panel.setBorder(new TitledBorder(null, "", TitledBorder.LEADING, TitledBorder.TOP, null, null));
-		panel.setBounds(10, 11, 414, 49);
+		panel.setBounds(10, 11, 444, 49);
 		contentPanel.add(panel);
 		panel.setLayout(null);
 		
@@ -80,12 +80,12 @@ public class RegistrarPlan extends JDialog {
 		
 		txtNombrePlan = new JTextField();
 		txtNombrePlan.setColumns(10);
-		txtNombrePlan.setBounds(130, 11, 170, 20);
+		txtNombrePlan.setBounds(130, 11, 226, 20);
 		panel.add(txtNombrePlan);
 		
 		JPanel panel_1 = new JPanel();
 		panel_1.setBorder(new TitledBorder(null, "Servicios del Plan", TitledBorder.LEADING, TitledBorder.TOP, null, null));
-		panel_1.setBounds(10, 71, 414, 74);
+		panel_1.setBounds(10, 71, 444, 74);
 		contentPanel.add(panel_1);
 		panel_1.setLayout(null);
 		
@@ -99,7 +99,7 @@ public class RegistrarPlan extends JDialog {
 				}
 			}
 		});
-		cbTelefono.setBounds(170, 26, 85, 23);
+		cbTelefono.setBounds(179, 26, 85, 23);
 		panel_1.add(cbTelefono);
 		
 		cbTelevision = new JCheckBox("televisi\u00F3n");
@@ -114,7 +114,7 @@ public class RegistrarPlan extends JDialog {
 				}
 			}
 		});
-		cbTelevision.setBounds(308, 26, 85, 23);
+		cbTelevision.setBounds(340, 26, 85, 23);
 		panel_1.add(cbTelevision);
 		
 		cbInternet = new JCheckBox("Internet");
@@ -129,14 +129,14 @@ public class RegistrarPlan extends JDialog {
 				}
 			}
 		});
-		cbInternet.setBounds(23, 26, 85, 23);
+		cbInternet.setBounds(20, 26, 85, 23);
 		panel_1.add(cbInternet);
 		
 		JPanel panelInternet = new JPanel();
 		panelInternet.setEnabled(false);
 		panelInternet.setLayout(null);
 		panelInternet.setBorder(new LineBorder(Color.LIGHT_GRAY));
-		panelInternet.setBounds(8, 156, 134, 125);
+		panelInternet.setBounds(10, 156, 145, 125);
 		contentPanel.add(panelInternet);
 		
 		JLabel lblNewLabel = new JLabel("Velocidad de Bajada");
@@ -150,19 +150,19 @@ public class RegistrarPlan extends JDialog {
 		spnVelBajada = new JSpinner();
 		spnVelBajada.setEnabled(false);
 		spnVelBajada.setModel(new SpinnerNumberModel(new Integer(0), new Integer(0), null, new Integer(1)));
-		spnVelBajada.setBounds(10, 30, 116, 20);
+		spnVelBajada.setBounds(10, 30, 125, 20);
 		panelInternet.add(spnVelBajada);
 		
 		spnVelSubida = new JSpinner();
 		spnVelSubida.setEnabled(false);
 		spnVelSubida.setModel(new SpinnerNumberModel(new Integer(0), new Integer(0), null, new Integer(1)));
-		spnVelSubida.setBounds(10, 79, 116, 20);
+		spnVelSubida.setBounds(10, 79, 125, 20);
 		panelInternet.add(spnVelSubida);
 		
 		JPanel panelTelefono = new JPanel();
 		panelTelefono.setLayout(null);
 		panelTelefono.setBorder(new LineBorder(Color.LIGHT_GRAY));
-		panelTelefono.setBounds(150, 156, 134, 125);
+		panelTelefono.setBounds(165, 156, 134, 125);
 		contentPanel.add(panelTelefono);
 		
 		JLabel lblCantDeMinutos = new JLabel("Cantidad de Minutos");
@@ -178,27 +178,27 @@ public class RegistrarPlan extends JDialog {
 		JPanel panelTelevision = new JPanel();
 		panelTelevision.setLayout(null);
 		panelTelevision.setBorder(new LineBorder(Color.LIGHT_GRAY));
-		panelTelevision.setBounds(292, 156, 134, 125);
+		panelTelevision.setBounds(309, 156, 145, 125);
 		contentPanel.add(panelTelevision);
 		
 		JLabel lblCantCanalesLocales = new JLabel("Cant. Canales locales");
-		lblCantCanalesLocales.setBounds(10, 11, 116, 14);
+		lblCantCanalesLocales.setBounds(10, 11, 125, 14);
 		panelTelevision.add(lblCantCanalesLocales);
 		
 		JLabel lblCantCanalesHd = new JLabel("Cant. Canales HD");
-		lblCantCanalesHd.setBounds(10, 61, 116, 14);
+		lblCantCanalesHd.setBounds(10, 61, 125, 14);
 		panelTelevision.add(lblCantCanalesHd);
 		
 		spnCanalesLoc = new JSpinner();
 		spnCanalesLoc.setEnabled(false);
 		spnCanalesLoc.setModel(new SpinnerNumberModel(new Integer(0), new Integer(0), null, new Integer(1)));
-		spnCanalesLoc.setBounds(10, 30, 116, 20);
+		spnCanalesLoc.setBounds(10, 30, 125, 20);
 		panelTelevision.add(spnCanalesLoc);
 		
 		spnCanalesHD = new JSpinner();
 		spnCanalesHD.setEnabled(false);
 		spnCanalesHD.setModel(new SpinnerNumberModel(new Integer(0), new Integer(0), null, new Integer(1)));
-		spnCanalesHD.setBounds(10, 79, 116, 20);
+		spnCanalesHD.setBounds(10, 79, 125, 20);
 		panelTelevision.add(spnCanalesHD);
 		
 		JLabel lblNewLabel_2 = new JLabel("Precio del Plan:");
