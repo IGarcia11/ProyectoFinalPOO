@@ -3,13 +3,13 @@ package logico;
 public class Administrador extends Empleado {
 
 	private float pagoHorasExtras;
-	private float horasExtras;
+	//private float horasExtras;
 	
-	public Administrador(String cedulaEmpleado, String nombreEmpleado, String apellidoEmpleado, String user,
-			String password, int codeEmpleado, float sueldoBase, float pagoHorasExtras, float horasExtras) {
-		super(cedulaEmpleado, nombreEmpleado, apellidoEmpleado, user, password, codeEmpleado, sueldoBase);
-		this.pagoHorasExtras = pagoHorasExtras;
-		this.horasExtras = horasExtras;
+	
+	public Administrador(String codeEmpleado, String cedulaEmpleado, String nombreEmpleado, float sueldoBase,String direccion, String telefono, String sexo,
+			float pagoHorasExtras) {
+		super(codeEmpleado, cedulaEmpleado, nombreEmpleado, sueldoBase, direccion, telefono, sexo);
+		this.pagoHorasExtras = pagoHorasExtras;		
 	}
 
 	public float getPagoHorasExtras() {
@@ -20,15 +20,7 @@ public class Administrador extends Empleado {
 		this.pagoHorasExtras = pagoHorasExtras;
 	}
 
-	public float getHorasExtras() {
-		return horasExtras;
-	}
-
-	public void setHorasExtras(float horasExtras) {
-		this.horasExtras = horasExtras;
-	}
-
-	public float sueldoByTipoEmpleado() {
+	/*public float sueldoByTipoEmpleado() {
 		return (float) (pagoHorasExtras * horasExtras);
-	}
+	}*/
 }

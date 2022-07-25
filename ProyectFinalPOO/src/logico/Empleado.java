@@ -4,22 +4,22 @@ public class Empleado {
 
 	protected String cedulaEmpleado;
 	protected String nombreEmpleado;
-	protected String apellidoEmpleado;
-	protected String user;
-	protected String password;
-	protected int codeEmpleado;
+	protected String codeEmpleado;
 	private float sueldoBase;
+	private String direccion;
+	private String telefono;
+	private String sexo;
 	
-	public Empleado(String cedulaEmpleado, String nombreEmpleado, String apellidoEmpleado, String user,
-			String password, int codeEmpleado, float sueldoBase) {
+	public Empleado(String codeEmpleado, String cedulaEmpleado, String nombreEmpleado, float sueldoBase, String direccion, String telefono, String sexo) {
 		super();
 		this.cedulaEmpleado = cedulaEmpleado;
 		this.nombreEmpleado = nombreEmpleado;
-		this.apellidoEmpleado = apellidoEmpleado;
-		this.user = user;
-		this.password = password;
 		this.codeEmpleado = codeEmpleado;
 		this.sueldoBase = sueldoBase;
+		this.direccion = direccion;
+		this.telefono = telefono;
+		this.sexo = sexo; 
+		
 	}
 
 	public String getCedulaEmpleado() {
@@ -38,35 +38,11 @@ public class Empleado {
 		this.nombreEmpleado = nombreEmpleado;
 	}
 
-	public String getApellidoEmpleado() {
-		return apellidoEmpleado;
-	}
-
-	public void setApellidoEmpleado(String apellidoEmpleado) {
-		this.apellidoEmpleado = apellidoEmpleado;
-	}
-
-	public String getUser() {
-		return user;
-	}
-
-	public void setUser(String user) {
-		this.user = user;
-	}
-
-	public String getPassword() {
-		return password;
-	}
-
-	public void setPassword(String password) {
-		this.password = password;
-	}
-
-	public int getCodeEmpleado() {
+	public String getCodeEmpleado() {
 		return codeEmpleado;
 	}
 
-	public void setCodeEmpleado(int codeEmpleado) {
+	public void setCodeEmpleado(String codeEmpleado) {
 		this.codeEmpleado = codeEmpleado;
 	}
 
@@ -76,6 +52,30 @@ public class Empleado {
 
 	public void setSueldoBase(float sueldoBase) {
 		this.sueldoBase = sueldoBase;
+	}
+
+	public String getDireccion() {
+		return direccion;
+	}
+
+	public void setDireccion(String direccion) {
+		this.direccion = direccion;
+	}
+
+	public String getTelefono() {
+		return telefono;
+	}
+
+	public void setTelefono(String telefono) {
+		this.telefono = telefono;
+	}
+
+	public String getSexo() {
+		return sexo;
+	}
+
+	public void setSexo(String sexo) {
+		this.sexo = sexo;
 	}
 	
 	

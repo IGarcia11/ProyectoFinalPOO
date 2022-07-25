@@ -115,6 +115,15 @@ public class Altice {
 	public void insertarPlan(Plan p1) {
 		misPlanes.add(p1);
 	}
+	
+	/*public float totalFactura (Factura f) {
+		float suma = 0;
+		
+		for (Plan plan : f.getMisPlanes()) {
+			suma += plan.precioPlan();
+		}
+		return suma;
+	}*/
 
 	
 }
