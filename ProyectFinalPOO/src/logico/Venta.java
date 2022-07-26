@@ -1,18 +1,19 @@
 package logico;
 
 import java.sql.Date;
+import java.time.LocalDate;
 import java.util.ArrayList;
 
 public class Venta {
 	
 	private String codeVenta;
-	private Date diaVenta;
+	private LocalDate diaVenta;
 	private int codeFactura;
 	Cliente client;
 	Empleado employee;
 	private ArrayList<Plan> misPlanes;
 
-	public Venta(String codeVenta, Date diaVenta, int codeFactura, Cliente client, Empleado employee) {
+	public Venta(String codeVenta, LocalDate diaVenta, int codeFactura, Cliente client, Empleado employee) {
 		super();
 		this.codeVenta = codeVenta;
 		this.diaVenta = diaVenta;
@@ -30,12 +31,13 @@ public class Venta {
 		this.codeVenta = codeVenta;
 	}
 
-	public Date getDiaVenta() {
+	public LocalDate getDiaVenta() {
+		//diaVenta = LocalDate.now();
 		return diaVenta;
 	}
 
-	public void setDiaVenta(Date diaVenta) {
-		this.diaVenta = diaVenta;
+	public void setDiaVenta(LocalDate diaVenta) {
+		this.diaVenta = LocalDate.now();
 	}
 
 	public int getCodeFactura() {

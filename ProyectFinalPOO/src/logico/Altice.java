@@ -93,6 +93,20 @@ public class Altice {
 		return aux;
 	}
 	
+	public Plan buscarPlanByNombre(String nombre) {
+		boolean encontrado = false;
+		Plan aux = null;
+		int i = 0;
+		while(!encontrado && i<misPlanes.size()) {
+			if(misPlanes.get(i).getNombre().equalsIgnoreCase(nombre)) {
+				aux = misPlanes.get(i);
+				encontrado = true;
+			}
+			i++;
+		}
+		return aux;
+	}
+	
 	public void insertarCliente(Cliente c1) {
 		misClientes.add(c1);
 	}
@@ -116,13 +130,21 @@ public class Altice {
 		misPlanes.add(p1);
 	}
 	
-	/*public float totalFactura (Factura f) {
+	public float totalFactura (Plan p) {
 		float suma = 0;
-		
-		for (Plan plan : f.getMisPlanes()) {
+		suma += p.precioPlan();
+		/*for (Plan plan : getMisPlanes()) {
 			suma += plan.precioPlan();
+		}*/
+		return suma;//+=getMisPlanes().p;
+	}
+	
+	/*public float totalFactura() {
+		float total = 0;
+		for(int i = 0; i<getMisPlanes().size(); i++) {
+			total+= getMisPlanes().get(i).precioPlan();
 		}
-		return suma;
+		return total;
 	}*/
 
 	
