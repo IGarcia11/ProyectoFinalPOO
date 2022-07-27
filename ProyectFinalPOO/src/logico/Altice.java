@@ -22,6 +22,9 @@ public class Altice {
 		this.misFacturas = new ArrayList<>();
 		this.misEmpleados = new ArrayList<>();
 		this.misPlanes = new ArrayList<>();
+		Altice.generadorCodEmpleado++;
+		Altice.generadorCodFactura++;
+		Altice.generadorCodVenta++;
 	}
 	
 	public static Altice getInstance() {

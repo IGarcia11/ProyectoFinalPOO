@@ -17,6 +17,7 @@ import logico.Plan;
 import logico.Servicio;
 import logico.Telefono;
 import logico.Television;
+import logico.Venta;
 import logico.Factura;
 
 import javax.swing.JLabel;
@@ -25,6 +26,7 @@ import javax.swing.JOptionPane;
 import java.awt.Font;
 import java.awt.Point;
 import java.util.ArrayList;
+import java.util.Locale;
 import java.util.Vector;
 
 import javax.swing.JTextField;
@@ -36,6 +38,11 @@ import javax.swing.border.EtchedBorder;
 import java.awt.Color;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
+import java.sql.Date;
+import java.text.SimpleDateFormat;
+
+import javax.swing.JSpinner;
+import java.util.Locale;
 
 public class RealizarVenta extends JDialog {
 
@@ -49,6 +56,7 @@ public class RealizarVenta extends JDialog {
 	private Object[] row;
 	private Plan selected = null;
 	private Factura fac = null;
+	private Venta sale = null;
 	//private Altice a = null;
 	private JTextField txtMuestraInternet;
 	private JTextField txtMuestraCable;
@@ -79,7 +87,7 @@ public class RealizarVenta extends JDialog {
 	 */
 	public RealizarVenta() {
 		//Altice alt = null;
-		Factura fac = null;
+		//Factura fac = null;
 		setTitle("Realizar Venta");
 		setBounds(100, 100, 662, 535);
 		setLocationRelativeTo(null);
@@ -172,14 +180,22 @@ public class RealizarVenta extends JDialog {
 			txtFechaFac = new JTextField();
 			txtFechaFac.setEditable(false);
 			txtFechaFac.setBounds(502, 55, 96, 19);
+			
+			/* ESTO ES OTRA FORMA
+			sdf = new SimpleDateFormat("dd/MM/yyyy");
+			String dateP = sdf.format(sale.getFechaPrueba().getTime());
+			txtFechaFac.setText(""+dateP);*/
+			
 			panelInfoCliente.add(txtFechaFac);
 			txtFechaFac.setColumns(10);
 			
 			txtCodeFac = new JTextField();
 			txtCodeFac.setEditable(false);
 			txtCodeFac.setBounds(502, 21, 96, 19);
+			txtCodeFac.setText("V-"+Altice.generadorCodVenta);
 			panelInfoCliente.add(txtCodeFac);
 			txtCodeFac.setColumns(10);
+			
 		}
 		{
 			JPanel panelSeleccion = new JPanel();
@@ -357,8 +373,7 @@ public class RealizarVenta extends JDialog {
 						ArrayList<Plan> planes = new ArrayList<>();
 						Factura fac;
 						//for(int i = 0; i < )
-						Cliente aux = Altice.getInstance().buscarClienteByCedula(txtCedula.getText());
-						//txtFechaFac.getText(fac.darFechaActual(null));
+						Cliente aux = Altice.getInstance().buscarClienteByCedula(txtCedula.getText());						
 						if(aux != null) {
 							fac = new Factura("F-"+Altice.generadorCodFactura,aux, null);
 							fac.setPlanes(planes);
@@ -394,6 +409,7 @@ public class RealizarVenta extends JDialog {
 		}
 		
 	}
+	
 	
 	private void clean() {
 		txtNombre.setText("");
