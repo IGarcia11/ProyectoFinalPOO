@@ -28,6 +28,10 @@ import java.awt.Component;
 import javax.swing.Box;
 import javax.swing.JSpinner;
 import javax.swing.SpinnerNumberModel;
+import java.awt.event.KeyAdapter;
+import java.awt.event.KeyEvent;
+import javax.swing.event.ChangeListener;
+import javax.swing.event.ChangeEvent;
 
 public class RegistrarPlan extends JDialog {
 
@@ -60,6 +64,7 @@ public class RegistrarPlan extends JDialog {
 	 * Create the dialog.
 	 */
 	public RegistrarPlan() {
+		setModal(true);
 		setTitle("Registrar Plan");
 		setBounds(100, 100, 480, 420);
 		setLocationRelativeTo(null);
@@ -148,12 +153,22 @@ public class RegistrarPlan extends JDialog {
 		panelInternet.add(lblNewLabel_1);
 		
 		spnVelBajada = new JSpinner();
+		spnVelBajada.addChangeListener(new ChangeListener() {
+			public void stateChanged(ChangeEvent e) {
+				calcularPrecioPlan();
+			}
+		});
 		spnVelBajada.setEnabled(false);
 		spnVelBajada.setModel(new SpinnerNumberModel(new Integer(0), new Integer(0), null, new Integer(1)));
 		spnVelBajada.setBounds(10, 30, 125, 20);
 		panelInternet.add(spnVelBajada);
 		
 		spnVelSubida = new JSpinner();
+		spnVelSubida.addChangeListener(new ChangeListener() {
+			public void stateChanged(ChangeEvent e) {
+				calcularPrecioPlan();
+			}
+		});
 		spnVelSubida.setEnabled(false);
 		spnVelSubida.setModel(new SpinnerNumberModel(new Integer(0), new Integer(0), null, new Integer(1)));
 		spnVelSubida.setBounds(10, 79, 125, 20);
@@ -170,6 +185,11 @@ public class RegistrarPlan extends JDialog {
 		panelTelefono.add(lblCantDeMinutos);
 		
 		spnMinutos = new JSpinner();
+		spnMinutos.addChangeListener(new ChangeListener() {
+			public void stateChanged(ChangeEvent e) {
+				calcularPrecioPlan();
+			}
+		});
 		spnMinutos.setEnabled(false);
 		spnMinutos.setModel(new SpinnerNumberModel(new Integer(0), new Integer(0), null, new Integer(1)));
 		spnMinutos.setBounds(10, 30, 116, 20);
@@ -190,12 +210,22 @@ public class RegistrarPlan extends JDialog {
 		panelTelevision.add(lblCantCanalesHd);
 		
 		spnCanalesLoc = new JSpinner();
+		spnCanalesLoc.addChangeListener(new ChangeListener() {
+			public void stateChanged(ChangeEvent e) {
+				calcularPrecioPlan();
+			}
+		});
 		spnCanalesLoc.setEnabled(false);
 		spnCanalesLoc.setModel(new SpinnerNumberModel(new Integer(0), new Integer(0), null, new Integer(1)));
 		spnCanalesLoc.setBounds(10, 30, 125, 20);
 		panelTelevision.add(spnCanalesLoc);
 		
 		spnCanalesHD = new JSpinner();
+		spnCanalesHD.addChangeListener(new ChangeListener() {
+			public void stateChanged(ChangeEvent e) {
+				calcularPrecioPlan();
+			}
+		});
 		spnCanalesHD.setEnabled(false);
 		spnCanalesHD.setModel(new SpinnerNumberModel(new Integer(0), new Integer(0), null, new Integer(1)));
 		spnCanalesHD.setBounds(10, 79, 125, 20);
@@ -286,5 +316,34 @@ public class RegistrarPlan extends JDialog {
 		spnCanalesHD.setEnabled(false);
 		spnVelBajada.setEnabled(false);
 		spnVelSubida.setEnabled(false);
+	}
+	
+	private void calcularPrecioPlan() {
+		String bajada = spnVelBajada.getValue().toString();
+		float baj = Float.valueOf(bajada);
+		float precioBaj = baj*130;
+		String subida = spnVelSubida.getValue().toString();
+		float sub = Float.valueOf(subida);
+		float preciosub = sub*175;
+		String min = spnMinutos.getValue().toString();
+		float mi = Float.valueOf(min);
+		float preciomin = (float) (mi*1.85);
+		String canLo = spnCanalesLoc.getValue().toString();
+		float loc = Float.valueOf(canLo);
+		float precioCanLoc = (float) (loc*5.80);
+		String canHD = spnCanalesHD.getValue().toString();
+		float HD = Float.valueOf(canHD);
+		float precioCanHD = (float) (HD*7.35);
+		lblPrecioPlan.setText(Float.toString(precioBaj+preciosub));
+		if(mi > 0 && baj > 0) {
+			lblPrecioPlan.setText(Float.toString(((precioBaj+preciosub+preciomin)*85)/100));
+		}else {
+			lblPrecioPlan.setText(Float.toString(precioBaj+preciosub+preciomin));
+		}
+		if((loc > 0 || HD > 0) && baj > 0 && mi > 0) {
+			lblPrecioPlan.setText(Float.toString(((precioBaj+preciosub+preciomin+precioCanLoc+precioCanHD)*70)/100));
+		}else {
+			lblPrecioPlan.setText(Float.toString(precioBaj+preciosub+preciomin+precioCanLoc+precioCanHD));
+		}
 	}
 }
