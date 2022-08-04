@@ -61,13 +61,14 @@ public class RealizarVenta extends JDialog {
 	private JTextField txtMuestraInternet;
 	private JTextField txtMuestraCable;
 	private JTextField txtMuestraTelefono;
-	private JTable tableTwo;
-	private DefaultTableModel model2;
+	public JTable tableTwo;
+	public DefaultTableModel model2;
 	private JTextField txtSubtotal;
 	//private Plan selected = null;
 	private float subtotal = 0;
 	private JTextField txtFechaFac;
-	private JTextField txtCodeFac;
+	private JTextField txtCodeVenta;
+	private ReciboFactura rFact;
 
 	/**
 	 * Launch the application.
@@ -165,7 +166,7 @@ public class RealizarVenta extends JDialog {
 						
 						
 					}else {
-						JOptionPane.showMessageDialog(null, "Client not found. Register a new one.", "Not found", JOptionPane.ERROR_MESSAGE);
+						JOptionPane.showMessageDialog(null, "Cliente no encontrado. Registre a uno nuevo.", "No encontrado", JOptionPane.ERROR_MESSAGE);
 						//clean();
 					}
 					}
@@ -189,12 +190,12 @@ public class RealizarVenta extends JDialog {
 			panelInfoCliente.add(txtFechaFac);
 			txtFechaFac.setColumns(10);
 			
-			txtCodeFac = new JTextField();
-			txtCodeFac.setEditable(false);
-			txtCodeFac.setBounds(502, 21, 96, 19);
-			txtCodeFac.setText("V-"+Altice.generadorCodVenta);
-			panelInfoCliente.add(txtCodeFac);
-			txtCodeFac.setColumns(10);
+			txtCodeVenta = new JTextField();
+			txtCodeVenta.setEditable(false);
+			txtCodeVenta.setBounds(502, 21, 96, 19);
+			txtCodeVenta.setText("V-"+Altice.generadorCodVenta);
+			panelInfoCliente.add(txtCodeVenta);
+			txtCodeVenta.setColumns(10);
 			
 		}
 		{
@@ -306,6 +307,7 @@ public class RealizarVenta extends JDialog {
 						String planSelected = tableOne.getValueAt(filaSelected, 0).toString();
 						row = new Object[model2.getColumnCount()];	
 						row[0] =  (String) tableOne.getValueAt(filaSelected, 0);
+			
 						for (Plan plan : Altice.getInstance().getMisPlanes()) {
 							if(plan.getNombre().equalsIgnoreCase(planSelected)) {
 								
@@ -368,7 +370,27 @@ public class RealizarVenta extends JDialog {
 				btnFacturar.addActionListener(new ActionListener() {
 					public void actionPerformed(ActionEvent e) {
 						ReciboFactura rF = new ReciboFactura();
+						rF.txtNombre.setText(txtNombre.getText().toString());
+						rF.txtCedula.setText(txtCedula.getText().toString());
+						rF.txtTelefono.setText(txtTelefono.getText());
+						rF.txtDireccion.setText(txtDireccion.getText());
+						rF.txtCodeFactura.setText(txtCodeVenta.getText());
 						rF.setVisible(true);
+						int existe = 1;
+						for(int i = 0; i < tableTwo.getRowCount(); i++) {
+							String dato = null, Datos[] = new String[3];
+							int columna = 1;
+							/*for(int j = 0; j< tableTwo.getRowCount();j++) {
+								if(tableTwo.getValueAt(j, columna).equals(tableTwo.getValueAt(j, columna+1))){	//Datos[1])){//Datos[0])) {
+									existe++;
+									JOptionPane.showMessageDialog(null, existe);
+								}
+							}*/
+							Datos[0] = "1";
+							Datos[1] = tableTwo.getValueAt(i, 0).toString();
+							Datos[2] = tableTwo.getValueAt(i, 1).toString();
+							ReciboFactura.model3.addRow(Datos);
+						}
 						dispose();
 						ArrayList<Plan> planes = new ArrayList<>();
 						Factura fac;
@@ -378,6 +400,7 @@ public class RealizarVenta extends JDialog {
 							fac = new Factura("F-"+Altice.generadorCodFactura,aux, null);
 							fac.setPlanes(planes);
 							aux.getMisFacturas().add(fac);
+							aux.getMisCompras().add(sale);
 							Altice.getInstance().getMisFacturas().add(fac);
 						}else {
 							Cliente nuevo = new Cliente(txtCedula.getText(), txtNombre.getText(), txtDireccion.getText(), txtTelefono.getText());
@@ -385,6 +408,7 @@ public class RealizarVenta extends JDialog {
 							fac = new Factura("F-"+Altice.generadorCodFactura,aux, null);
 							fac.setPlanes(planes);
 							nuevo.getMisFacturas().add(fac);
+							nuevo.getMisCompras().add(sale);
 							Altice.getInstance().getMisFacturas().add(fac);
 						}
 						JOptionPane.showMessageDialog(null, "Registrado satisfactoriamente", "Información", JOptionPane.INFORMATION_MESSAGE);
@@ -397,6 +421,8 @@ public class RealizarVenta extends JDialog {
 		}
 		loadPlanes();
 	}
+	
+	
 	private void loadPlanes() {
 
 		model.setRowCount(0);
@@ -412,6 +438,7 @@ public class RealizarVenta extends JDialog {
 	
 	
 	private void clean() {
+		txtCodeVenta.setText("V-"+Altice.generadorCodVenta);
 		txtNombre.setText("");
 		txtTelefono.setText("");
 		txtDireccion.setText("");
@@ -423,3 +450,4 @@ public class RealizarVenta extends JDialog {
 		//listQuesos.enable(true);
 	}
 }
+

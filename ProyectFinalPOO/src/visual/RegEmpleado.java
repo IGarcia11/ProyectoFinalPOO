@@ -36,7 +36,7 @@ public class RegEmpleado extends JDialog {
 	private JTextField txtComision;
 	private JTextField txtSueldoC;
 	private JTextField txtSueldoA;
-	private JTextField txtHExtra;
+	private JTextField txtExperiencia;
 	private JRadioButton rdbtnComerciante;
 	private JRadioButton rdbtnAdmin;
 	private JPanel panelInfoCategoriaC;
@@ -117,6 +117,7 @@ public class RegEmpleado extends JDialog {
 				txtCodigo = new JTextField();
 				txtCodigo.setEditable(false);
 				txtCodigo.setBounds(89, 22, 96, 19);
+				txtCodigo.setText("E-"+Empleado.generadorCodEmpleado);		//Altice.generadorCodEmpleado);
 				panelInfoBasica.add(txtCodigo);
 				txtCodigo.setColumns(10);
 			}
@@ -128,7 +129,7 @@ public class RegEmpleado extends JDialog {
 			}
 			{
 				//JComboBox cbxSexo = new JComboBox();
-				JComboBox cbxSexo = new JComboBox();
+				cbxSexo = new JComboBox();
 				cbxSexo.setFont(new Font("Tahoma", Font.PLAIN, 14));
 				cbxSexo.setModel(new DefaultComboBoxModel(new String[] {"<Seleccione>", "Femenino", "Masculino"}));
 				cbxSexo.setBounds(279, 139, 123, 21);
@@ -242,13 +243,13 @@ public class RegEmpleado extends JDialog {
 				txtSueldoA.setColumns(10);
 			}
 			{
-				txtHExtra = new JTextField();
-				txtHExtra.setBounds(316, 20, 96, 19);
-				panelInfoCategoriaAdmin.add(txtHExtra);
-				txtHExtra.setColumns(10);
+				txtExperiencia = new JTextField();
+				txtExperiencia.setBounds(316, 20, 96, 19);
+				panelInfoCategoriaAdmin.add(txtExperiencia);
+				txtExperiencia.setColumns(10);
 			}
 			{
-				JLabel lblNewLabel_3 = new JLabel("Horas Extras:");
+				JLabel lblNewLabel_3 = new JLabel("Años Experiencia:");
 				lblNewLabel_3.setFont(new Font("Tahoma", Font.BOLD, 14));
 				lblNewLabel_3.setBounds(205, 14, 104, 25);
 				panelInfoCategoriaAdmin.add(lblNewLabel_3);
@@ -268,23 +269,36 @@ public class RegEmpleado extends JDialog {
 				JButton btnRegistrar = new JButton("Registrar");
 				btnRegistrar.addActionListener(new ActionListener() {
 					public void actionPerformed(ActionEvent e) {
+						/*
+						 * 
+						 */
 						Empleado aux = null;
-						String codeEmpleado = "E-"+Altice.generadorCodEmpleado;
-						String nombre = new String(txtName.getText());
-						String cedula = new String(txtId.getText());
-						String direccion = new String(txtAdress.getText());
-						String telefono = new String(txtPhone.getText());
-						String sexo = new String(cbxSexo.getSelectedItem().toString());
-						
+						String codeEmpleado = "E-"+Empleado.generadorCodEmpleado;	//Altice.generadorCodEmpleado;
+						String nombre = txtName.getText();
+						String cedula = txtId.getText();
+						String direccion = txtAdress.getText();
+						String telefono = txtPhone.getText();
+						String sexo = cbxSexo.getSelectedItem().toString();//getSelectedItem().toString());
+						//cbxSexo.getSelectedItem().toString();
 						if(rdbtnComerciante.isSelected()) {
-							float comision = new Float(txtComision.getText());
-							float sueldoBC = new Float(txtSueldoC.getText());
-							aux = new Comerciante(codeEmpleado, nombre, cedula, sueldoBC, direccion, telefono, sexo, comision);
+							float comision = new Float(txtComision.getText());		//Float.parseFloat(txtComision.getText()); 
+							float sueldoBC = new Float(txtSueldoC.getText());		//Float.parseFloat(txtSueldoC.getText());
+							aux = new Comerciante(codeEmpleado, cedula, nombre, 
+									comision, 		//Float.parseFloat(txtComision.getText()),   //comision, 	//Float.parseFloat(comision), 
+									direccion, 
+									telefono, 
+									sexo, 
+									sueldoBC);//sueldoBC);
 						}
 						else if(rdbtnAdmin.isSelected()) {
-							float pagoHE = new Float(txtHExtra.getText());
-							float sueldoBA = new Float(txtSueldoA.getText());
-							aux = new Administrador(codeEmpleado, nombre, cedula, sueldoBA, direccion, telefono, sexo, pagoHE);
+							int annoE = new Integer(txtExperiencia.getText());//Integer.parseInt(txtHExtra.getText());//new Float(txtHExtra.getText());
+							float sueldoBA = new Float(txtSueldoA.getText());		//Float.parseFloat(txtSueldoA.getText());
+							aux = new Administrador(codeEmpleado, cedula, nombre,
+									sueldoBA,//Float.parseFloat(sueldoBA), 
+									direccion, telefono, sexo, annoE, sueldoBA);//Integer.parseInt(annoE));
+							System.out.println("SueldoBA en RegE "+sueldoBA);
+							System.out.println("ANNOE "+annoE);
+
 						}
 						Altice.getInstance().getMisEmpleados().add(aux);	
 						if(aux != null) {
@@ -316,15 +330,16 @@ public class RegEmpleado extends JDialog {
 	}
 	private void clean() {
 		
-		txtCodigo.setText("E-"+Altice.generadorCodEmpleado);
+		txtCodigo.setText("E-"+Empleado.generadorCodEmpleado);//Altice.generadorCodEmpleado);
 		txtName.setText("");
 		txtId.setText("");
 		txtAdress.setText("");
 		txtPhone.setText("");
+		cbxSexo.setSelectedIndex(0);
 		txtComision.setText("");
 		txtSueldoA.setText("");
 		txtSueldoC.setText("");
-		cbxSexo.setSelectedIndex(0);
+		txtExperiencia.setText("");
 	}
 
 }

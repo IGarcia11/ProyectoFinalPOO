@@ -7,6 +7,7 @@ public class Comerciante extends Empleado {
 	private float porcentajeComision;
 	//private float pagoComision;	 MULTIPLICAR COMISION*VENTAS
 	private ArrayList<Venta> misVentas;
+	Altice alt;
 	
 	public Comerciante(String codeEmpleado, String cedulaEmpleado, String nombreEmpleado, float sueldoBase, String direccion, String telefono, String sexo,
 			float porcentajeComision) {
@@ -30,8 +31,13 @@ public class Comerciante extends Empleado {
 	public void insertarVenta(Venta v1) {
 		misVentas.add(v1);
 	}
+	@Override 
+	public float sueldoByTipoEmpleadoComerciante() {
+		
+		return (Float) null; //Altice.getInstance().cantVentasByEmpleado(cedulaEmpleado);
+	}
 
 	/*public float sueldoByTipoEmpleado() {//SE LE VA A ESTABLECER 1% DE LA VENTA REALIZADA POR EMPLEADO.
-		return (float) (pagoHorasExtras * horasExtras);
+		return (float) (porcentajeComision * horasExtras);
 	}*/
 }

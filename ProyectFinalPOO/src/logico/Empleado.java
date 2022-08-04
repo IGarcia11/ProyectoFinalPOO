@@ -9,6 +9,8 @@ public class Empleado {
 	private String direccion;
 	private String telefono;
 	private String sexo;
+	public static int generadorCodEmpleado = 1;
+	Administrador adm;
 	
 	public Empleado(String codeEmpleado, String cedulaEmpleado, String nombreEmpleado, float sueldoBase, String direccion, String telefono, String sexo) {
 		super();
@@ -19,6 +21,7 @@ public class Empleado {
 		this.direccion = direccion;
 		this.telefono = telefono;
 		this.sexo = sexo; 
+		Empleado.generadorCodEmpleado++;
 		
 	}
 
@@ -78,6 +81,28 @@ public class Empleado {
 		this.sexo = sexo;
 	}
 	
+	//public abstract float sueldoByTipoEmpleado();
 	
+	/*public float sueldoTotalAdmin(){//float sueldoTotalAdmin() {
+		Administrador admin;
+		float sueldoBruto = 0;
+		System.out.println("sueldo b en empleado "+getSueldoBase());
+		sueldoBruto = sueldoBase + getAnnosExperiencia; // + admin.getAnnosExperiencia(); //+ admin.getAnnosExperiencia() ;
+		//return sueldoBruto;
+		return (float) sueldoBase + (2500);
+	}*/
+
+	public static int getGeneradorCodEmpleado() {
+		return generadorCodEmpleado;
+	}
+
+	public static void setGeneradorCodEmpleado(int generadorCodEmpleado) {
+		Empleado.generadorCodEmpleado = generadorCodEmpleado;
+	}
+
+	public float sueldoByTipoEmpleadoComerciante() {
+		// TODO Auto-generated method stub
+		return 0;
+	}
 
 }
