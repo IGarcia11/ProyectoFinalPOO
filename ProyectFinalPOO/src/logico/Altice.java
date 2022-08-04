@@ -1,8 +1,9 @@
 package logico;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 
-public class Altice {
+public class Altice implements Serializable{
 
 	//private ArrayList<Usuario> users;
 	private ArrayList<Cliente> misClientes;
@@ -16,6 +17,10 @@ public class Altice {
 	private static Altice altice = null;
 	Empleado worker;
 	Administrador admin;
+	private static final long serialVersionUID = 1L;
+	private static User loginUser;
+	private ArrayList<User> misUsers;
+	//private static Altice altice;
 	
 	private Altice() {
 		super();
@@ -24,6 +29,7 @@ public class Altice {
 		this.misFacturas = new ArrayList<>();
 		this.misEmpleados = new ArrayList<>();
 		this.misPlanes = new ArrayList<>();
+		this.misUsers = new ArrayList<>();
 
 	}
 	
@@ -132,6 +138,50 @@ public class Altice {
 	public void insertarPlan(Plan p1) {
 		misPlanes.add(p1);
 	}
+
+	public static Altice getAltice() {
+		return altice;
+	}
+
+	public static void setAltice(Altice altice) {
+		Altice.altice = altice;
+	}
+
+	public ArrayList<User> getMisUsers() {
+		return misUsers;
+	}
+
+	public void setMisUsers(ArrayList<User> misUsers) {
+		this.misUsers = misUsers;
+	}
+	
+	public void regUser( User user) {
+		misUsers.add(user);
+	}
+	
+	public boolean confirmLogin(String text, String text2) {
+		boolean login = false;
+		for(User user : misUsers) {
+			if(user.getUserName().equals(text) && user.getPass().equals(text2)) {
+				loginUser = user;
+				login = true;
+			}
+		}
+		return login;
+	}
+
+	public static User getLoginUser() {
+		return loginUser;
+	}
+
+	public static void setLoginUser(User loginUser) {
+		Altice.loginUser = loginUser;
+	}
+
+	/**
+	 * @param misUsers
+	 */
+
 	
 	/*public float totalFactura (Plan p) {
 		float suma = 0;

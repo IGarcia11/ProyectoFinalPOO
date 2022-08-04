@@ -7,10 +7,19 @@ import java.awt.EventQueue;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
+
+import logico.Altice;
+
 import javax.swing.JMenuBar;
 import javax.swing.JMenuItem;
 import javax.swing.JMenu;
 import java.awt.event.ActionListener;
+import java.awt.event.WindowAdapter;
+import java.awt.event.WindowEvent;
+import java.io.FileNotFoundException;
+import java.io.FileOutputStream;
+import java.io.IOException;
+import java.io.ObjectOutputStream;
 import java.awt.event.ActionEvent;
 
 public class Principal extends JFrame {
@@ -21,7 +30,7 @@ public class Principal extends JFrame {
 	/**
 	 * Launch the application.
 	 */
-	public static void main(String[] args) {
+	/*public static void main(String[] args) {
 		EventQueue.invokeLater(new Runnable() {
 			public void run() {
 				try {
@@ -32,13 +41,32 @@ public class Principal extends JFrame {
 				}
 			}
 		});
-	}
+	}*/
 
 	/**
 	 * Create the frame.
 	 */
 	public Principal() {
 		setTitle("Sistema de Control de Altice");
+		addWindowListener(new WindowAdapter() {
+			@Override
+			public void windowClosing(WindowEvent e) {
+				FileOutputStream empresa2;
+				ObjectOutputStream empresaWrite;
+				try {
+					empresa2 = new  FileOutputStream("empresa.dat");
+					empresaWrite = new ObjectOutputStream(empresa2);
+					empresaWrite.writeObject(Altice.getInstance());
+				} catch (FileNotFoundException e1) {
+					// TODO Auto-generated catch block
+					e1.printStackTrace();
+				} catch (IOException e1) {
+					// TODO Auto-generated catch block
+					e1.printStackTrace();
+				}
+				
+			}
+		});
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setBounds(100, 100, 622, 379);
 		dim = getToolkit().getScreenSize();
@@ -48,8 +76,8 @@ public class Principal extends JFrame {
 		JMenuBar menuBar = new JMenuBar();
 		setJMenuBar(menuBar);
 		
-		JMenu mnNewMenu = new JMenu("Planes");
-		menuBar.add(mnNewMenu);
+		JMenu mnPlanes = new JMenu("Planes");
+		menuBar.add(mnPlanes);
 		
 		JMenuItem mntmNewMenuItem = new JMenuItem("Registrar Plan");
 		mntmNewMenuItem.addActionListener(new ActionListener() {
@@ -58,7 +86,7 @@ public class Principal extends JFrame {
 				registrar.setVisible(true);
 			}
 		});
-		mnNewMenu.add(mntmNewMenuItem);
+		mnPlanes.add(mntmNewMenuItem);
 		
 		JMenuItem mntmNewMenuItem_1 = new JMenuItem("Listado de Planes");
 		mntmNewMenuItem_1.addActionListener(new ActionListener() {
@@ -67,10 +95,10 @@ public class Principal extends JFrame {
 				listaPlanes.setVisible(true);
 			}
 		});
-		mnNewMenu.add(mntmNewMenuItem_1);
+		mnPlanes.add(mntmNewMenuItem_1);
 		
-		JMenu mnNewMenu_1 = new JMenu("Tienda");
-		menuBar.add(mnNewMenu_1);
+		JMenu mnTienda = new JMenu("Tienda");
+		menuBar.add(mnTienda);
 		
 		JMenuItem mntmNewMenuItem_2 = new JMenuItem("Realizar Venta");
 		mntmNewMenuItem_2.addActionListener(new ActionListener() {
@@ -79,7 +107,7 @@ public class Principal extends JFrame {
 				makeSale.setVisible(true);
 			}
 		});
-		mnNewMenu_1.add(mntmNewMenuItem_2);
+		mnTienda.add(mntmNewMenuItem_2);
 		
 		JMenuItem mntmNewMenuItem_3 = new JMenuItem("Listado de Facturas");
 		mntmNewMenuItem_3.addActionListener(new ActionListener() {
@@ -88,7 +116,7 @@ public class Principal extends JFrame {
 				listaFactura.setVisible(true);
 			}
 		});
-		mnNewMenu_1.add(mntmNewMenuItem_3);
+		mnTienda.add(mntmNewMenuItem_3);
 		
 		JMenuItem mntmNewMenuItem_4 = new JMenuItem("Listado de Ventas");
 		mntmNewMenuItem_4.addActionListener(new ActionListener() {
@@ -97,10 +125,10 @@ public class Principal extends JFrame {
 				listaVenta.setVisible(true);
 			}
 		});
-		mnNewMenu_1.add(mntmNewMenuItem_4);
+		mnTienda.add(mntmNewMenuItem_4);
 		
-		JMenu mnNewMenu_2 = new JMenu("Clientes");
-		menuBar.add(mnNewMenu_2);
+		JMenu mnClientes = new JMenu("Clientes");
+		menuBar.add(mnClientes);
 		
 		JMenuItem mntmNewMenuItem_5 = new JMenuItem("Listado de Clientes");
 		mntmNewMenuItem_5.addActionListener(new ActionListener() {
@@ -109,19 +137,22 @@ public class Principal extends JFrame {
 				lista.setVisible(true);
 			}
 		});
-		mnNewMenu_2.add(mntmNewMenuItem_5);
+		mnClientes.add(mntmNewMenuItem_5);
 		
-		JMenu mnNewMenu_3 = new JMenu("Empleados");
-		menuBar.add(mnNewMenu_3);
+		JMenu mnEmpleados = new JMenu("Empleados");
+		menuBar.add(mnEmpleados);
 		
 		JMenuItem mntmNewMenuItem_6 = new JMenuItem("Registrar Empleado");
 		mntmNewMenuItem_6.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				RegEmpleado rE = new RegEmpleado();
-				rE.setVisible(true);
+				RegUser users = new RegUser();
+				users.setModal(true);
+				users.setVisible(true);
+				//RegEmpleado rE = new RegEmpleado();
+				//rE.setVisible(true);
 			}
 		});
-		mnNewMenu_3.add(mntmNewMenuItem_6);
+		mnEmpleados.add(mntmNewMenuItem_6);
 		
 		JMenuItem mntmNewMenuItem_7 = new JMenuItem("Listado de Empleados");
 		mntmNewMenuItem_7.addActionListener(new ActionListener() {
@@ -130,7 +161,13 @@ public class Principal extends JFrame {
 				lE.setVisible(true);
 			}
 		});
-		mnNewMenu_3.add(mntmNewMenuItem_7);
+		mnEmpleados.add(mntmNewMenuItem_7);
+		if(Altice.getLoginUser().getTipo().equalsIgnoreCase("Comercial")) {
+			mnClientes.setEnabled(false);
+			mnEmpleados.setEnabled(false);
+			mnPlanes.setEnabled(true);
+			mnTienda.setEnabled(true);
+		}
 		contentPane = new JPanel();
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
 		setContentPane(contentPane);
