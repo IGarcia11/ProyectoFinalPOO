@@ -18,6 +18,8 @@ import javax.swing.JTable;
 import javax.swing.ListSelectionModel;
 import javax.swing.JTextField;
 import java.awt.Font;
+import java.awt.event.ActionListener;
+import java.awt.event.ActionEvent;
 
 public class ReciboFactura extends JDialog {
 
@@ -50,10 +52,10 @@ public class ReciboFactura extends JDialog {
 	 * Create the dialog.
 	 */
 	public ReciboFactura() {
-		//ReciboFactura rF = new ReciboFactura();
-		RealizarVenta rV = new RealizarVenta();
+
 		setTitle("Factura");
-		setBounds(100, 100, 581, 565);
+		setModal(true);
+		setBounds(100, 100, 400, 420);
 		setLocationRelativeTo(null);
 		getContentPane().setLayout(new BorderLayout());
 		contentPanel.setBorder(new EmptyBorder(5, 5, 5, 5));
@@ -154,6 +156,11 @@ public class ReciboFactura extends JDialog {
 			}
 			{
 				JButton cancelButton = new JButton("Cancel");
+				cancelButton.addActionListener(new ActionListener() {
+					public void actionPerformed(ActionEvent e) {
+						dispose();
+					}
+				});
 				cancelButton.setActionCommand("Cancel");
 				buttonPane.add(cancelButton);
 			}

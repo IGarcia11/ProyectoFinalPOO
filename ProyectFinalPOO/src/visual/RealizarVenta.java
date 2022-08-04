@@ -26,6 +26,7 @@ import javax.swing.JOptionPane;
 import java.awt.Font;
 import java.awt.Point;
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.Locale;
 import java.util.Vector;
 
@@ -40,6 +41,7 @@ import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.sql.Date;
 import java.text.SimpleDateFormat;
+import java.time.LocalDate;
 
 import javax.swing.JSpinner;
 import java.util.Locale;
@@ -69,6 +71,7 @@ public class RealizarVenta extends JDialog {
 	private JTextField txtFechaFac;
 	private JTextField txtCodeVenta;
 	private ReciboFactura rFact;
+	private JTextField txtCodeFac;
 
 	/**
 	 * Launch the application.
@@ -87,6 +90,7 @@ public class RealizarVenta extends JDialog {
 	 * Create the dialog.
 	 */
 	public RealizarVenta() {
+		setModal(true);
 		//Altice alt = null;
 		//Factura fac = null;
 		setTitle("Realizar Venta");
@@ -134,18 +138,21 @@ public class RealizarVenta extends JDialog {
 			}
 			{
 				txtNombre = new JTextField();
+				txtNombre.setEditable(false);
 				txtNombre.setBounds(98, 55, 219, 19);
 				panelInfoCliente.add(txtNombre);
 				txtNombre.setColumns(10);
 			}
 			{
 				txtTelefono = new JTextField();
+				txtTelefono.setEditable(false);
 				txtTelefono.setBounds(98, 89, 219, 19);
 				panelInfoCliente.add(txtTelefono);
 				txtTelefono.setColumns(10);
 			}
 			{
 				txtDireccion = new JTextField();
+				txtDireccion.setEditable(false);
 				txtDireccion.setBounds(98, 123, 219, 19);
 				panelInfoCliente.add(txtDireccion);
 				txtDireccion.setColumns(10);
@@ -163,10 +170,13 @@ public class RealizarVenta extends JDialog {
 						txtNombre.setEditable(false);
 						txtTelefono.setEditable(false);
 						txtDireccion.setEditable(false);
-						
-						
+
 					}else {
 						JOptionPane.showMessageDialog(null, "Cliente no encontrado. Registre a uno nuevo.", "No encontrado", JOptionPane.ERROR_MESSAGE);
+						//JOptionPane.showMessageDialog(null, "Client not found. Register a new one.", "Not found", JOptionPane.ERROR_MESSAGE);
+						txtNombre.setEditable(true);
+						txtTelefono.setEditable(true);
+						txtDireccion.setEditable(true);
 						//clean();
 					}
 					}
@@ -178,24 +188,40 @@ public class RealizarVenta extends JDialog {
 				panelInfoCliente.add(btnBuscar);
 			}
 			
-			txtFechaFac = new JTextField();
-			txtFechaFac.setEditable(false);
-			txtFechaFac.setBounds(502, 55, 96, 19);
 			
-			/* ESTO ES OTRA FORMA
-			sdf = new SimpleDateFormat("dd/MM/yyyy");
-			String dateP = sdf.format(sale.getFechaPrueba().getTime());
-			txtFechaFac.setText(""+dateP);*/
+			LocalDate fecha = LocalDate.now();
+	
+			txtFechaFac = new JTextField();
+			txtFechaFac.setText(" "+fecha);
+			txtFechaFac.setEditable(false);
+			txtFechaFac.setBounds(502, 87, 96, 19);
+			
 			
 			panelInfoCliente.add(txtFechaFac);
 			txtFechaFac.setColumns(10);
 			
-			txtCodeVenta = new JTextField();
+			/*txtCodeVenta = new JTextField();
 			txtCodeVenta.setEditable(false);
 			txtCodeVenta.setBounds(502, 21, 96, 19);
 			txtCodeVenta.setText("V-"+Altice.generadorCodVenta);
 			panelInfoCliente.add(txtCodeVenta);
-			txtCodeVenta.setColumns(10);
+			txtCodeVenta.setColumns(10);*/
+			txtCodeFac = new JTextField();
+			txtCodeFac.setEditable(false);
+			txtCodeFac.setBounds(502, 38, 96, 19);
+			txtCodeFac.setText("V-"+Altice.generadorCodVenta);
+			panelInfoCliente.add(txtCodeFac);
+			txtCodeFac.setColumns(10);
+			{
+				JLabel lblNewLabel_6 = new JLabel("Codigo de Venta:");
+				lblNewLabel_6.setBounds(502, 22, 116, 14);
+				panelInfoCliente.add(lblNewLabel_6);
+			}
+			{
+				JLabel lblNewLabel_7 = new JLabel("Fecha:");
+				lblNewLabel_7.setBounds(502, 68, 96, 14);
+				panelInfoCliente.add(lblNewLabel_7);
+			}
 			
 		}
 		{
@@ -302,8 +328,24 @@ public class RealizarVenta extends JDialog {
 			btnAgregar.addActionListener(new ActionListener() {
 				public void actionPerformed(ActionEvent e) {
 					int filaSelected = tableOne.getSelectedRow();
-				
 					if(filaSelected >= 0) {
+						String planSelected = tableOne.getValueAt(filaSelected, 0).toString();
+						Plan auxPlan = Altice.getInstance().buscarPlanByNombre(planSelected);
+						if(auxPlan != null) {
+							row = new Object[model2.getColumnCount()];
+							row[0] = auxPlan.getNombre();
+							row[1] = auxPlan.precioPlan();
+							model2.addRow(row);
+						}
+					}
+					subtotal = 0;
+					for(int i = 0; i<tableTwo.getRowCount(); i++) {
+						String sub = tableTwo.getValueAt(i, 1).toString();
+						subtotal += Float.valueOf(sub);
+						txtSubtotal.setText(String.valueOf(subtotal));
+					}
+				
+					/*if(filaSelected >= 0) {
 						String planSelected = tableOne.getValueAt(filaSelected, 0).toString();
 						row = new Object[model2.getColumnCount()];	
 						row[0] =  (String) tableOne.getValueAt(filaSelected, 0);
@@ -318,7 +360,7 @@ public class RealizarVenta extends JDialog {
 						}
 						model2.addRow(row);
 						txtSubtotal.setText(String.valueOf(subtotal));
-					}
+					}*/
 					}				
 			});
 			
@@ -355,7 +397,7 @@ public class RealizarVenta extends JDialog {
 			txtSubtotal = new JTextField();
 			txtSubtotal.setFont(new Font("Tahoma", Font.BOLD, 14));
 			txtSubtotal.setEditable(false);
-			txtSubtotal.setText(String.valueOf(subtotal));
+			//txtSubtotal.setText(String.valueOf(subtotal));
 	
 			txtSubtotal.setBounds(136, 434, 83, 20);
 			contentPanel.add(txtSubtotal);
@@ -363,13 +405,14 @@ public class RealizarVenta extends JDialog {
 		}
 		{
 			JPanel buttonPane = new JPanel();
+			buttonPane.setBorder(new TitledBorder(null, "", TitledBorder.LEADING, TitledBorder.TOP, null, null));
 			buttonPane.setLayout(new FlowLayout(FlowLayout.RIGHT));
 			getContentPane().add(buttonPane, BorderLayout.SOUTH);
 			{
 				JButton btnFacturar = new JButton("Facturar");
 				btnFacturar.addActionListener(new ActionListener() {
 					public void actionPerformed(ActionEvent e) {
-						ReciboFactura rF = new ReciboFactura();
+						/*ReciboFactura rF = new ReciboFactura();
 						rF.txtNombre.setText(txtNombre.getText().toString());
 						rF.txtCedula.setText(txtCedula.getText().toString());
 						rF.txtTelefono.setText(txtTelefono.getText());
@@ -377,15 +420,9 @@ public class RealizarVenta extends JDialog {
 						rF.txtCodeFactura.setText(txtCodeVenta.getText());
 						rF.setVisible(true);
 						int existe = 1;
-						for(int i = 0; i < tableTwo.getRowCount(); i++) {
+						for(int i = 0; i < tableTwo.getRowCount(); i++) {		HAY QUE BORRARLO PPOR CONFLICTO
 							String dato = null, Datos[] = new String[3];
 							int columna = 1;
-							/*for(int j = 0; j< tableTwo.getRowCount();j++) {
-								if(tableTwo.getValueAt(j, columna).equals(tableTwo.getValueAt(j, columna+1))){	//Datos[1])){//Datos[0])) {
-									existe++;
-									JOptionPane.showMessageDialog(null, existe);
-								}
-							}*/
 							Datos[0] = "1";
 							Datos[1] = tableTwo.getValueAt(i, 0).toString();
 							Datos[2] = tableTwo.getValueAt(i, 1).toString();
@@ -394,29 +431,77 @@ public class RealizarVenta extends JDialog {
 						dispose();
 						ArrayList<Plan> planes = new ArrayList<>();
 						Factura fac;
-						//for(int i = 0; i < )
-						Cliente aux = Altice.getInstance().buscarClienteByCedula(txtCedula.getText());						
+						Cliente aux = Altice.getInstance().buscarClienteByCedula(txtCedula.getText());	*/					
+						//ArrayList<Plan> planes = new ArrayList<>();
+						LocalDate fecha = LocalDate.now();
+						Calendar date = Calendar.getInstance();
+						int diaCorte = date.get(Calendar.DAY_OF_MONTH);
+						Factura fac = null;
+						Venta v1 = null;
+						Plan auxPlan = null;
+						Cliente aux = Altice.getInstance().buscarClienteByCedula(txtCedula.getText());
 						if(aux != null) {
-							fac = new Factura("F-"+Altice.generadorCodFactura,aux, null);
+							/*fac = new Factura("F-"+Altice.generadorCodFactura,aux, null);
 							fac.setPlanes(planes);
 							aux.getMisFacturas().add(fac);
 							aux.getMisCompras().add(sale);
-							Altice.getInstance().getMisFacturas().add(fac);
+							Altice.getInstance().getMisFacturas().add(fac);*/
+							v1 = new Venta(txtCodeFac.getText(), fecha, aux, null);
+							fac = new Factura("F-"+Altice.generadorCodFactura,aux, fecha, diaCorte);
+							for(int i = 0; i<tableTwo.getRowCount(); i++) {
+								String planComprado = tableTwo.getValueAt(i, 0).toString();
+								auxPlan = Altice.getInstance().buscarPlanByNombre(planComprado);
+								v1.insertarPlan(auxPlan);
+								fac.insertarPlanesFactura(auxPlan);
+								aux.insertarPlan(auxPlan);
+							}
+							aux.insertarFactura(fac);
+							Altice.getInstance().insertarFactura(fac);
+							Altice.getInstance().insertarVenta(v1);
 						}else {
 							Cliente nuevo = new Cliente(txtCedula.getText(), txtNombre.getText(), txtDireccion.getText(), txtTelefono.getText());
-							Altice.getInstance().getMisClientes().add(nuevo);
-							fac = new Factura("F-"+Altice.generadorCodFactura,aux, null);
+							Altice.getInstance().insertarCliente(nuevo);
+							v1 = new Venta(txtCodeFac.getText(), fecha, nuevo, null);
+							fac = new Factura("F-"+Altice.generadorCodFactura,nuevo, fecha, diaCorte);
+							for(int i = 0; i<tableTwo.getRowCount(); i++) {
+								String planComprado = tableTwo.getValueAt(i, 0).toString();
+								auxPlan = Altice.getInstance().buscarPlanByNombre(planComprado);
+								v1.insertarPlan(auxPlan);
+								fac.insertarPlanesFactura(auxPlan);
+								nuevo.insertarPlan(auxPlan);
+							}
+							nuevo.insertarFactura(fac);
+							Altice.getInstance().insertarFactura(fac);
+							Altice.getInstance().insertarVenta(v1);
+							/*fac = new Factura("F-"+Altice.generadorCodFactura,aux, null);
 							fac.setPlanes(planes);
 							nuevo.getMisFacturas().add(fac);
+<<<<<<< HEAD
 							nuevo.getMisCompras().add(sale);
 							Altice.getInstance().getMisFacturas().add(fac);
+=======
+							Altice.getInstance().getMisFacturas().add(fac);*/
 						}
 						JOptionPane.showMessageDialog(null, "Registrado satisfactoriamente", "Información", JOptionPane.INFORMATION_MESSAGE);
-						
+						clean();
+						loadPlanes();
+						ReciboFactura rF = new ReciboFactura();
+						rF.setVisible(true);
 					}
 				});
-				btnFacturar.setActionCommand("Cancel");
+				btnFacturar.setActionCommand("Ok");
 				buttonPane.add(btnFacturar);
+				getRootPane().setDefaultButton(btnFacturar);
+			}
+			{
+				JButton btnCancelar = new JButton("Cancelar");
+				btnCancelar.addActionListener(new ActionListener() {
+					public void actionPerformed(ActionEvent e) {
+						dispose();
+					}
+				});
+				btnCancelar.setActionCommand("Cancel");
+				buttonPane.add(btnCancelar);
 			}
 		}
 		loadPlanes();
@@ -438,16 +523,29 @@ public class RealizarVenta extends JDialog {
 	
 	
 	private void clean() {
-		txtCodeVenta.setText("V-"+Altice.generadorCodVenta);
+
+		txtCodeFac.setText("V-"+Altice.generadorCodVenta);
+		txtCedula.setText("");
 		txtNombre.setText("");
 		txtTelefono.setText("");
 		txtDireccion.setText("");
-		txtNombre.setEditable(true);
-		txtTelefono.setEditable(true);
-		txtDireccion.setEditable(true);
-		tableTwo.removeAll();
-		tableOne.enable(true);
-		//listQuesos.enable(true);
+		txtNombre.setEditable(false);
+		txtTelefono.setEditable(false);
+		txtDireccion.setEditable(false);
+		txtSubtotal.setText("");
+		txtMuestraInternet.setText("");
+		txtMuestraTelefono.setText("");
+		txtMuestraCable.setText("");
+		limpiarCarritoCompra();
+		//tableTwo.removeAll();
+		//tableOne.enable(true);
+	}
+	
+	public void limpiarCarritoCompra() {
+		for(int i = 0; i<tableTwo.getRowCount(); i++) {
+			model2.removeRow(i);
+			i-=1;
+		}
 	}
 }
 

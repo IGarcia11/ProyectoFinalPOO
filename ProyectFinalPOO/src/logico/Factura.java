@@ -1,24 +1,24 @@
 package logico;
 
-import java.sql.Date;
 import java.time.LocalDate;
-import java.time.LocalTime;
 import java.util.ArrayList;
 
 public class Factura {
 
 	private String codeFactura;
-	private Cliente micliente;
-	private Date fechaFactura;
+    Cliente micliente;
+	private LocalDate fechaFactura;
 	private ArrayList<Plan> planes;
+	private int diaCorte;
 	//Plan pn;
 	
-	public Factura(String codeFactura, Cliente micliente, Date fechaFactura) {
+	public Factura(String codeFactura, Cliente micliente, LocalDate fechaFactura, int diaCorte) {
 		super();
 		this.codeFactura = codeFactura;
 		this.micliente = micliente;
-		this.fechaFactura = fechaFactura;
+		this.setFechaFactura(fechaFactura);
 		this.planes = new ArrayList<>();
+		this.diaCorte = diaCorte;
 	}
 
 
@@ -38,13 +38,6 @@ public class Factura {
 		this.micliente = micliente;
 	}
 
-	public Date getFechaFactura() {
-		return fechaFactura;
-	}
-
-	public void setFechaFactura(Date fechaFactura) {
-		this.fechaFactura = fechaFactura;
-	}
 
 	/*public ArrayList<Plan> getMisPlanes() {
 		return planes;
@@ -59,6 +52,24 @@ public class Factura {
 	}
 	 */
 	
+	public LocalDate getFechaFactura() {
+		return fechaFactura;
+	}
+
+
+	public void setFechaFactura(LocalDate fechaFactura) {
+		this.fechaFactura = fechaFactura;
+	}
+	
+	public ArrayList<Plan> getPlanes() {
+		return planes;
+	}
+
+	public int getDiaCorte() {
+		return diaCorte;
+	}
+
+
 	public float totalFactura() {
 		float total = 0;
 		for(int i = 0; i<planes.size(); i++) {
@@ -66,9 +77,10 @@ public class Factura {
 		}
 		return total;
 	}
-	public void darFechaActual(Date fechaFactura) {
+	
+	/*public void darFechaActual(Date fechaFactura) {
 		LocalDate fechaActual = LocalDate.now();
-	}
+	}*/
 	
 	
 	public void insertarPlanesFactura(Plan p1) {
@@ -76,14 +88,9 @@ public class Factura {
 	}
 
 
-	public ArrayList<Plan> getPlanes() {
-		return planes;
-	}
-
-
-	public void setPlanes(ArrayList<Plan> planes) {
+	/*public void setPlanes(ArrayList<Plan> planes) {
 		this.planes = planes;
-	}
+	}*/
 	
 }
 

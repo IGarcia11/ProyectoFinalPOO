@@ -24,10 +24,7 @@ public class Altice {
 		this.misFacturas = new ArrayList<>();
 		this.misEmpleados = new ArrayList<>();
 		this.misPlanes = new ArrayList<>();
-		//Altice.generadorCodEmpleado++;
-		Altice.generadorCodFactura++;
-		//Altice.generadorCodVenta++;
-		this.generadorCodVenta = generadorCodVenta;
+
 	}
 	
 	public static Altice getInstance() {
@@ -136,20 +133,15 @@ public class Altice {
 		misPlanes.add(p1);
 	}
 	
-	public float totalFactura (Plan p) {
+	/*public float totalFactura (Plan p) {
 		float suma = 0;
 		suma += p.precioPlan();
 		/*for (Plan plan : getMisPlanes()) {
 			suma += plan.precioPlan();
 		}*/
-		return suma;//+=getMisPlanes().p;
-	}
-	/*public float sueldoAdmin() {
-		float total = 0;
-		total = worker.getSueldoBase() + (admin.getAnnosExperiencia() * 2500);
-		return total;//(float) worker.getSueldoBase() + (admin.getAnnosExperiencia() * 2500);
-	}*/
-	
+
+		//return suma;//+=getMisPlanes().p;
+	//}
 	
 	/*public float totalFactura() {
 		float total = 0;
