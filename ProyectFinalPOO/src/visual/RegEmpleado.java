@@ -44,6 +44,12 @@ public class RegEmpleado extends JDialog {
 	private JPanel panelCategoria;
 	private JPanel panelInfoBasica;
 	private JComboBox cbxSexo;
+	private JLabel lblNombreUsuario;
+	private JLabel lblContrasea;
+	private JLabel lblConfirmarContrasea;
+	private JTextField txtUser;
+	private JTextField txtPwd;
+	private JTextField txtConfirmar;
 	
 
 	/**
@@ -64,7 +70,7 @@ public class RegEmpleado extends JDialog {
 	 */
 	public RegEmpleado() {
 		setTitle("Registar Empleado");
-		setBounds(100, 100, 453, 422);
+		setBounds(100, 100, 459, 534);
 		setLocationRelativeTo(null);
 		getContentPane().setLayout(new BorderLayout());
 		contentPanel.setBorder(new EmptyBorder(5, 5, 5, 5));
@@ -74,56 +80,56 @@ public class RegEmpleado extends JDialog {
 			//JPanel panelInfoBasica = new JPanel();
 			panelInfoBasica = new JPanel();
 			panelInfoBasica.setBorder(new TitledBorder(null, "Informaci\u00F3n del Empleado", TitledBorder.LEADING, TitledBorder.TOP, null, null));
-			panelInfoBasica.setBounds(10, 10, 418, 167);
+			panelInfoBasica.setBounds(10, 10, 418, 285);
 			contentPanel.add(panelInfoBasica);
 			panelInfoBasica.setLayout(null);
 			{
 				JLabel lblNewLabel = new JLabel("Código:");
 				lblNewLabel.setFont(new Font("Tahoma", Font.BOLD, 14));
-				lblNewLabel.setBounds(7, 15, 75, 25);
+				lblNewLabel.setBounds(7, 14, 75, 25);
 				panelInfoBasica.add(lblNewLabel);
 			}
 			{
 				JLabel lblNombre = new JLabel("Nombre:");
 				lblNombre.setFont(new Font("Tahoma", Font.BOLD, 14));
-				lblNombre.setBounds(7, 39, 75, 25);
+				lblNombre.setBounds(7, 43, 75, 25);
 				panelInfoBasica.add(lblNombre);
 			}
 			{
 				JLabel lblCdula = new JLabel("Cédula:");
 				lblCdula.setFont(new Font("Tahoma", Font.BOLD, 14));
-				lblCdula.setBounds(7, 71, 75, 25);
+				lblCdula.setBounds(7, 77, 75, 25);
 				panelInfoBasica.add(lblCdula);
 			}
 			{
 				JLabel lblDireccin = new JLabel("Dirección:");
 				lblDireccin.setFont(new Font("Tahoma", Font.BOLD, 14));
-				lblDireccin.setBounds(7, 103, 75, 25);
+				lblDireccin.setBounds(7, 111, 75, 25);
 				panelInfoBasica.add(lblDireccin);
 			}
 			{
 				JLabel lblTelfono = new JLabel("Teléfono:");
 				lblTelfono.setFont(new Font("Tahoma", Font.BOLD, 14));
-				lblTelfono.setBounds(7, 135, 75, 25);
+				lblTelfono.setBounds(7, 145, 75, 25);
 				panelInfoBasica.add(lblTelfono);
 			}
 			{
 				JLabel lblNewLabel_1 = new JLabel("Sexo:");
 				lblNewLabel_1.setFont(new Font("Tahoma", Font.BOLD, 14));
-				lblNewLabel_1.setBounds(213, 135, 52, 25);
+				lblNewLabel_1.setBounds(217, 145, 52, 25);
 				panelInfoBasica.add(lblNewLabel_1);
 			}
 			{
 				txtCodigo = new JTextField();
 				txtCodigo.setEditable(false);
-				txtCodigo.setBounds(89, 22, 96, 19);
+				txtCodigo.setBounds(89, 17, 96, 19);
 				txtCodigo.setText("E-"+Empleado.generadorCodEmpleado);		//Altice.generadorCodEmpleado);
 				panelInfoBasica.add(txtCodigo);
 				txtCodigo.setColumns(10);
 			}
 			{
 				txtName = new JTextField();
-				txtName.setBounds(89, 45, 322, 19);
+				txtName.setBounds(89, 46, 322, 19);
 				panelInfoBasica.add(txtName);
 				txtName.setColumns(10);
 			}
@@ -132,33 +138,69 @@ public class RegEmpleado extends JDialog {
 				cbxSexo = new JComboBox();
 				cbxSexo.setFont(new Font("Tahoma", Font.PLAIN, 14));
 				cbxSexo.setModel(new DefaultComboBoxModel(new String[] {"<Seleccione>", "Femenino", "Masculino"}));
-				cbxSexo.setBounds(279, 139, 123, 21);
+				cbxSexo.setBounds(279, 147, 123, 21);
 				panelInfoBasica.add(cbxSexo);
 			}
 			{
 				txtPhone = new JTextField();
-				txtPhone.setBounds(89, 140, 96, 19);
+				txtPhone.setBounds(89, 148, 114, 19);
 				panelInfoBasica.add(txtPhone);
 				txtPhone.setColumns(10);
 			}
 			{
 				txtId = new JTextField();
-				txtId.setBounds(89, 74, 322, 19);
+				txtId.setBounds(89, 80, 322, 19);
 				panelInfoBasica.add(txtId);
 				txtId.setColumns(10);
 			}
 			{
 				txtAdress = new JTextField();
 				txtAdress.setColumns(10);
-				txtAdress.setBounds(89, 108, 322, 19);
+				txtAdress.setBounds(89, 114, 322, 19);
 				panelInfoBasica.add(txtAdress);
+			}
+			{
+				lblNombreUsuario = new JLabel("Nombre Usuario:");
+				lblNombreUsuario.setFont(new Font("Tahoma", Font.BOLD, 14));
+				lblNombreUsuario.setBounds(7, 179, 123, 25);
+				panelInfoBasica.add(lblNombreUsuario);
+			}
+			{
+				lblContrasea = new JLabel("Contraseña:");
+				lblContrasea.setFont(new Font("Tahoma", Font.BOLD, 14));
+				lblContrasea.setBounds(7, 213, 110, 25);
+				panelInfoBasica.add(lblContrasea);
+			}
+			{
+				lblConfirmarContrasea = new JLabel("Confirmar Contraseña:");
+				lblConfirmarContrasea.setFont(new Font("Tahoma", Font.BOLD, 14));
+				lblConfirmarContrasea.setBounds(7, 247, 166, 25);
+				panelInfoBasica.add(lblConfirmarContrasea);
+			}
+			{
+				txtUser = new JTextField();
+				txtUser.setBounds(140, 182, 271, 19);
+				panelInfoBasica.add(txtUser);
+				txtUser.setColumns(10);
+			}
+			{
+				txtPwd = new JTextField();
+				txtPwd.setBounds(140, 216, 271, 19);
+				panelInfoBasica.add(txtPwd);
+				txtPwd.setColumns(10);
+			}
+			{
+				txtConfirmar = new JTextField();
+				txtConfirmar.setBounds(183, 250, 225, 19);
+				panelInfoBasica.add(txtConfirmar);
+				txtConfirmar.setColumns(10);
 			}
 		}
 		{
 			//JPanel panelCategoria = new JPanel();
 			panelCategoria = new JPanel();
 			panelCategoria.setBorder(new TitledBorder(null, "Categor\u00EDa del Empleado", TitledBorder.LEADING, TitledBorder.TOP, null, null));
-			panelCategoria.setBounds(10, 187, 418, 65);
+			panelCategoria.setBounds(10, 305, 418, 65);
 			contentPanel.add(panelCategoria);
 			panelCategoria.setLayout(null);
 			{
@@ -200,7 +242,7 @@ public class RegEmpleado extends JDialog {
 			//JPanel panelInfoCategoriaC = new JPanel();
 			panelInfoCategoriaC = new JPanel();
 			panelInfoCategoriaC.setBorder(new TitledBorder(null, "Informaci\u00F3n de Categor\u00EDa", TitledBorder.LEADING, TitledBorder.TOP, null, null));
-			panelInfoCategoriaC.setBounds(10, 262, 419, 82);
+			panelInfoCategoriaC.setBounds(9, 380, 419, 82);
 			contentPanel.add(panelInfoCategoriaC);
 			panelInfoCategoriaC.setLayout(null);
 			{
@@ -233,7 +275,7 @@ public class RegEmpleado extends JDialog {
 			panelInfoCategoriaAdmin = new JPanel();
 			panelInfoCategoriaAdmin.setVisible(false);
 			panelInfoCategoriaAdmin.setBorder(new TitledBorder(null, "", TitledBorder.LEADING, TitledBorder.TOP, null, null));
-			panelInfoCategoriaAdmin.setBounds(10, 262, 419, 82);
+			panelInfoCategoriaAdmin.setBounds(10, 380, 419, 82);
 			contentPanel.add(panelInfoCategoriaAdmin);
 			panelInfoCategoriaAdmin.setLayout(null);
 			{
@@ -279,40 +321,56 @@ public class RegEmpleado extends JDialog {
 						String direccion = txtAdress.getText();
 						String telefono = txtPhone.getText();
 						String sexo = cbxSexo.getSelectedItem().toString();//getSelectedItem().toString());
+						String user = txtUser.getText();
+						String password = txtPwd.getText();
+						String confirmP = txtConfirmar.getText();
 						//cbxSexo.getSelectedItem().toString();
 						if(rdbtnComerciante.isSelected()) {
 							float comision = new Float(txtComision.getText());		//Float.parseFloat(txtComision.getText()); 
-							float sueldoBC = new Float(txtSueldoC.getText());		//Float.parseFloat(txtSueldoC.getText());
+							float sueldoBC = new Float(Float.parseFloat(txtSueldoC.getText()));		//Float.parseFloat(txtSueldoC.getText());
+							String tipo = "Comerciante";
 							aux = new Comerciante(codeEmpleado, cedula, nombre, 
 									comision, 		//Float.parseFloat(txtComision.getText()),   //comision, 	//Float.parseFloat(comision), 
 									direccion, 
 									telefono, 
 									sexo, 
+									tipo, 
+									user, 
+									password,									
 									sueldoBC);//sueldoBC);
+							Altice.getInstance().getMisEmpleados().add(aux);	
 						}
 						else if(rdbtnAdmin.isSelected()) {
 							int annoE = new Integer(txtExperiencia.getText());//Integer.parseInt(txtHExtra.getText());//new Float(txtHExtra.getText());
 							float sueldoBA = new Float(txtSueldoA.getText());		//Float.parseFloat(txtSueldoA.getText());
+							String tipo = "Administrador";
 							aux = new Administrador(codeEmpleado, cedula, nombre,
 									sueldoBA,//Float.parseFloat(sueldoBA), 
-									direccion, telefono, sexo, annoE, sueldoBA);//Integer.parseInt(annoE));
+									direccion, telefono, sexo, tipo, user, password, annoE, sueldoBA);//Integer.parseInt(annoE));
+							//Altice.getInstance().regUser(user);
+							//dispose();
 							System.out.println("SueldoBA en RegE "+sueldoBA);
 							System.out.println("ANNOE "+annoE);
+							Altice.getInstance().getMisEmpleados().add(aux);	
 
 						}
-						Altice.getInstance().getMisEmpleados().add(aux);	
+						//Altice.getInstance().getMisEmpleados().add(aux);	
 						if(aux != null) {
 							JOptionPane.showMessageDialog(null, "Registrado Satisfactoriamente", "Información", JOptionPane.INFORMATION_MESSAGE);
-							clean();							
+							//clean();
+							dispose();
+							Principal prin = new Principal();
+							prin.setVisible(true);
 						}else {
 							JOptionPane.showMessageDialog(null, "Registro fallido", "Información", JOptionPane.WARNING_MESSAGE);
+							clean();
 						}
 						
 						}
 
 					
 				});
-				btnRegistrar.setActionCommand("OK");
+				btnRegistrar.setActionCommand("Registrar");
 				buttonPane.add(btnRegistrar);
 				getRootPane().setDefaultButton(btnRegistrar);
 			}
@@ -340,6 +398,9 @@ public class RegEmpleado extends JDialog {
 		txtSueldoA.setText("");
 		txtSueldoC.setText("");
 		txtExperiencia.setText("");
+		txtUser.setText("");
+		txtPwd.setText("");
+		txtConfirmar.setText("");
 	}
 
 }

@@ -1,9 +1,10 @@
 package logico;
 
+import java.io.Serializable;
 import java.time.LocalDate;
 import java.util.ArrayList;
 
-public class Venta {
+public class Venta implements Serializable{
 	
 	private String codeVenta;
 	private LocalDate diaVenta;
@@ -11,6 +12,7 @@ public class Venta {
 	Cliente client;
 	Empleado employee;
 	private ArrayList<Plan> misPlanes;
+	private static final long serialVersionUID = 1L;
 	//private Calendar fechaPrueba; //UTILIZA ESTE ATRIBUTO PARA LA FECHA
 
 	public Venta(String codeVenta, LocalDate diaVenta, /*int codeFactura,*/ Cliente client, Empleado employee) {

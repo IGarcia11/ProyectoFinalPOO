@@ -1,7 +1,10 @@
 package logico;
 
-public class Empleado {
+import java.io.Serializable;
 
+public class Empleado implements Serializable{
+
+	
 	protected String cedulaEmpleado;
 	protected String nombreEmpleado;
 	protected String codeEmpleado;
@@ -11,8 +14,13 @@ public class Empleado {
 	private String sexo;
 	public static int generadorCodEmpleado = 1;
 	Administrador adm;
+	private static final long serialVersionUID = 1L;
+	private String tipo;
+	private String userName;
+	private String pass;
 	
-	public Empleado(String codeEmpleado, String cedulaEmpleado, String nombreEmpleado, float sueldoBase, String direccion, String telefono, String sexo) {
+	public Empleado(String codeEmpleado, String cedulaEmpleado, String nombreEmpleado, float sueldoBase, String direccion, String telefono, String sexo, 
+			String tipo, String userName, String pass) {
 		super();
 		this.cedulaEmpleado = cedulaEmpleado;
 		this.nombreEmpleado = nombreEmpleado;
@@ -21,6 +29,9 @@ public class Empleado {
 		this.direccion = direccion;
 		this.telefono = telefono;
 		this.sexo = sexo; 
+		this.tipo = tipo;
+		this.userName = userName;
+		this.pass = pass;
 		Empleado.generadorCodEmpleado++;
 		
 	}
@@ -103,6 +114,24 @@ public class Empleado {
 	public float sueldoByTipoEmpleadoComerciante() {
 		// TODO Auto-generated method stub
 		return 0;
+	}
+	public String getTipo() {
+		return tipo;
+	}
+	public void setTipo(String tipo) {
+		this.tipo = tipo;
+	}
+	public String getUserName() {
+		return userName;
+	}
+	public void setUserName(String userName) {
+		this.userName = userName;
+	}
+	public String getPass() {
+		return pass;
+	}
+	public void setPass(String pass) {
+		this.pass = pass;
 	}
 
 }

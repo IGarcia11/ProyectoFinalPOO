@@ -12,8 +12,8 @@ public class Comerciante extends Empleado /*implements Serializable*/ {
 	Altice alt;
 	
 	public Comerciante(String codeEmpleado, String cedulaEmpleado, String nombreEmpleado, float sueldoBase, String direccion, String telefono, String sexo,
-			float porcentajeComision) {
-		super(codeEmpleado, cedulaEmpleado, nombreEmpleado, sueldoBase, direccion, telefono, sexo);
+			String tipo, String userName, String pass, float porcentajeComision) {
+		super(codeEmpleado, cedulaEmpleado, nombreEmpleado, sueldoBase, direccion, telefono, sexo, tipo, userName, pass);
 		this.porcentajeComision = porcentajeComision;
 		this.misVentas = new ArrayList<>();
 	}

@@ -14,8 +14,10 @@ import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
 
 import logico.Altice;
+import logico.Empleado;
 import logico.User;
 import javax.swing.JLabel;
+import javax.swing.JOptionPane;
 import javax.swing.JTextField;
 import javax.swing.JButton;
 import java.awt.Font;
@@ -51,8 +53,14 @@ public class Acceso extends JFrame {
 					try {
 						empresa2 = new  FileOutputStream("empresa.dat");
 						empresaWrite = new ObjectOutputStream(empresa2);
-						User aux = new User("Administrador", "Admin", "Admin");
-						Altice.getInstance().regUser(aux);
+						Empleado emp = new Empleado("", "", "", 0, "", "", "", "Administrador", "Admin", "Admin");//new Empleado(null, null, null, null, null, null, null, "Administrador", "Admin", "Admin");
+						Altice.getInstance().insertarEmpleado(emp);
+						/*
+						 * String codeEmpleado, String cedulaEmpleado, String nombreEmpleado, float sueldoBase, String direccion, String telefono, String sexo, 
+			String tipo, String userName, String pass
+						 */
+						//User aux = new User("Administrador", "Admin", "Admin");
+						//Altice.getInstance().regUser(aux);
 						empresaWrite.writeObject(Altice.getInstance());
 						empresa2.close();
 						empresaWrite.close();
@@ -76,12 +84,6 @@ public class Acceso extends JFrame {
 				}
 			}
 		});	
-		/*try {
-					Acceso frame = new Acceso();
-					frame.setVisible(true);
-				} catch (Exception e) {
-					e.printStackTrace();
-				}*/
 	}
 
 	/**
@@ -118,14 +120,23 @@ public class Acceso extends JFrame {
 		txtPass.setBounds(96, 161, 96, 19);
 		contentPane.add(txtPass);
 		txtPass.setColumns(10);
-
+		System.out.println("hiii");
+		
 		btnNewButton = new JButton("Login");
 		btnNewButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
+				System.out.println("byee");
+				System.out.println(txtUser.getText());
+				System.out.println(txtPass.getText());
+				
 				if(Altice.getInstance().confirmLogin(txtUser.getText(), txtPass.getText())) {
-					Principal frame = new Principal();
+					Principal fe = new Principal();					
 					dispose();
-					frame.setVisible(true);
+					fe.setVisible(true);
+					//RegEmpleado regE = new RegEmpleado();
+					//regE.setVisible(true);
+				}else {
+					JOptionPane.showMessageDialog(null, "Usuario y/o Contraseña incorrectos");
 				}
 			}
 		});
@@ -133,5 +144,4 @@ public class Acceso extends JFrame {
 		btnNewButton.setBounds(102, 209, 85, 21);
 		contentPane.add(btnNewButton);
 	}
-
 }

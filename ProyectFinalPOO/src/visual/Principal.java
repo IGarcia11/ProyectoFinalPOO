@@ -68,6 +68,7 @@ public class Principal extends JFrame {
 			}
 		});
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		System.out.println("Hello");
 		setBounds(100, 100, 622, 379);
 		dim = getToolkit().getScreenSize();
 		setSize(dim.width, dim.height-50);
@@ -145,11 +146,13 @@ public class Principal extends JFrame {
 		JMenuItem mntmNewMenuItem_6 = new JMenuItem("Registrar Empleado");
 		mntmNewMenuItem_6.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				RegUser users = new RegUser();
+				/*RegUser users = new RegUser();
 				users.setModal(true);
-				users.setVisible(true);
-				//RegEmpleado rE = new RegEmpleado();
-				//rE.setVisible(true);
+				users.setVisible(true);*/
+				RegEmpleado rE = new RegEmpleado();
+				rE.setVisible(true);
+				dispose();
+				rE.setModal(true);
 			}
 		});
 		mnEmpleados.add(mntmNewMenuItem_6);
@@ -163,6 +166,7 @@ public class Principal extends JFrame {
 		});
 		mnEmpleados.add(mntmNewMenuItem_7);
 		if(Altice.getLoginUser().getTipo().equalsIgnoreCase("Comercial")) {
+			
 			mnClientes.setEnabled(false);
 			mnEmpleados.setEnabled(false);
 			mnPlanes.setEnabled(true);

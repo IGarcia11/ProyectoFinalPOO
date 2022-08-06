@@ -1,15 +1,17 @@
 package logico;
 
+import java.io.Serializable;
 import java.time.LocalDate;
 import java.util.ArrayList;
 
-public class Factura {
+public class Factura implements Serializable{
 
 	private String codeFactura;
     Cliente micliente;
 	private LocalDate fechaFactura;
 	private ArrayList<Plan> planes;
 	private int diaCorte;
+	private static final long serialVersionUID = 1L;
 	//Plan pn;
 	
 	public Factura(String codeFactura, Cliente micliente, LocalDate fechaFactura, int diaCorte) {

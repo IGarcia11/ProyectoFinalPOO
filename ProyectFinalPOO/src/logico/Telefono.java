@@ -1,8 +1,11 @@
 package logico;
 
-public class Telefono extends Servicio {
+import java.io.Serializable;
+
+public class Telefono extends Servicio implements Serializable{
 	
 	private int minutos;
+	private static final long serialVersionUID = 1L;
 
 	public Telefono(int minutos) {
 		super();

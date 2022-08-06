@@ -1,9 +1,12 @@
 package logico;
 
-public class Television extends Servicio {
+import java.io.Serializable;
+
+public class Television extends Servicio implements Serializable{
 	
 	private int cantCanalesLocales;
 	private int cantCanalesHD;
+	private static final long serialVersionUID = 1L;
 
 	public Television(int cantCanalesLocales, int cantCanalesHD) {
 		super();

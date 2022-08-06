@@ -13,6 +13,7 @@ import javax.swing.table.DefaultTableModel;
 import logico.Altice;
 
 import javax.swing.JLabel;
+import javax.swing.JOptionPane;
 import javax.swing.JScrollPane;
 import javax.swing.JTable;
 import javax.swing.ListSelectionModel;
@@ -74,10 +75,13 @@ public class ReciboFactura extends JDialog {
 		panelInfoCliente.add(lblNewLabel);
 		
 		txtNombre = new JTextField();
+		txtNombre = makeS.txtNombre;
+		//txtNombre = makeS.txtNombre;
 		txtNombre.setEditable(false);
+		txtNombre.setColumns(10);
 		txtNombre.setBounds(97, 19, 96, 19);
 		panelInfoCliente.add(txtNombre);
-		txtNombre.setColumns(10);
+		
 		
 		JLabel lblNewLabel_1 = new JLabel("Cédula:");
 		lblNewLabel_1.setFont(new Font("Tahoma", Font.PLAIN, 14));
@@ -95,30 +99,35 @@ public class ReciboFactura extends JDialog {
 		panelInfoCliente.add(lblNewLabel_1_2);
 		
 		txtCedula = new JTextField();
+		txtCedula = makeS.txtCedula;
 		txtCedula.setEditable(false);
 		txtCedula.setColumns(10);
 		txtCedula.setBounds(97, 51, 96, 19);
 		panelInfoCliente.add(txtCedula);
 		
 		txtDireccion = new JTextField();
+		txtDireccion = makeS.txtDireccion;
 		txtDireccion.setEditable(false);
 		txtDireccion.setColumns(10);
 		txtDireccion.setBounds(97, 115, 96, 19);
 		panelInfoCliente.add(txtDireccion);
 		
 		txtTelefono = new JTextField();
+		txtTelefono = makeS.txtTelefono;
 		txtTelefono.setEditable(false);
 		txtTelefono.setColumns(10);
 		txtTelefono.setBounds(97, 83, 96, 19);
 		panelInfoCliente.add(txtTelefono);
 		
 		txtFecha = new JTextField();
+		txtFecha = makeS.txtFechaFac;
 		txtFecha.setEditable(false);
 		txtFecha.setBounds(356, 19, 96, 19);
 		panelInfoCliente.add(txtFecha);
 		txtFecha.setColumns(10);
 		
 		txtCodeFactura = new JTextField();
+		txtCodeFactura = makeS.txtCodeFac;
 		txtCodeFactura.setEditable(false);
 		txtCodeFactura.setBounds(356, 51, 96, 19);
 		panelInfoCliente.add(txtCodeFactura);
@@ -168,28 +177,25 @@ public class ReciboFactura extends JDialog {
 		loadPlanes();
 	}
 	private void loadPlanes() {
+		
+		//int fSel = makeS.tableTwo.getSelectedRow();
+		/*if(fSel == -1) {
+			JOptionPane.showMessageDialog(null, contentPanel);
+		}*/
+		
+		
+		model3 = (DefaultTableModel) makeS.tableTwo.getModel();
+		
+		int fSelect = makeS.tableTwo.getSelectedRow();
+		String [] registro = new String[3];
+		registro[0] = makeS.tableTwo.getValueAt(fSelect, 0).toString();
+		registro[1] = makeS.tableTwo.getValueAt(fSelect, 1).toString();
+		registro[2] = makeS.tableTwo.getValueAt(fSelect, 2).toString();
+		model3.addRow(registro);
+		makeS.tableTwo.setModel(model3);
 
-		model3.setRowCount(0);
-		row3 = new Object[model3.getColumnCount()];
-		String dato = "";
-		float precio = 0;
-		int columna = 0, existe = 0;
 		
-		for(int i = 0; i< tableFactura.getRowCount();i++) {
-			if(tableFactura.getValueAt(i, columna).equals(dato)) {
-				existe += 1;
-			}
-		}
-		
-		for(int i = 0; i < Altice.getInstance().getMisPlanes().size(); i++){ 	//Fabrica.getInstance().getMyClients().size(); i++) {
-			/*row[0] = Fabrica.getInstance().getMyClients().get(i).getCedula();
-			row[1] = Fabrica.getInstance().getMyClients().get(i).getNameClient();
-			row[2] = Fabrica.getInstance().getMyClients().get(i).getPhoneNumber();
-			row[3] = Fabrica.getInstance().getMyClients().get(i).getAdressClient();
-			row[4] = Fabrica.getInstance().getMyClients().get(i).getMisFacturas().size();
-			model.addRow(row);*/
-			//Object object = row[i];
-		}
+	
 		
 	}
 	

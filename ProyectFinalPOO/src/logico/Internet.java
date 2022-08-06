@@ -1,9 +1,12 @@
 package logico;
 
-public class Internet extends Servicio {
+import java.io.Serializable;
+
+public class Internet extends Servicio implements Serializable{
 	
 	private int velocidadSubida;
 	private int velocidadBajada;
+	private static final long serialVersionUID = 1L;
 
 	public Internet(int velocidadSubida, int velocidadBajada) {
 		super();

@@ -3,6 +3,8 @@ package logico;
 import java.io.Serializable;
 import java.util.ArrayList;
 
+import javax.swing.JOptionPane;
+
 public class Altice implements Serializable{
 
 	//private ArrayList<Usuario> users;
@@ -18,7 +20,8 @@ public class Altice implements Serializable{
 	Empleado worker;
 	Administrador admin;
 	private static final long serialVersionUID = 1L;
-	private static User loginUser;
+	//private static User loginUser;
+	private static Empleado loginUser;
 	private ArrayList<User> misUsers;
 	//private static Altice altice;
 	
@@ -68,10 +71,34 @@ public class Altice implements Serializable{
 		}
 		return null;
 	}
+	/*public int cantVentasEmpleado(String nombreU)
+	{
+		
+		int cantVentaComerciante = 0;
+		if(confirmLogin(nombreU, nombreU) == true) {
+			for(User user : misUsers) {
+				loginUser = user;
+
+			}
+		}
+
+		if(empleado != null)
+		{
+			for(int i = 0; i < misEmpleados.size(); i++)
+			{
+				if(misVentas.get(i).getEmployee().getNombreEmpleado().equalsIgnoreCase(nombreEmpleado))
+				{
+					cantVentaComerciante++;
+				}
+			}
+		}	
+		return cantVentaComerciante;
+	}*/
 	
 	public int cantVentasByEmpleado(String nombreEmpleado)
 	{
 		Empleado empleado = null;
+		Empleado emp = null;
 		empleado = findEmpleadoByNombre(nombreEmpleado);
 		int cantVentaComerciante = 0;
 		if(empleado != null)
@@ -154,28 +181,40 @@ public class Altice implements Serializable{
 	public void setMisUsers(ArrayList<User> misUsers) {
 		this.misUsers = misUsers;
 	}
-	
 	public void regUser( User user) {
 		misUsers.add(user);
 	}
-	
-	public boolean confirmLogin(String text, String text2) {
-		boolean login = false;
-		for(User user : misUsers) {
-			if(user.getUserName().equals(text) && user.getPass().equals(text2)) {
-				loginUser = user;
-				login = true;
-			}
-		}
-		return login;
-	}
 
-	public static User getLoginUser() {
+	/*public static User getLoginUser() {
 		return loginUser;
 	}
 
 	public static void setLoginUser(User loginUser) {
 		Altice.loginUser = loginUser;
+	}*/
+	public static Empleado getLoginUser() {
+		return loginUser;
+	}
+
+	public static void setLoginUser(Empleado loginUser) {
+		Altice.loginUser = loginUser;
+	}
+	
+	public boolean confirmLogin(String text, String text2) {
+		boolean login = false;
+		/*for(User user : misUsers) {
+			if(user.getUserName().equals(text) && user.getPass().equals(text2)) {
+				loginUser = user;
+				login = true;
+			}
+		}*/
+		for(Empleado emp : misEmpleados) {
+			if(emp.getUserName().equals(text) && emp.getPass().equals(text2)){//getUserName().equals(text) && user.getPass().equals(text2)) {
+				loginUser = emp;
+				login = true;
+			}
+		}
+		return login;
 	}
 
 	/**

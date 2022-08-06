@@ -1,12 +1,14 @@
 package logico;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 
-public class Plan {
+public class Plan implements Serializable{
 	
 	private String nombre;
 	private String estado;
 	private ArrayList<Servicio> serviciosPlan;
+	private static final long serialVersionUID = 1L;
 	
 	public Plan(String nombre) {
 		super();

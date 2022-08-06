@@ -49,10 +49,10 @@ import java.util.Locale;
 public class RealizarVenta extends JDialog {
 
 	private final JPanel contentPanel = new JPanel();
-	private JTextField txtCedula;
-	private JTextField txtNombre;
-	private JTextField txtTelefono;
-	private JTextField txtDireccion;
+	public JTextField txtCedula;
+	public JTextField txtNombre;
+	public JTextField txtTelefono;
+	public JTextField txtDireccion;
 	private JTable tableOne;
 	private DefaultTableModel model;
 	private Object[] row;
@@ -65,13 +65,14 @@ public class RealizarVenta extends JDialog {
 	private JTextField txtMuestraTelefono;
 	public JTable tableTwo;
 	public DefaultTableModel model2;
-	private JTextField txtSubtotal;
+	public JTextField txtSubtotal;
 	//private Plan selected = null;
 	private float subtotal = 0;
-	private JTextField txtFechaFac;
-	private JTextField txtCodeVenta;
+	public JTextField txtFechaFac;
+	public JTextField txtCodeVenta;
 	private ReciboFactura rFact;
-	private JTextField txtCodeFac;
+	public JTextField txtCodeFac;
+	public JTextField name;
 
 	/**
 	 * Launch the application.
@@ -142,6 +143,7 @@ public class RealizarVenta extends JDialog {
 				txtNombre.setBounds(98, 55, 219, 19);
 				panelInfoCliente.add(txtNombre);
 				txtNombre.setColumns(10);
+				System.out.println(txtNombre.getText());
 			}
 			{
 				txtTelefono = new JTextField();
@@ -172,7 +174,7 @@ public class RealizarVenta extends JDialog {
 						txtDireccion.setEditable(false);
 
 					}else {
-						JOptionPane.showMessageDialog(null, "Cliente no encontrado. Registre a uno nuevo.", "No encontrado", JOptionPane.ERROR_MESSAGE);
+						JOptionPane.showMessageDialog(null, "Cliente no encontrado. Registre uno nuevo.", "No encontrado", JOptionPane.ERROR_MESSAGE);
 						//JOptionPane.showMessageDialog(null, "Client not found. Register a new one.", "Not found", JOptionPane.ERROR_MESSAGE);
 						txtNombre.setEditable(true);
 						txtTelefono.setEditable(true);
@@ -482,11 +484,16 @@ public class RealizarVenta extends JDialog {
 =======
 							Altice.getInstance().getMisFacturas().add(fac);*/
 						}
-						JOptionPane.showMessageDialog(null, "Registrado satisfactoriamente", "Información", JOptionPane.INFORMATION_MESSAGE);
+						JOptionPane.showMessageDialog(null, "Venta realizada satisfactoriamente", "Información", JOptionPane.INFORMATION_MESSAGE);
 						clean();
+						System.out.println(txtNombre.getText());
+						name = txtNombre;
 						loadPlanes();
 						ReciboFactura rF = new ReciboFactura();
 						rF.setVisible(true);
+						dispose();
+						
+						
 					}
 				});
 				btnFacturar.setActionCommand("Ok");

@@ -45,6 +45,9 @@ public class RegUser extends JDialog {
 	/**
 	 * Create the dialog.
 	 */
+	/**
+	 * 
+	 */
 	public RegUser() {
 		setTitle("Registrar Usuario\r\n");
 		setBounds(100, 100, 450, 300);
@@ -115,8 +118,16 @@ public class RegUser extends JDialog {
 				btnOK = new JButton("OK");
 				btnOK.addActionListener(new ActionListener() {
 					public void actionPerformed(ActionEvent e) {
+						
 						User user = new User(cbxTipo.getSelectedItem().toString(), txtUsuario.getText(), txtPassword.getText());
 						Altice.getInstance().regUser(user);
+						RegEmpleado regE = new RegEmpleado();
+						dispose();
+						setLocationRelativeTo(null);
+						regE.setVisible(true);
+						/*RegEmpleado regE = new RegEmpleado();
+						setLocationRelativeTo(null);
+						regE.setVisible(true);*/
 					}
 				});
 				btnOK.setActionCommand("OK");
@@ -126,7 +137,7 @@ public class RegUser extends JDialog {
 			{
 				JButton cancelButton = new JButton("Cancel");
 				cancelButton.addActionListener(new ActionListener() {
-					public void actionPerformed(ActionEvent e) {
+					public void actionPerformed(ActionEvent e) {						
 						dispose();
 					}
 				});
