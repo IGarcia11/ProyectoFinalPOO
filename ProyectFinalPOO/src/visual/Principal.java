@@ -165,8 +165,8 @@ public class Principal extends JFrame {
 			}
 		});
 		mnEmpleados.add(mntmNewMenuItem_7);
-		if(Altice.getLoginUser().getTipo().equalsIgnoreCase("Comercial")) {
-			
+		//if(Altice.getLoginUser().getTipo().equalsIgnoreCase("Comercial")) {
+		if(!Altice.getLoginUser().getTipo().equalsIgnoreCase("Administrador")) {
 			mnClientes.setEnabled(false);
 			mnEmpleados.setEnabled(false);
 			mnPlanes.setEnabled(true);

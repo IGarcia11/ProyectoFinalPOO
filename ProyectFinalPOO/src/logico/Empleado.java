@@ -14,13 +14,15 @@ public class Empleado implements Serializable{
 	private String sexo;
 	public static int generadorCodEmpleado = 1;
 	Administrador adm;
+	Comerciante com;
 	private static final long serialVersionUID = 1L;
 	private String tipo;
 	private String userName;
 	private String pass;
+	private float sueldoBruto;
 	
 	public Empleado(String codeEmpleado, String cedulaEmpleado, String nombreEmpleado, float sueldoBase, String direccion, String telefono, String sexo, 
-			String tipo, String userName, String pass) {
+			String tipo, String userName, String pass, float sueldoBruto) {
 		super();
 		this.cedulaEmpleado = cedulaEmpleado;
 		this.nombreEmpleado = nombreEmpleado;
@@ -32,6 +34,7 @@ public class Empleado implements Serializable{
 		this.tipo = tipo;
 		this.userName = userName;
 		this.pass = pass;
+		this.sueldoBruto = sueldoBruto;
 		Empleado.generadorCodEmpleado++;
 		
 	}
@@ -112,7 +115,7 @@ public class Empleado implements Serializable{
 	}
 
 	public float sueldoByTipoEmpleadoComerciante() {
-		// TODO Auto-generated method stub
+		
 		return 0;
 	}
 	public String getTipo() {
@@ -132,6 +135,14 @@ public class Empleado implements Serializable{
 	}
 	public void setPass(String pass) {
 		this.pass = pass;
+	}
+
+	public float getSueldoBruto() {
+		return sueldoBruto;
+	}
+
+	public void setSueldoBruto(float sueldoBruto) {
+		this.sueldoBruto += sueldoBruto;
 	}
 
 }

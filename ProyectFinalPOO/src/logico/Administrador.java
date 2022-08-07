@@ -8,8 +8,8 @@ public class Administrador extends Empleado {
 	
 	
 	public Administrador(String codeEmpleado, String cedulaEmpleado, String nombreEmpleado, float sueldoBase,String direccion, String telefono, String sexo,
-			String tipo, String userName, String pass, int annosExperiencia, float sueldoB) {
-		super(codeEmpleado, cedulaEmpleado, nombreEmpleado, sueldoBase, direccion, telefono, sexo, tipo, userName, pass);
+			String tipo, String userName, String pass, float sueldoBruto, int annosExperiencia, float sueldoB) {
+		super(codeEmpleado, cedulaEmpleado, nombreEmpleado, sueldoBase, direccion, telefono, sexo, tipo, userName, pass, sueldoBruto);
 		this.annosExperiencia = annosExperiencia;	
 		this.sueldoB = sueldoB;
 	}

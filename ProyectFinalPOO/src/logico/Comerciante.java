@@ -9,13 +9,16 @@ public class Comerciante extends Empleado /*implements Serializable*/ {
 	private float porcentajeComision;
 	//private float pagoComision;	 MULTIPLICAR COMISION*VENTAS
 	private ArrayList<Venta> misVentas;
+	private ArrayList<Factura> myFacturas;
 	Altice alt;
+	//private float sueldoBruto;
 	
 	public Comerciante(String codeEmpleado, String cedulaEmpleado, String nombreEmpleado, float sueldoBase, String direccion, String telefono, String sexo,
-			String tipo, String userName, String pass, float porcentajeComision) {
-		super(codeEmpleado, cedulaEmpleado, nombreEmpleado, sueldoBase, direccion, telefono, sexo, tipo, userName, pass);
+			String tipo, String userName, String pass, float porcentajeComision, float sueldoBruto) {	
+		super(codeEmpleado, cedulaEmpleado, nombreEmpleado, sueldoBase, direccion, telefono, sexo, tipo, userName, pass, sueldoBruto);
 		this.porcentajeComision = porcentajeComision;
 		this.misVentas = new ArrayList<>();
+		//this.sueldoBruto = sueldoBruto;
 	}
 
 	public float getPorcentajeComision() {
@@ -33,11 +36,17 @@ public class Comerciante extends Empleado /*implements Serializable*/ {
 	public void insertarVenta(Venta v1) {
 		misVentas.add(v1);
 	}
-	@Override 
-	public float sueldoByTipoEmpleadoComerciante() {
-		
-		return (Float) null; //Altice.getInstance().cantVentasByEmpleado(cedulaEmpleado);
+	/*public float getSueldoBruto() {
+		return sueldoBruto;
 	}
+
+	public void setSueldoBruto(float sueldoBruto) {
+		this.sueldoBruto = sueldoBruto;
+	}*/
+	
+	//@Override 
+	
+	
 
 	/*public float sueldoByTipoEmpleado() {//SE LE VA A ESTABLECER 1% DE LA VENTA REALIZADA POR EMPLEADO.
 		return (float) (porcentajeComision * horasExtras);

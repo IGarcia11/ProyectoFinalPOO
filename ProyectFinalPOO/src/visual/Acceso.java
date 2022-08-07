@@ -27,9 +27,10 @@ import java.awt.event.ActionEvent;
 public class Acceso extends JFrame {
 
 	private JPanel contentPane;
-	private JTextField txtUser;
+	public JTextField txtUser;
 	private JTextField txtPass;
 	private JButton btnNewButton;
+	public String userA;
 
 	/**
 	 * Launch the application.
@@ -53,7 +54,7 @@ public class Acceso extends JFrame {
 					try {
 						empresa2 = new  FileOutputStream("empresa.dat");
 						empresaWrite = new ObjectOutputStream(empresa2);
-						Empleado emp = new Empleado("", "", "", 0, "", "", "", "Administrador", "Admin", "Admin");//new Empleado(null, null, null, null, null, null, null, "Administrador", "Admin", "Admin");
+						Empleado emp = new Empleado("", "", "", 0, "", "", "", "Administrador", "admin", "admin", 0);//new Empleado(null, null, null, null, null, null, null, "Administrador", "Admin", "Admin");
 						Altice.getInstance().insertarEmpleado(emp);
 						/*
 						 * String codeEmpleado, String cedulaEmpleado, String nombreEmpleado, float sueldoBase, String direccion, String telefono, String sexo, 
@@ -127,9 +128,10 @@ public class Acceso extends JFrame {
 			public void actionPerformed(ActionEvent e) {
 				System.out.println("byee");
 				System.out.println(txtUser.getText());
-				System.out.println(txtPass.getText());
+				System.out.println(txtPass.getText());				
 				
 				if(Altice.getInstance().confirmLogin(txtUser.getText(), txtPass.getText())) {
+					System.out.println("Acceso OK");
 					Principal fe = new Principal();					
 					dispose();
 					fe.setVisible(true);

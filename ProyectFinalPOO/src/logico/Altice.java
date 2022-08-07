@@ -71,6 +71,14 @@ public class Altice implements Serializable{
 		}
 		return null;
 	}
+	public Empleado findEmpleadoByUser(String userName) {
+		for (Empleado empleado : misEmpleados) {
+			if (empleado.getUserName().equals(userName)) {
+				return empleado;
+			}
+		}
+		return null;
+	}
 	/*public int cantVentasEmpleado(String nombreU)
 	{
 		
@@ -185,13 +193,6 @@ public class Altice implements Serializable{
 		misUsers.add(user);
 	}
 
-	/*public static User getLoginUser() {
-		return loginUser;
-	}
-
-	public static void setLoginUser(User loginUser) {
-		Altice.loginUser = loginUser;
-	}*/
 	public static Empleado getLoginUser() {
 		return loginUser;
 	}
@@ -202,19 +203,41 @@ public class Altice implements Serializable{
 	
 	public boolean confirmLogin(String text, String text2) {
 		boolean login = false;
-		/*for(User user : misUsers) {
-			if(user.getUserName().equals(text) && user.getPass().equals(text2)) {
-				loginUser = user;
-				login = true;
-			}
-		}*/
 		for(Empleado emp : misEmpleados) {
 			if(emp.getUserName().equals(text) && emp.getPass().equals(text2)){//getUserName().equals(text) && user.getPass().equals(text2)) {
+				System.out.println("login correct");
 				loginUser = emp;
 				login = true;
 			}
 		}
 		return login;
+	}
+	
+	/*public float cantVentasByEmpleado() {
+		float ventas = 0;
+		for(Empleado emp : misEmpleados) {
+			if(emp.getUserName().equals(getLoginUser())){	//getLoginUser().equals(emp.getUserName())) {
+				System.out.println("Son iguales");
+				for(Factura fac : misFacturas) {
+					ventas += fac.totalFactura();
+					System.out.println(""+ventas);
+					//emp.com.
+				}
+				//ventas += ;
+			}
+		}
+		
+		return ventas;
+	}*/
+	public float sueldoBrutoComerciante() {
+		
+		float sueldoBruto = 0;
+		for(Empleado emp : misEmpleados) {		
+			//Comerciante aux = new Comerciante();
+			//((Administrador) emp).sueldoByAdmin();
+			System.out.println(""+sueldoBruto);
+		}
+		return sueldoBruto;
 	}
 
 	/**

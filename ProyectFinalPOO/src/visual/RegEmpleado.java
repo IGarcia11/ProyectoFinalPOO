@@ -330,14 +330,14 @@ public class RegEmpleado extends JDialog {
 							float sueldoBC = new Float(Float.parseFloat(txtSueldoC.getText()));		//Float.parseFloat(txtSueldoC.getText());
 							String tipo = "Comerciante";
 							aux = new Comerciante(codeEmpleado, cedula, nombre, 
-									comision, 		//Float.parseFloat(txtComision.getText()),   //comision, 	//Float.parseFloat(comision), 
+									sueldoBC, 		//Float.parseFloat(txtComision.getText()),   //comision, 	//Float.parseFloat(comision), 
 									direccion, 
 									telefono, 
 									sexo, 
 									tipo, 
 									user, 
 									password,									
-									sueldoBC);//sueldoBC);
+									comision, 0);//sueldoBC);
 							Altice.getInstance().getMisEmpleados().add(aux);	
 						}
 						else if(rdbtnAdmin.isSelected()) {
@@ -346,7 +346,7 @@ public class RegEmpleado extends JDialog {
 							String tipo = "Administrador";
 							aux = new Administrador(codeEmpleado, cedula, nombre,
 									sueldoBA,//Float.parseFloat(sueldoBA), 
-									direccion, telefono, sexo, tipo, user, password, annoE, sueldoBA);//Integer.parseInt(annoE));
+									direccion, telefono, sexo, tipo, user, password, 0, annoE, sueldoBA);//Integer.parseInt(annoE));
 							//Altice.getInstance().regUser(user);
 							//dispose();
 							System.out.println("SueldoBA en RegE "+sueldoBA);

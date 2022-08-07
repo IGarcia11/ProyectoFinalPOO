@@ -91,8 +91,12 @@ public class ListadoEmpleados extends JDialog {
 					rowE[1] = emp.getCedulaEmpleado();	
 					rowE[2] = emp.getNombreEmpleado();					
 					rowE[3] = emp.getTelefono();		
-					rowE[4] = emp.getDireccion();		
-					//rowE[5] = emp.sueldoTotalAdmin();//sueldoTotal();
+					rowE[4] = emp.getDireccion();
+					System.out.println("Sueldo B --"+emp.getSueldoBruto());
+					System.out.println("Porcentaje --"+((Comerciante) emp).getPorcentajeComision());
+					System.out.println("Multiplicacion --"+(emp.getSueldoBruto() * ((Comerciante) emp).getPorcentajeComision())/100);
+					rowE[5] = emp.getSueldoBase() + (emp.getSueldoBruto() * ((Comerciante) emp).getPorcentajeComision())/100;//((Comerciante) emp).sueldoBrutoComerciante();	//emp.sueldoTotalAdmin();//sueldoTotal();
+					//((Comerciante) emp).getPorcentajeComision();
 					rowE[6] = "Comerciante";
 					modelE.addRow(rowE);
 				}

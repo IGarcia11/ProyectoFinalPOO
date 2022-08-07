@@ -10,8 +10,10 @@ import javax.swing.border.EmptyBorder;
 import javax.swing.border.TitledBorder;
 import javax.swing.table.DefaultTableModel;
 
+import logico.Administrador;
 import logico.Altice;
 import logico.Cliente;
+import logico.Empleado;
 import logico.Internet;
 import logico.Plan;
 import logico.Servicio;
@@ -45,6 +47,8 @@ import java.time.LocalDate;
 
 import javax.swing.JSpinner;
 import java.util.Locale;
+import java.awt.event.KeyAdapter;
+import java.awt.event.KeyEvent;
 
 public class RealizarVenta extends JDialog {
 
@@ -68,11 +72,14 @@ public class RealizarVenta extends JDialog {
 	public JTextField txtSubtotal;
 	//private Plan selected = null;
 	private float subtotal = 0;
+	private float subTotalSueldo = 0;
+	private float totalS = 0;
 	public JTextField txtFechaFac;
 	public JTextField txtCodeVenta;
 	private ReciboFactura rFact;
 	public JTextField txtCodeFac;
 	public JTextField name;
+	public JTextField txtVendedor;
 
 	/**
 	 * Launch the application.
@@ -91,9 +98,8 @@ public class RealizarVenta extends JDialog {
 	 * Create the dialog.
 	 */
 	public RealizarVenta() {
+		Acceso acc = new Acceso();
 		setModal(true);
-		//Altice alt = null;
-		//Factura fac = null;
 		setTitle("Realizar Venta");
 		setBounds(100, 100, 662, 535);
 		setLocationRelativeTo(null);
@@ -175,7 +181,6 @@ public class RealizarVenta extends JDialog {
 
 					}else {
 						JOptionPane.showMessageDialog(null, "Cliente no encontrado. Registre uno nuevo.", "No encontrado", JOptionPane.ERROR_MESSAGE);
-						//JOptionPane.showMessageDialog(null, "Client not found. Register a new one.", "Not found", JOptionPane.ERROR_MESSAGE);
 						txtNombre.setEditable(true);
 						txtTelefono.setEditable(true);
 						txtDireccion.setEditable(true);
@@ -202,12 +207,6 @@ public class RealizarVenta extends JDialog {
 			panelInfoCliente.add(txtFechaFac);
 			txtFechaFac.setColumns(10);
 			
-			/*txtCodeVenta = new JTextField();
-			txtCodeVenta.setEditable(false);
-			txtCodeVenta.setBounds(502, 21, 96, 19);
-			txtCodeVenta.setText("V-"+Altice.generadorCodVenta);
-			panelInfoCliente.add(txtCodeVenta);
-			txtCodeVenta.setColumns(10);*/
 			txtCodeFac = new JTextField();
 			txtCodeFac.setEditable(false);
 			txtCodeFac.setBounds(502, 38, 96, 19);
@@ -223,6 +222,21 @@ public class RealizarVenta extends JDialog {
 				JLabel lblNewLabel_7 = new JLabel("Fecha:");
 				lblNewLabel_7.setBounds(502, 68, 96, 14);
 				panelInfoCliente.add(lblNewLabel_7);
+			}
+			{
+				JLabel lblNewLabel_6 = new JLabel("Codigo del Vendedor:");
+				lblNewLabel_6.setBounds(502, 116, 126, 14);
+				panelInfoCliente.add(lblNewLabel_6);
+			}
+			{
+				txtVendedor = new JTextField();
+				txtVendedor.setText(Altice.getLoginUser().getNombreEmpleado());
+				System.out.println("llegamooo");
+				txtVendedor.setEditable(false);
+				txtVendedor.setColumns(10);
+				txtVendedor.setBounds(502, 134, 96, 19);
+				panelInfoCliente.add(txtVendedor);
+				
 			}
 			
 		}
@@ -329,6 +343,7 @@ public class RealizarVenta extends JDialog {
 			btnAgregar.setFont(new Font("Tahoma", Font.PLAIN, 11));
 			btnAgregar.addActionListener(new ActionListener() {
 				public void actionPerformed(ActionEvent e) {
+					
 					int filaSelected = tableOne.getSelectedRow();
 					if(filaSelected >= 0) {
 						String planSelected = tableOne.getValueAt(filaSelected, 0).toString();
@@ -343,29 +358,17 @@ public class RealizarVenta extends JDialog {
 					subtotal = 0;
 					for(int i = 0; i<tableTwo.getRowCount(); i++) {
 						String sub = tableTwo.getValueAt(i, 1).toString();
-						subtotal += Float.valueOf(sub);
-						txtSubtotal.setText(String.valueOf(subtotal));
+						subtotal += Float.valueOf(sub);							
+					}
+					totalS = subtotal;
+					System.out.println("totalS ------ "+totalS);
+					Altice.getInstance().getLoginUser().setSueldoBruto(totalS);
 					}
 				
-					/*if(filaSelected >= 0) {
-						String planSelected = tableOne.getValueAt(filaSelected, 0).toString();
-						row = new Object[model2.getColumnCount()];	
-						row[0] =  (String) tableOne.getValueAt(filaSelected, 0);
-			
-						for (Plan plan : Altice.getInstance().getMisPlanes()) {
-							if(plan.getNombre().equalsIgnoreCase(planSelected)) {
-								
-								row[1] = plan.precioPlan();
-								subtotal += plan.precioPlan();
-								
-							}	
-						}
-						model2.addRow(row);
-						txtSubtotal.setText(String.valueOf(subtotal));
-					}*/
-					}				
 			});
 			
+			
+			Altice.getInstance().getLoginUser().setSueldoBruto(subTotalSueldo);
 			btnAgregar.setBounds(330, 73, 89, 21);
 			panelSeleccion.add(btnAgregar);
 			{
@@ -398,12 +401,17 @@ public class RealizarVenta extends JDialog {
 		{
 			txtSubtotal = new JTextField();
 			txtSubtotal.setFont(new Font("Tahoma", Font.BOLD, 14));
-			txtSubtotal.setEditable(false);
-			//txtSubtotal.setText(String.valueOf(subtotal));
-	
+			txtSubtotal.setEditable(false);	
 			txtSubtotal.setBounds(136, 434, 83, 20);
+			
+			//float radio = new Float(txtRadio2.getText());
+			//float txSueldo = new Float(txtSubtotal.getText());
+			//txSueldo = Float.parseFloat(txtSubtotal.getText());
+			//System.out.println("Sueldo -- "+txSueldo);
+			//Altice.getInstance().getLoginUser().setSueldoBruto(txSueldo);
 			contentPanel.add(txtSubtotal);
 			txtSubtotal.setColumns(10);
+			//System.out.println("Sueldo -- "+txtSubtotal.getText());
 		}
 		{
 			JPanel buttonPane = new JPanel();
@@ -414,27 +422,7 @@ public class RealizarVenta extends JDialog {
 				JButton btnFacturar = new JButton("Facturar");
 				btnFacturar.addActionListener(new ActionListener() {
 					public void actionPerformed(ActionEvent e) {
-						/*ReciboFactura rF = new ReciboFactura();
-						rF.txtNombre.setText(txtNombre.getText().toString());
-						rF.txtCedula.setText(txtCedula.getText().toString());
-						rF.txtTelefono.setText(txtTelefono.getText());
-						rF.txtDireccion.setText(txtDireccion.getText());
-						rF.txtCodeFactura.setText(txtCodeVenta.getText());
-						rF.setVisible(true);
-						int existe = 1;
-						for(int i = 0; i < tableTwo.getRowCount(); i++) {		HAY QUE BORRARLO PPOR CONFLICTO
-							String dato = null, Datos[] = new String[3];
-							int columna = 1;
-							Datos[0] = "1";
-							Datos[1] = tableTwo.getValueAt(i, 0).toString();
-							Datos[2] = tableTwo.getValueAt(i, 1).toString();
-							ReciboFactura.model3.addRow(Datos);
-						}
-						dispose();
-						ArrayList<Plan> planes = new ArrayList<>();
-						Factura fac;
-						Cliente aux = Altice.getInstance().buscarClienteByCedula(txtCedula.getText());	*/					
-						//ArrayList<Plan> planes = new ArrayList<>();
+						
 						LocalDate fecha = LocalDate.now();
 						Calendar date = Calendar.getInstance();
 						int diaCorte = date.get(Calendar.DAY_OF_MONTH);
@@ -442,12 +430,9 @@ public class RealizarVenta extends JDialog {
 						Venta v1 = null;
 						Plan auxPlan = null;
 						Cliente aux = Altice.getInstance().buscarClienteByCedula(txtCedula.getText());
+						//System.out.println("Sueldo -- "+subTotalSueldo);
+						//subTotalSueldo += subtotal;
 						if(aux != null) {
-							/*fac = new Factura("F-"+Altice.generadorCodFactura,aux, null);
-							fac.setPlanes(planes);
-							aux.getMisFacturas().add(fac);
-							aux.getMisCompras().add(sale);
-							Altice.getInstance().getMisFacturas().add(fac);*/
 							v1 = new Venta(txtCodeFac.getText(), fecha, aux, null);
 							fac = new Factura("F-"+Altice.generadorCodFactura,aux, fecha, diaCorte);
 							for(int i = 0; i<tableTwo.getRowCount(); i++) {
@@ -475,22 +460,16 @@ public class RealizarVenta extends JDialog {
 							nuevo.insertarFactura(fac);
 							Altice.getInstance().insertarFactura(fac);
 							Altice.getInstance().insertarVenta(v1);
-							/*fac = new Factura("F-"+Altice.generadorCodFactura,aux, null);
-							fac.setPlanes(planes);
-							nuevo.getMisFacturas().add(fac);
-<<<<<<< HEAD
-							nuevo.getMisCompras().add(sale);
-							Altice.getInstance().getMisFacturas().add(fac);
-=======
-							Altice.getInstance().getMisFacturas().add(fac);*/
+
 						}
 						JOptionPane.showMessageDialog(null, "Venta realizada satisfactoriamente", "Información", JOptionPane.INFORMATION_MESSAGE);
 						clean();
-						System.out.println(txtNombre.getText());
+						System.out.println("Nombre "+txtNombre.getText());
+						System.out.println("Subtotal "+txtSubtotal.getText());
 						name = txtNombre;
 						loadPlanes();
-						ReciboFactura rF = new ReciboFactura();
-						rF.setVisible(true);
+						//ReciboFactura rF = new ReciboFactura();
+						//rF.setVisible(true);
 						dispose();
 						
 						
