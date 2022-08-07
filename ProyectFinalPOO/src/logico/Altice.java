@@ -102,7 +102,7 @@ public class Altice implements Serializable{
 		return cantVentaComerciante;
 	}*/
 	
-	public int cantVentasByEmpleado(String nombreEmpleado)
+	/*public int cantVentasByEmpleado(String nombreEmpleado)
 	{
 		Empleado empleado = null;
 		Empleado emp = null;
@@ -120,7 +120,7 @@ public class Altice implements Serializable{
 			}
 		}	
 		return cantVentaComerciante;
-	}
+	}*/
 	
 	public Cliente buscarClienteByCedula(String cedula) {
 		boolean encontrado = false;
@@ -228,7 +228,7 @@ public class Altice implements Serializable{
 		
 		return ventas;
 	}*/
-	public float sueldoBrutoComerciante() {
+	/*public float sueldoBrutoComerciante() {
 		
 		float sueldoBruto = 0;
 		for(Empleado emp : misEmpleados) {		
@@ -237,7 +237,7 @@ public class Altice implements Serializable{
 			System.out.println(""+sueldoBruto);
 		}
 		return sueldoBruto;
-	}
+	}*/
 
 	public Factura buscarFacturaByCode(String codigo) {
 		boolean encontrado = false;
