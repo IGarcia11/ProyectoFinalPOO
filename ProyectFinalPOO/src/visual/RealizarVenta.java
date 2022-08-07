@@ -487,12 +487,12 @@ public class RealizarVenta extends JDialog {
 						}
 						JOptionPane.showMessageDialog(null, "Venta realizada satisfactoriamente", "Información", JOptionPane.INFORMATION_MESSAGE);
 						clean();
-						System.out.println("Nombre "+txtNombre.getText());
+						/*System.out.println("Nombre "+txtNombre.getText());
 						System.out.println("Subtotal "+txtSubtotal.getText());
-						name = txtNombre;
+						name = txtNombre;*/
 						loadPlanes();
-						//ReciboFactura rF = new ReciboFactura();
-						//rF.setVisible(true);
+						ReciboFactura rF = new ReciboFactura(fac);
+						rF.setVisible(true);
 						//dispose();
 
 

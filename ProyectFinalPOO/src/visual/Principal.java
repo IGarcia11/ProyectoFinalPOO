@@ -182,6 +182,9 @@ public class Principal extends JFrame {
 			mnTienda.setEnabled(true);
 			mntmNewMenuItem_3.setEnabled(false);
 			mntmNewMenuItem_4.setEnabled(false);
+		}else {
+			 mntmNewMenuItem_2.setEnabled(false);
+			 mntmNewMenuItem_8.setEnabled(false);
 		}
 		contentPane = new JPanel();
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
