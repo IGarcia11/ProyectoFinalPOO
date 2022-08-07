@@ -117,13 +117,22 @@ public class Principal extends JFrame {
 				listaFactura.setVisible(true);
 			}
 		});
+		
+		JMenuItem mntmNewMenuItem_8 = new JMenuItem("Realizar Pago de Factura");
+		mntmNewMenuItem_8.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				PagoFactura pf = new PagoFactura();
+				pf.setVisible(true);
+			}
+		});
+		mnTienda.add(mntmNewMenuItem_8);
 		mnTienda.add(mntmNewMenuItem_3);
 		
 		JMenuItem mntmNewMenuItem_4 = new JMenuItem("Listado de Ventas");
 		mntmNewMenuItem_4.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				ListadoVentas listaVenta = new ListadoVentas();
-				listaVenta.setVisible(true);
+				ListadoVentas listaV= new ListadoVentas();
+				listaV.setVisible(true);
 			}
 		});
 		mnTienda.add(mntmNewMenuItem_4);
@@ -151,8 +160,8 @@ public class Principal extends JFrame {
 				users.setVisible(true);*/
 				RegEmpleado rE = new RegEmpleado();
 				rE.setVisible(true);
-				dispose();
-				rE.setModal(true);
+				//dispose();
+				//rE.setModal(true);
 			}
 		});
 		mnEmpleados.add(mntmNewMenuItem_6);
@@ -167,10 +176,12 @@ public class Principal extends JFrame {
 		mnEmpleados.add(mntmNewMenuItem_7);
 		//if(Altice.getLoginUser().getTipo().equalsIgnoreCase("Comercial")) {
 		if(!Altice.getLoginUser().getTipo().equalsIgnoreCase("Administrador")) {
-			mnClientes.setEnabled(false);
+			mnClientes.setEnabled(true);
 			mnEmpleados.setEnabled(false);
-			mnPlanes.setEnabled(true);
+			mnPlanes.setEnabled(false);
 			mnTienda.setEnabled(true);
+			mntmNewMenuItem_3.setEnabled(false);
+			mntmNewMenuItem_4.setEnabled(false);
 		}
 		contentPane = new JPanel();
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));

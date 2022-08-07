@@ -29,6 +29,7 @@ public class ListadoClientes extends JDialog {
 	private Cliente selected;
 	private JButton btnMostrarPlanes;
 	private JButton btnModificar;
+	private JButton btnMostrarFact;
 
 	/**
 	 * Launch the application.
@@ -68,6 +69,7 @@ public class ListadoClientes extends JDialog {
 							String cedula = table.getValueAt(index, 0).toString();
 							selected = Altice.getInstance().buscarClienteByCedula(cedula);
 							btnMostrarPlanes.setEnabled(true);
+							btnMostrarFact.setEnabled(true);
 							btnModificar.setEnabled(true);
 						}
 					}
@@ -85,21 +87,42 @@ public class ListadoClientes extends JDialog {
 			buttonPane.setLayout(new FlowLayout(FlowLayout.RIGHT));
 			getContentPane().add(buttonPane, BorderLayout.SOUTH);
 			{
-				btnModificar = new JButton("Modificar");
+				btnModificar = new JButton("Modificar información");
+				btnModificar.addActionListener(new ActionListener() {
+					public void actionPerformed(ActionEvent e) {
+						ModificarCliente modCli = new ModificarCliente(selected);
+						modCli.setVisible(true);
+					}
+				});
 				btnModificar.setEnabled(false);
 				buttonPane.add(btnModificar);
 			}
 			{
-				btnMostrarPlanes = new JButton("Mostrar Planes del Cliente");
+				btnMostrarPlanes = new JButton("Planes del Cliente");
 				btnMostrarPlanes.setEnabled(false);
 				btnMostrarPlanes.addActionListener(new ActionListener() {
 					public void actionPerformed(ActionEvent e) {
 						ListaPlanesCliente planesCliente = new ListaPlanesCliente(selected);
 						planesCliente.setVisible(true);
+						btnMostrarFact.setEnabled(false);
 						btnMostrarPlanes.setEnabled(false);
 						btnModificar.setEnabled(false);
 					}
 				});
+				{
+					btnMostrarFact = new JButton("Facturas del Cliente");
+					btnMostrarFact.addActionListener(new ActionListener() {
+						public void actionPerformed(ActionEvent e) {
+							ListaFacturasCliente planesCliente = new ListaFacturasCliente(selected);
+							planesCliente.setVisible(true);
+							btnMostrarFact.setEnabled(false);
+							btnMostrarPlanes.setEnabled(false);
+							btnModificar.setEnabled(false);
+						}
+					});
+					btnMostrarFact.setEnabled(false);
+					buttonPane.add(btnMostrarFact);
+				}
 				btnMostrarPlanes.setActionCommand("OK");
 				buttonPane.add(btnMostrarPlanes);
 				getRootPane().setDefaultButton(btnMostrarPlanes);

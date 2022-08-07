@@ -12,6 +12,7 @@ import javax.swing.table.DefaultTableModel;
 
 import logico.Altice;
 import logico.Internet;
+import logico.Plan;
 import logico.Telefono;
 import logico.Television;
 
@@ -19,6 +20,8 @@ import javax.swing.JScrollPane;
 import javax.swing.JTable;
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
+import java.awt.event.MouseAdapter;
+import java.awt.event.MouseEvent;
 
 public class ListadoPlanes extends JDialog {
 
@@ -26,6 +29,8 @@ public class ListadoPlanes extends JDialog {
 	private JTable table;
 	private static DefaultTableModel model;
 	private static Object[] row;
+	private Plan selected;
+	private JButton btnDispo;
 
 	/**
 	 * Launch the application.
@@ -57,8 +62,20 @@ public class ListadoPlanes extends JDialog {
 			contentPanel.add(scrollPane, BorderLayout.CENTER);
 			{
 				table = new JTable();
+				table.addMouseListener(new MouseAdapter() {
+					@Override
+					public void mouseClicked(MouseEvent e) {
+						int index = table.getSelectedRow();
+						if(index>=0) {
+							String plan = table.getValueAt(index, 0).toString();
+							selected = Altice.getInstance().buscarPlanByNombre(plan);
+							btnDispo.setEnabled(true);
+							//btnModificar.setEnabled(true);
+						}
+					}
+				});
 				model = new DefaultTableModel();
-				String[] headers = {"Plan", "Internet", "TelÈfono", "TelevisiÛn", "Precio"};
+				String[] headers = {"Plan", "Internet", "Tel√©fono", "Televisi√≥n", "Precio", "Disposicion"};
 				model.setColumnIdentifiers(headers);
 				table.setModel(model);
 				scrollPane.setViewportView(table);
@@ -70,14 +87,26 @@ public class ListadoPlanes extends JDialog {
 			buttonPane.setLayout(new FlowLayout(FlowLayout.RIGHT));
 			getContentPane().add(buttonPane, BorderLayout.SOUTH);
 			{
-				JButton btnModificar = new JButton("Modificar");
-				buttonPane.add(btnModificar);
-			}
-			{
-				JButton btnEliminar = new JButton("Eliminar");
-				btnEliminar.setActionCommand("OK");
-				buttonPane.add(btnEliminar);
-				getRootPane().setDefaultButton(btnEliminar);
+				btnDispo = new JButton("Cambiar Disposici√≥n");
+				btnDispo.setEnabled(false);
+				btnDispo.addActionListener(new ActionListener() {
+					public void actionPerformed(ActionEvent e) {
+						if(selected.getDisposicion().equalsIgnoreCase("Disponible")) {
+							selected.setDisposicion("No disponible");
+							loadPlanes();
+							btnDispo.setEnabled(false);
+							//btnModificar.setEnabled(false);
+						}else {
+							selected.setDisposicion("Disponible");
+							loadPlanes();
+							btnDispo.setEnabled(false);
+							//btnModificar.setEnabled(false);
+						}
+					}
+				});
+				btnDispo.setActionCommand("OK");
+				buttonPane.add(btnDispo);
+				getRootPane().setDefaultButton(btnDispo);
 			}
 			{
 				JButton cancelButton = new JButton("Cancelar");
@@ -100,6 +129,7 @@ public class ListadoPlanes extends JDialog {
 		for(int i = 0; i<Altice.getInstance().getMisPlanes().size(); i++) {
 			row[0] = Altice.getInstance().getMisPlanes().get(i).getNombre();
 			row[4] = Altice.getInstance().getMisPlanes().get(i).precioPlan();
+			row[5] = Altice.getInstance().getMisPlanes().get(i).getDisposicion();
 			row[1] = "N/A";
 			row[2] = "N/A";
 			row[3] = "N/A";

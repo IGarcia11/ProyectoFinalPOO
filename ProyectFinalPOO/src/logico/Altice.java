@@ -3,7 +3,6 @@ package logico;
 import java.io.Serializable;
 import java.util.ArrayList;
 
-import javax.swing.JOptionPane;
 
 public class Altice implements Serializable{
 
@@ -13,9 +12,9 @@ public class Altice implements Serializable{
 	private ArrayList<Factura> misFacturas;
 	private ArrayList<Empleado> misEmpleados;
 	private ArrayList<Plan> misPlanes;
-	public static int generadorCodFactura = 1;
-	//public static int generadorCodEmpleado = 1;
-	public static int generadorCodVenta = 1;
+	public int generadorCodFactura = 1;
+	public int generadorCodEmpleado = 0;
+	public int generadorCodVenta = 1;
 	private static Altice altice = null;
 	Empleado worker;
 	Administrador admin;
@@ -157,7 +156,7 @@ public class Altice implements Serializable{
 	
 	public void insertarEmpleado(Empleado e1) {
 		misEmpleados.add(e1);
-		//generadorCodEmpleado++;
+		generadorCodEmpleado++;
 	}
 	
 	public void insertarFactura(Factura f1) {
@@ -238,6 +237,78 @@ public class Altice implements Serializable{
 			System.out.println(""+sueldoBruto);
 		}
 		return sueldoBruto;
+	}
+
+	public Factura buscarFacturaByCode(String codigo) {
+		boolean encontrado = false;
+		Factura aux = null;
+		int i = 0;
+		while(!encontrado && i<misFacturas.size()) {
+			if(misFacturas.get(i).getCodeFactura().equalsIgnoreCase(codigo)) {
+				aux = misFacturas.get(i);
+				encontrado = true;
+			}
+			i++;
+		}
+		return aux;
+	}
+
+	public void modificarCliente(Cliente auxCliente) {
+		int aux = -1;
+		aux = buscarIndexByCliente(auxCliente.getCedCliente());
+		misClientes.remove(aux);
+		misClientes.add(aux, auxCliente);
+		
+	}
+	
+	private int buscarIndexByCliente(String cedula) {
+		boolean encontrado = false;
+		int aux = -1;
+		int i = 0;
+		while(!encontrado && i<misClientes.size()) {
+			if(misClientes.get(i).getCedCliente().equalsIgnoreCase(cedula)) {
+				aux = i;
+				encontrado = true;
+			}
+			i++;
+		}
+		return aux;
+	}
+	
+	private int buscarIndexByEmpleado(String cedula) {
+		boolean encontrado = false;
+		int aux = -1;
+		int i = 0;
+		while(!encontrado && i<misEmpleados.size()) {
+			if(misEmpleados.get(i).getCedulaEmpleado().equalsIgnoreCase(cedula)) {
+				aux = i;
+				encontrado = true;
+			}
+			i++;
+		}
+		return aux;
+	}
+
+	public void modificarEmpleado(Empleado auxEmpleado) {
+		int aux = -1;
+		aux = buscarIndexByEmpleado(auxEmpleado.getCedulaEmpleado());
+		misEmpleados.remove(aux);
+		misEmpleados.add(aux, auxEmpleado);
+		
+	}
+
+	public Empleado buscarEmpleadoByCod(String cod) {
+		boolean encontrado = false;
+		Empleado aux = null;
+		int i = 0;
+		while(!encontrado && i<misEmpleados.size()) {
+			if(misEmpleados.get(i).getCodeEmpleado().equalsIgnoreCase(cod)) {
+				aux = misEmpleados.get(i);
+				encontrado = true;
+			}
+			i++;
+		}
+		return aux;
 	}
 
 	/**

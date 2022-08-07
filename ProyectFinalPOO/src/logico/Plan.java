@@ -7,6 +7,7 @@ public class Plan implements Serializable{
 	
 	private String nombre;
 	private String estado;
+	private String Disposicion;
 	private ArrayList<Servicio> serviciosPlan;
 	private static final long serialVersionUID = 1L;
 	
@@ -14,6 +15,7 @@ public class Plan implements Serializable{
 		super();
 		this.nombre = nombre;
 		this.estado = "Activo";
+		this.Disposicion = "Disponible";
 		this.serviciosPlan = new ArrayList<>();
 	}
 
@@ -36,6 +38,14 @@ public class Plan implements Serializable{
 
 	public ArrayList<Servicio> getServiciosPlan() {
 		return serviciosPlan;
+	}
+
+	public String getDisposicion() {
+		return Disposicion;
+	}
+
+	public void setDisposicion(String disposicion) {
+		Disposicion = disposicion;
 	}
 
 	public float precioPlan() {

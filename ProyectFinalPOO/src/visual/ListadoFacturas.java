@@ -54,7 +54,7 @@ public class ListadoFacturas extends JDialog {
 			{
 				table = new JTable();
 				model = new DefaultTableModel();
-				String[] headers = {"Cod. Factura", "Nombre Cliente", "Cant. Planes", "Total", "Dia Corte"};
+				String[] headers = {"Cod. Factura", "Nombre Cliente", "Plan", "Total", "Dia Corte", "Estado"};
 				model.setColumnIdentifiers(headers);
 				table.setModel(model);
 				scrollPane.setViewportView(table);
@@ -90,9 +90,10 @@ public class ListadoFacturas extends JDialog {
 		for(int i = 0; i<Altice.getInstance().getMisFacturas().size(); i++) {
 			row[0] = Altice.getInstance().getMisFacturas().get(i).getCodeFactura();
 			row[1] = Altice.getInstance().getMisFacturas().get(i).getMicliente().getNombreCliente();
-			row[2] = Altice.getInstance().getMisFacturas().get(i).getPlanes().size();
+			row[2] = Altice.getInstance().getMisFacturas().get(i).getMiPlan().getNombre();
 			row[3] = Altice.getInstance().getMisFacturas().get(i).totalFactura();
 			row[4] = Altice.getInstance().getMisFacturas().get(i).getFechaFactura();
+			row[5] = Altice.getInstance().getMisFacturas().get(i).getEstado();
 			model.addRow(row);
 		}
 		

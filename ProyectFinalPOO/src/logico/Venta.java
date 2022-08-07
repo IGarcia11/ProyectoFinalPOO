@@ -2,7 +2,6 @@ package logico;
 
 import java.io.Serializable;
 import java.time.LocalDate;
-import java.util.ArrayList;
 
 public class Venta implements Serializable{
 	
@@ -11,19 +10,19 @@ public class Venta implements Serializable{
 	//private int codeFactura;
 	Cliente client;
 	Empleado employee;
-	private ArrayList<Plan> misPlanes;
+	Plan plan;
+	//private ArrayList<Plan> misPlanes;
 	private static final long serialVersionUID = 1L;
 	//private Calendar fechaPrueba; //UTILIZA ESTE ATRIBUTO PARA LA FECHA
 
-	public Venta(String codeVenta, LocalDate diaVenta, /*int codeFactura,*/ Cliente client, Empleado employee) {
+	public Venta(String codeVenta, LocalDate diaVenta, Cliente client, Empleado employee, Plan plan) {
 		super();
 		this.codeVenta = codeVenta;
-		this.setDiaVenta(diaVenta);//LocalDate.now();
-		//this.codeFactura = codeFactura;
+		this.diaVenta = diaVenta;//LocalDate.now();
 		this.client = client;
 		this.employee = employee;
-		this.misPlanes = new ArrayList<>();
-		//this.fechaPrueba = Calendar.getInstance();
+		this.plan = plan;
+		
 	}
 
 	public String getCodeVenta() {
@@ -79,21 +78,29 @@ public class Venta implements Serializable{
 		this.employee = employee;
 	}
 
-	public ArrayList<Plan> getMisPlanes() {
+	/*public ArrayList<Plan> getMisPlanes() {
 		return misPlanes;
+	}*/
+
+	public Plan getPlan() {
+		return plan;
+	}
+
+	public void setPlan(Plan plan) {
+		this.plan = plan;
 	}
 
 	public float montoTotal() {
-		float total = 0;
-		for(int i = 0; i<misPlanes.size(); i++) {
+		float total = plan.precioPlan();
+		/*for(int i = 0; i<misPlanes.size(); i++) {
 			total+= misPlanes.get(i).precioPlan();
-		}
+		}*/
 		return total;
 	}
 	
-	public void insertarPlan(Plan p1) {
+	/*public void insertarPlan(Plan p1) {
 		misPlanes.add(p1);
-	}
+	}*/
 
 	
 	/*public Venta(int codeFactura) {

@@ -17,15 +17,21 @@ import logico.Empleado;
 import javax.swing.JScrollPane;
 import javax.swing.JTable;
 import javax.swing.ListSelectionModel;
+import java.awt.event.ActionListener;
+import java.awt.event.ActionEvent;
+import java.awt.event.MouseAdapter;
+import java.awt.event.MouseEvent;
 
 public class ListadoEmpleados extends JDialog {
 
 	private final JPanel contentPanel = new JPanel();
 	private JTable tableEmpleado;
-	private DefaultTableModel modelE;
-	private Object[] rowE;
+	private static DefaultTableModel modelE;
+	private static Object[] rowE;
 	Empleado empleado;
 	Administrador admin;
+	private JButton btnModificar;
+	private Empleado selected;
 	/**
 	 * Launch the application.
 	 */
@@ -57,6 +63,17 @@ public class ListadoEmpleados extends JDialog {
 		contentPanel.add(scrollPaneEmpleado, BorderLayout.CENTER);
 		
 		tableEmpleado = new JTable();
+		tableEmpleado.addMouseListener(new MouseAdapter() {
+			@Override
+			public void mouseClicked(MouseEvent e) {
+				int index = tableEmpleado.getSelectedRow();
+				if(index>=0) {
+					String cod = tableEmpleado.getValueAt(index, 0).toString();
+					selected = Altice.getInstance().buscarEmpleadoByCod(cod);
+					btnModificar.setEnabled(true);
+				}
+			}
+		});
 		tableEmpleado.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
 		modelE = new DefaultTableModel();
 		String[] headers = {"ID", "Cédula", "Nombre", "Teléfono", "Dirección", "Sueldo", "Tipo"};
@@ -68,20 +85,33 @@ public class ListadoEmpleados extends JDialog {
 			buttonPane.setLayout(new FlowLayout(FlowLayout.RIGHT));
 			getContentPane().add(buttonPane, BorderLayout.SOUTH);
 			{
-				JButton okButton = new JButton("OK");
-				okButton.setActionCommand("OK");
-				buttonPane.add(okButton);
-				getRootPane().setDefaultButton(okButton);
+				btnModificar = new JButton("Modificar");
+				btnModificar.setEnabled(false);
+				btnModificar.addActionListener(new ActionListener() {
+					public void actionPerformed(ActionEvent e) {
+						ModificarEmpleado modEmpl = new ModificarEmpleado(selected);
+						modEmpl.setVisible(true);
+						btnModificar.setEnabled(false);
+					}
+				});
+				btnModificar.setActionCommand("OK");
+				buttonPane.add(btnModificar);
+				getRootPane().setDefaultButton(btnModificar);
 			}
 			{
-				JButton cancelButton = new JButton("Cancel");
+				JButton cancelButton = new JButton("Cancelar");
+				cancelButton.addActionListener(new ActionListener() {
+					public void actionPerformed(ActionEvent e) {
+						dispose();
+					}
+				});
 				cancelButton.setActionCommand("Cancel");
 				buttonPane.add(cancelButton);
 			}
 		}
 		loadEmpleados();
 	}
-	private void loadEmpleados() {
+	public static void loadEmpleados() {
 
 		modelE.setRowCount(0);
 		rowE = new Object[modelE.getColumnCount()];
@@ -92,10 +122,10 @@ public class ListadoEmpleados extends JDialog {
 					rowE[2] = emp.getNombreEmpleado();					
 					rowE[3] = emp.getTelefono();		
 					rowE[4] = emp.getDireccion();
-					System.out.println("Sueldo B --"+emp.getSueldoBruto());
+					/*System.out.println("Sueldo B --"+emp.getSueldoBruto());
 					System.out.println("Porcentaje --"+((Comerciante) emp).getPorcentajeComision());
-					System.out.println("Multiplicacion --"+(emp.getSueldoBruto() * ((Comerciante) emp).getPorcentajeComision())/100);
-					rowE[5] = emp.getSueldoBase() + (emp.getSueldoBruto() * ((Comerciante) emp).getPorcentajeComision())/100;//((Comerciante) emp).sueldoBrutoComerciante();	//emp.sueldoTotalAdmin();//sueldoTotal();
+					System.out.println("Multiplicacion --"+(emp.getSueldoBruto() * ((Comerciante) emp).getPorcentajeComision())/100);*/
+					rowE[5] = ((Comerciante) emp).SueldoBruto();
 					//((Comerciante) emp).getPorcentajeComision();
 					rowE[6] = "Comerciante";
 					modelE.addRow(rowE);

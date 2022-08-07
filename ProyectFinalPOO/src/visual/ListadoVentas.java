@@ -9,6 +9,9 @@ import javax.swing.JPanel;
 import javax.swing.JTable;
 import javax.swing.border.EmptyBorder;
 import javax.swing.table.DefaultTableModel;
+
+import logico.Altice;
+
 import javax.swing.border.TitledBorder;
 import javax.swing.JScrollPane;
 import java.awt.event.ActionListener;
@@ -52,7 +55,7 @@ public class ListadoVentas extends JDialog {
 			{
 				table = new JTable();
 				model = new DefaultTableModel();
-				String[] headers = {"Cod: venta", "Comerciante", "Nombre Cliente", "Cant. Planes", "Total", "Fecha de venta"};
+				String[] headers = {"Cod: venta", "Comerciante", "Nombre Cliente", "Plan", "Total", "Fecha de venta"};
 				model.setColumnIdentifiers(headers);
 				table.setModel(model);
 				scrollPane.setViewportView(table);
@@ -80,6 +83,22 @@ public class ListadoVentas extends JDialog {
 				buttonPane.add(cancelButton);
 			}
 		}
+		loadVentas();
+	}
+
+	private static void loadVentas() {
+		model.setRowCount(0);
+		row = new Object[model.getColumnCount()];
+		for(int i = 0; i<Altice.getInstance().getMisVentas().size(); i++) {
+			row[0] = Altice.getInstance().getMisVentas().get(i).getCodeVenta();
+			row[1] = Altice.getInstance().getMisVentas().get(i).getEmployee().getNombreEmpleado();
+			row[2] = Altice.getInstance().getMisVentas().get(i).getClient().getNombreCliente();
+			row[3] = Altice.getInstance().getMisVentas().get(i).getPlan().getNombre();
+			row[4] = Altice.getInstance().getMisVentas().get(i).montoTotal();
+			row[5] = Altice.getInstance().getMisVentas().get(i).getDiaVenta();
+			model.addRow(row);
+		}
+		
 	}
 
 }

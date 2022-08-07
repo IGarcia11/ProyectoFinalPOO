@@ -24,6 +24,8 @@ import javax.swing.DefaultComboBoxModel;
 import javax.swing.JRadioButton;
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
+import javax.swing.UIManager;
+import java.awt.Color;
 
 public class RegEmpleado extends JDialog {
 
@@ -70,7 +72,7 @@ public class RegEmpleado extends JDialog {
 	 */
 	public RegEmpleado() {
 		setTitle("Registar Empleado");
-		setBounds(100, 100, 459, 534);
+		setBounds(100, 100, 454, 560);
 		setLocationRelativeTo(null);
 		getContentPane().setLayout(new BorderLayout());
 		contentPanel.setBorder(new EmptyBorder(5, 5, 5, 5));
@@ -123,7 +125,7 @@ public class RegEmpleado extends JDialog {
 				txtCodigo = new JTextField();
 				txtCodigo.setEditable(false);
 				txtCodigo.setBounds(89, 17, 96, 19);
-				txtCodigo.setText("E-"+Empleado.generadorCodEmpleado);		//Altice.generadorCodEmpleado);
+				txtCodigo.setText("E-"+Altice.getInstance().generadorCodEmpleado);		//Altice.generadorCodEmpleado);
 				panelInfoBasica.add(txtCodigo);
 				txtCodigo.setColumns(10);
 			}
@@ -274,7 +276,7 @@ public class RegEmpleado extends JDialog {
 			//JPanel panelInfoCategoriaAdmin = new JPanel();
 			panelInfoCategoriaAdmin = new JPanel();
 			panelInfoCategoriaAdmin.setVisible(false);
-			panelInfoCategoriaAdmin.setBorder(new TitledBorder(null, "", TitledBorder.LEADING, TitledBorder.TOP, null, null));
+			panelInfoCategoriaAdmin.setBorder(new TitledBorder(UIManager.getBorder("TitledBorder.border"), "Informaci\u00F3n de Categoria", TitledBorder.LEADING, TitledBorder.TOP, null, new Color(0, 0, 0)));
 			panelInfoCategoriaAdmin.setBounds(10, 380, 419, 82);
 			contentPanel.add(panelInfoCategoriaAdmin);
 			panelInfoCategoriaAdmin.setLayout(null);
@@ -293,13 +295,13 @@ public class RegEmpleado extends JDialog {
 			{
 				JLabel lblNewLabel_3 = new JLabel("Años Experiencia:");
 				lblNewLabel_3.setFont(new Font("Tahoma", Font.BOLD, 14));
-				lblNewLabel_3.setBounds(205, 14, 104, 25);
+				lblNewLabel_3.setBounds(178, 14, 131, 25);
 				panelInfoCategoriaAdmin.add(lblNewLabel_3);
 			}
 			{
 				JLabel lblNewLabel_4 = new JLabel("Sueldo Base:");
 				lblNewLabel_4.setFont(new Font("Tahoma", Font.BOLD, 14));
-				lblNewLabel_4.setBounds(205, 45, 104, 25);
+				lblNewLabel_4.setBounds(188, 45, 121, 25);
 				panelInfoCategoriaAdmin.add(lblNewLabel_4);
 			}
 		}
@@ -315,7 +317,7 @@ public class RegEmpleado extends JDialog {
 						 * 
 						 */
 						Empleado aux = null;
-						String codeEmpleado = "E-"+Empleado.generadorCodEmpleado;	//Altice.generadorCodEmpleado;
+						String codeEmpleado = "E-"+Altice.getInstance().generadorCodEmpleado;	//Altice.generadorCodEmpleado;
 						String nombre = txtName.getText();
 						String cedula = txtId.getText();
 						String direccion = txtAdress.getText();
@@ -323,7 +325,7 @@ public class RegEmpleado extends JDialog {
 						String sexo = cbxSexo.getSelectedItem().toString();//getSelectedItem().toString());
 						String user = txtUser.getText();
 						String password = txtPwd.getText();
-						String confirmP = txtConfirmar.getText();
+						//String confirmP = txtConfirmar.getText();
 						//cbxSexo.getSelectedItem().toString();
 						if(rdbtnComerciante.isSelected()) {
 							float comision = new Float(txtComision.getText());		//Float.parseFloat(txtComision.getText()); 
@@ -337,8 +339,8 @@ public class RegEmpleado extends JDialog {
 									tipo, 
 									user, 
 									password,									
-									comision, 0);//sueldoBC);
-							Altice.getInstance().getMisEmpleados().add(aux);	
+									comision);//sueldoBC);
+							Altice.getInstance().insertarEmpleado(aux);	
 						}
 						else if(rdbtnAdmin.isSelected()) {
 							int annoE = new Integer(txtExperiencia.getText());//Integer.parseInt(txtHExtra.getText());//new Float(txtHExtra.getText());
@@ -346,21 +348,20 @@ public class RegEmpleado extends JDialog {
 							String tipo = "Administrador";
 							aux = new Administrador(codeEmpleado, cedula, nombre,
 									sueldoBA,//Float.parseFloat(sueldoBA), 
-									direccion, telefono, sexo, tipo, user, password, 0, annoE, sueldoBA);//Integer.parseInt(annoE));
+									direccion, telefono, sexo, tipo, user, password, 0);//Integer.parseInt(annoE));
 							//Altice.getInstance().regUser(user);
 							//dispose();
 							System.out.println("SueldoBA en RegE "+sueldoBA);
 							System.out.println("ANNOE "+annoE);
-							Altice.getInstance().getMisEmpleados().add(aux);	
+							Altice.getInstance().insertarEmpleado(aux);	
 
 						}
 						//Altice.getInstance().getMisEmpleados().add(aux);	
 						if(aux != null) {
 							JOptionPane.showMessageDialog(null, "Registrado Satisfactoriamente", "Información", JOptionPane.INFORMATION_MESSAGE);
-							//clean();
-							dispose();
-							Principal prin = new Principal();
-							prin.setVisible(true);
+							clean();
+							/*Principal prin = new Principal();
+							prin.setVisible(true);*/
 						}else {
 							JOptionPane.showMessageDialog(null, "Registro fallido", "Información", JOptionPane.WARNING_MESSAGE);
 							clean();
@@ -388,7 +389,7 @@ public class RegEmpleado extends JDialog {
 	}
 	private void clean() {
 		
-		txtCodigo.setText("E-"+Empleado.generadorCodEmpleado);//Altice.generadorCodEmpleado);
+		txtCodigo.setText("E-"+Altice.getInstance().generadorCodEmpleado);//Altice.generadorCodEmpleado);
 		txtName.setText("");
 		txtId.setText("");
 		txtAdress.setText("");

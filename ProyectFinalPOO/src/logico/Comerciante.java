@@ -1,21 +1,24 @@
 package logico;
 
-import java.io.Serializable;
 import java.util.ArrayList;
 
 public class Comerciante extends Empleado /*implements Serializable*/ {
 	
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
 	//private static final long serialVersionUID = 1L;
 	private float porcentajeComision;
 	//private float pagoComision;	 MULTIPLICAR COMISION*VENTAS
 	private ArrayList<Venta> misVentas;
-	private ArrayList<Factura> myFacturas;
-	Altice alt;
+	//private ArrayList<Factura> myFacturas;
+	//Altice alt;
 	//private float sueldoBruto;
 	
 	public Comerciante(String codeEmpleado, String cedulaEmpleado, String nombreEmpleado, float sueldoBase, String direccion, String telefono, String sexo,
-			String tipo, String userName, String pass, float porcentajeComision, float sueldoBruto) {	
-		super(codeEmpleado, cedulaEmpleado, nombreEmpleado, sueldoBase, direccion, telefono, sexo, tipo, userName, pass, sueldoBruto);
+			String tipo, String userName, String pass, float porcentajeComision) {	
+		super(codeEmpleado, cedulaEmpleado, nombreEmpleado, sueldoBase, direccion, telefono, sexo, tipo, userName, pass);
 		this.porcentajeComision = porcentajeComision;
 		this.misVentas = new ArrayList<>();
 		//this.sueldoBruto = sueldoBruto;
@@ -36,11 +39,13 @@ public class Comerciante extends Empleado /*implements Serializable*/ {
 	public void insertarVenta(Venta v1) {
 		misVentas.add(v1);
 	}
-	/*public float getSueldoBruto() {
+	
+	public float SueldoBruto() {
+		float sueldoBruto = sueldoBase + (misVentas.size() * (porcentajeComision/100));
 		return sueldoBruto;
 	}
 
-	public void setSueldoBruto(float sueldoBruto) {
+	/*public void setSueldoBruto(float sueldoBruto) {
 		this.sueldoBruto = sueldoBruto;
 	}*/
 	

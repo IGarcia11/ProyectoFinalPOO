@@ -5,12 +5,14 @@ import java.awt.FlowLayout;
 
 import javax.swing.JButton;
 import javax.swing.JDialog;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
 import javax.swing.table.DefaultTableModel;
 
 import logico.Altice;
 import logico.Cliente;
+import logico.Factura;
 import logico.Internet;
 import logico.Telefono;
 import logico.Television;
@@ -19,14 +21,18 @@ import javax.swing.JScrollPane;
 import javax.swing.JTable;
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
+import java.awt.event.MouseAdapter;
+import java.awt.event.MouseEvent;
 
-public class ListaPlanesCliente extends JDialog {
+public class ListaFacturasCliente extends JDialog {
 
 	private final JPanel contentPanel = new JPanel();
 	private JTable table;
 	private static DefaultTableModel model;
 	private static Object[] row;
 	private static Cliente auxCliente = null;
+	private JButton btnPagar;
+	private Factura selected; 
 
 	/**
 	 * Launch the application.
@@ -44,10 +50,10 @@ public class ListaPlanesCliente extends JDialog {
 	/**
 	 * Create the dialog.
 	 */
-	public ListaPlanesCliente(Cliente cliente) {
+	public ListaFacturasCliente(Cliente cliente) {
 		setModal(true);
 		auxCliente = cliente;
-		setTitle("Listado Planes del Cliente");
+		setTitle("Listado Facturas del Cliente");
 		setBounds(100, 100, 680, 400);
 		setLocationRelativeTo(null);
 		getContentPane().setLayout(new BorderLayout());
@@ -59,8 +65,19 @@ public class ListaPlanesCliente extends JDialog {
 			contentPanel.add(scrollPane, BorderLayout.CENTER);
 			{
 				table = new JTable();
+				table.addMouseListener(new MouseAdapter() {
+					@Override
+					public void mouseClicked(MouseEvent e) {
+						int index = table.getSelectedRow();
+						if(index>=0) {
+							String codigo = table.getValueAt(index, 0).toString();
+							selected = Altice.getInstance().buscarFacturaByCode(codigo);
+							btnPagar.setEnabled(true);
+						}
+					}
+				});
 				model = new DefaultTableModel();
-				String[] headers = {"Plan","Internet", "Teléfono", "Televisión", "Precio"};
+				String[] headers = {"Cod. Factura","Plan", "Total", "Dia de corte", "Estado"};
 				model.setColumnIdentifiers(headers);
 				table.setModel(model);
 				scrollPane.setViewportView(table);
@@ -71,10 +88,24 @@ public class ListaPlanesCliente extends JDialog {
 			buttonPane.setLayout(new FlowLayout(FlowLayout.RIGHT));
 			getContentPane().add(buttonPane, BorderLayout.SOUTH);
 			{
-				JButton okButton = new JButton("OK");
-				okButton.setActionCommand("OK");
-				buttonPane.add(okButton);
-				getRootPane().setDefaultButton(okButton);
+				btnPagar = new JButton("Pagar factura");
+				btnPagar.setEnabled(false);
+				btnPagar.addActionListener(new ActionListener() {
+					public void actionPerformed(ActionEvent e) {
+						if(selected.getEstado().equalsIgnoreCase("Vencida")) {
+							selected.setEstado("Pagada");
+							JOptionPane.showMessageDialog(null, "Pago exitoso", "Información", JOptionPane.INFORMATION_MESSAGE);
+							loadFacturasCliente(cliente);
+							btnPagar.setEnabled(false);
+						}else {
+							JOptionPane.showMessageDialog(null, "Esta Factura ya esta pagada", "Información", JOptionPane.INFORMATION_MESSAGE);
+							btnPagar.setEnabled(false);
+						}
+					}
+				});
+				btnPagar.setActionCommand("OK");
+				buttonPane.add(btnPagar);
+				getRootPane().setDefaultButton(btnPagar);
 			}
 			{
 				JButton cancelButton = new JButton("Cancelar");
@@ -87,31 +118,20 @@ public class ListaPlanesCliente extends JDialog {
 				buttonPane.add(cancelButton);
 			}
 		}
-		loadPlanesCliente(cliente);
+		loadFacturasCliente(cliente);
 	}
 
-	private static void loadPlanesCliente(Cliente cliente) {
+	private static void loadFacturasCliente(Cliente cliente) {
 		model.setRowCount(0);
 		row = new Object[model.getColumnCount()];
 		auxCliente = Altice.getInstance().buscarClienteByCedula(cliente.getCedCliente());
 		if(auxCliente != null) {
-		for(int i = 0; i<auxCliente.getMisPlanes().size(); i++) {
-			row[0] = auxCliente.getMisPlanes().get(i).getNombre();
-			row[4] = auxCliente.getMisPlanes().get(i).precioPlan();
-			row[1] = "N/A";
-			row[2] = "N/A";
-			row[3] = "N/A";
-			for(int j = 0; j<auxCliente.getMisPlanes().get(i).getServiciosPlan().size(); j++) {
-				if(auxCliente.getMisPlanes().get(i).getServiciosPlan().get(j) instanceof Internet) {
-					row[1] = auxCliente.getMisPlanes().get(i).getServiciosPlan().get(j).capacidad();
-				}
-				if(auxCliente.getMisPlanes().get(i).getServiciosPlan().get(j) instanceof Telefono) {
-					row[2] = auxCliente.getMisPlanes().get(i).getServiciosPlan().get(j).capacidad();
-				}
-				if(auxCliente.getMisPlanes().get(i).getServiciosPlan().get(j) instanceof Television) {
-					row[3] = auxCliente.getMisPlanes().get(i).getServiciosPlan().get(j).capacidad();
-				}
-			}
+		for(int i = 0; i<auxCliente.getMisFacturas().size(); i++) {
+			row[0] = auxCliente.getMisFacturas().get(i).getCodeFactura();
+			row[1] = auxCliente.getMisFacturas().get(i).getMiPlan().getNombre();
+			row[2] = auxCliente.getMisFacturas().get(i).getMiPlan().precioPlan();
+			row[3] = auxCliente.getMisFacturas().get(i).getDiaCorte();
+			row[4] = auxCliente.getMisFacturas().get(i).getEstado();
 			model.addRow(row);
 		}
 		}

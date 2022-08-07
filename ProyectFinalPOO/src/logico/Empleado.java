@@ -8,21 +8,21 @@ public class Empleado implements Serializable{
 	protected String cedulaEmpleado;
 	protected String nombreEmpleado;
 	protected String codeEmpleado;
-	private float sueldoBase;
-	private String direccion;
-	private String telefono;
-	private String sexo;
-	public static int generadorCodEmpleado = 1;
+	protected float sueldoBase;
+	protected String direccion;
+	protected String telefono;
+	protected String sexo;
+	//public static int generadorCodEmpleado = 1;
 	Administrador adm;
 	Comerciante com;
 	private static final long serialVersionUID = 1L;
-	private String tipo;
-	private String userName;
-	private String pass;
-	private float sueldoBruto;
+	protected String tipo;
+	protected String userName;
+	protected String pass;
+	//private float sueldoBruto;
 	
 	public Empleado(String codeEmpleado, String cedulaEmpleado, String nombreEmpleado, float sueldoBase, String direccion, String telefono, String sexo, 
-			String tipo, String userName, String pass, float sueldoBruto) {
+			String tipo, String userName, String pass/*, float sueldoBruto*/) {
 		super();
 		this.cedulaEmpleado = cedulaEmpleado;
 		this.nombreEmpleado = nombreEmpleado;
@@ -34,8 +34,8 @@ public class Empleado implements Serializable{
 		this.tipo = tipo;
 		this.userName = userName;
 		this.pass = pass;
-		this.sueldoBruto = sueldoBruto;
-		Empleado.generadorCodEmpleado++;
+		//this.sueldoBruto = sueldoBruto;
+		//Empleado.generadorCodEmpleado++;
 		
 	}
 
@@ -106,13 +106,13 @@ public class Empleado implements Serializable{
 		return (float) sueldoBase + (2500);
 	}*/
 
-	public static int getGeneradorCodEmpleado() {
+	/*public static int getGeneradorCodEmpleado() {
 		return generadorCodEmpleado;
 	}
 
 	public static void setGeneradorCodEmpleado(int generadorCodEmpleado) {
 		Empleado.generadorCodEmpleado = generadorCodEmpleado;
-	}
+	}*/
 
 	public float sueldoByTipoEmpleadoComerciante() {
 		
@@ -137,12 +137,12 @@ public class Empleado implements Serializable{
 		this.pass = pass;
 	}
 
-	public float getSueldoBruto() {
+	/*public float getSueldoBruto() {
 		return sueldoBruto;
 	}
 
 	public void setSueldoBruto(float sueldoBruto) {
 		this.sueldoBruto += sueldoBruto;
-	}
+	}*/
 
 }

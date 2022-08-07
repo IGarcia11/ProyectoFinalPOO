@@ -2,25 +2,29 @@ package logico;
 
 import java.io.Serializable;
 import java.time.LocalDate;
-import java.util.ArrayList;
+
 
 public class Factura implements Serializable{
 
 	private String codeFactura;
     Cliente micliente;
 	private LocalDate fechaFactura;
-	private ArrayList<Plan> planes;
+	Plan miPlan;
+	//private ArrayList<Plan> planes;
 	private int diaCorte;
+	private String estado;
 	private static final long serialVersionUID = 1L;
 	//Plan pn;
 	
-	public Factura(String codeFactura, Cliente micliente, LocalDate fechaFactura, int diaCorte) {
+	public Factura(String codeFactura, Cliente micliente, Plan miPlan, LocalDate fechaFactura, int diaCorte) {
 		super();
 		this.codeFactura = codeFactura;
 		this.micliente = micliente;
 		this.setFechaFactura(fechaFactura);
-		this.planes = new ArrayList<>();
+		this.miPlan = miPlan;
+		//this.planes = new ArrayList<>();
 		this.diaCorte = diaCorte;
+		this.estado = "Pagada";
 	}
 
 
@@ -63,8 +67,12 @@ public class Factura implements Serializable{
 		this.fechaFactura = fechaFactura;
 	}
 	
-	public ArrayList<Plan> getPlanes() {
+	/*public ArrayList<Plan> getPlanes() {
 		return planes;
+	}*/
+	
+	public Plan getMiPlan() {
+		return miPlan;
 	}
 
 	public int getDiaCorte() {
@@ -72,11 +80,21 @@ public class Factura implements Serializable{
 	}
 
 
+	public String getEstado() {
+		return estado;
+	}
+
+
+	public void setEstado(String estado) {
+		this.estado = estado;
+	}
+
+
 	public float totalFactura() {
-		float total = 0;
-		for(int i = 0; i<planes.size(); i++) {
+		float total = miPlan.precioPlan();
+		/*for(int i = 0; i<planes.size(); i++) {
 			total+= planes.get(i).precioPlan();
-		}
+		}*/
 		return total;
 	}
 	
@@ -85,9 +103,9 @@ public class Factura implements Serializable{
 	}*/
 	
 	
-	public void insertarPlanesFactura(Plan p1) {
+	/*public void insertarPlanesFactura(Plan p1) {
 		planes.add(p1);
-	}
+	}*/
 
 
 	/*public void setPlanes(ArrayList<Plan> planes) {

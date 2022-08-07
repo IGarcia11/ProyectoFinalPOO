@@ -87,4 +87,17 @@ public class Cliente implements Serializable{
 		misPlanes.add(p1);
 	}
 
+	public boolean deuda() {
+		boolean debe = false;
+		int deuda = 0;
+		for(int i = 0; i<misFacturas.size(); i++) {
+			if(misFacturas.get(i).getEstado().equalsIgnoreCase("Vencida")) {
+				deuda++;
+				if(deuda>=3) {
+					debe = true;
+				}
+			}
+		}
+		return debe;
+	}
 }

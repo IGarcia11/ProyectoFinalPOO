@@ -54,7 +54,7 @@ public class Acceso extends JFrame {
 					try {
 						empresa2 = new  FileOutputStream("empresa.dat");
 						empresaWrite = new ObjectOutputStream(empresa2);
-						Empleado emp = new Empleado("", "", "", 0, "", "", "", "Administrador", "admin", "admin", 0);//new Empleado(null, null, null, null, null, null, null, "Administrador", "Admin", "Admin");
+						Empleado emp = new Empleado("", "", "", 0, "", "", "", "Administrador", "admin", "admin");//new Empleado(null, null, null, null, null, null, null, "Administrador", "Admin", "Admin");
 						Altice.getInstance().insertarEmpleado(emp);
 						/*
 						 * String codeEmpleado, String cedulaEmpleado, String nombreEmpleado, float sueldoBase, String direccion, String telefono, String sexo, 
@@ -93,7 +93,7 @@ public class Acceso extends JFrame {
 	public Acceso() {
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setBounds(100, 100, 303, 298);
-		//setLocationRelativeTo(null);
+		setLocationRelativeTo(null);
 		contentPane = new JPanel();
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
 		setContentPane(contentPane);
@@ -133,8 +133,8 @@ public class Acceso extends JFrame {
 				if(Altice.getInstance().confirmLogin(txtUser.getText(), txtPass.getText())) {
 					System.out.println("Acceso OK");
 					Principal fe = new Principal();					
-					dispose();
 					fe.setVisible(true);
+					dispose();
 					//RegEmpleado regE = new RegEmpleado();
 					//regE.setVisible(true);
 				}else {
