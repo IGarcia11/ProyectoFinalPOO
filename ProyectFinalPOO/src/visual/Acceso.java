@@ -11,6 +11,7 @@ import java.io.ObjectOutputStream;
 
 import javax.swing.JFrame;
 import javax.swing.JPanel;
+import javax.swing.JPasswordField;
 import javax.swing.border.EmptyBorder;
 
 import logico.Altice;
@@ -28,9 +29,10 @@ public class Acceso extends JFrame {
 
 	private JPanel contentPane;
 	public JTextField txtUser;
-	private JTextField txtPass;
+	private JPasswordField txtPass;
 	private JButton btnNewButton;
 	public String userA;
+	private String password;
 
 	/**
 	 * Launch the application.
@@ -116,7 +118,7 @@ public class Acceso extends JFrame {
 		contentPane.add(txtUser);
 		txtUser.setColumns(10);
 
-		txtPass = new JTextField();
+		txtPass = new JPasswordField();
 		txtPass.setFont(new Font("Tahoma", Font.PLAIN, 12));
 		txtPass.setBounds(96, 161, 96, 19);
 		contentPane.add(txtPass);
@@ -128,9 +130,9 @@ public class Acceso extends JFrame {
 			public void actionPerformed(ActionEvent e) {
 				System.out.println("byee");
 				System.out.println(txtUser.getText());
-				System.out.println(txtPass.getText());				
+				System.out.println(txtPass.getPassword());				
 				
-				if(Altice.getInstance().confirmLogin(txtUser.getText(), txtPass.getText())) {
+				if(Altice.getInstance().confirmLogin(txtUser.getText(), password = new String(txtPass.getPassword()))) {
 					System.out.println("Acceso OK");
 					Principal fe = new Principal();					
 					fe.setVisible(true);

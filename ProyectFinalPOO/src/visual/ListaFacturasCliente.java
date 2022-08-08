@@ -77,7 +77,7 @@ public class ListaFacturasCliente extends JDialog {
 					}
 				});
 				model = new DefaultTableModel();
-				String[] headers = {"Cod. Factura","Plan", "Total", "Dia de corte", "Estado"};
+				String[] headers = {"Cod. Factura","Plan", "Total", "Fecha", "Estado"};
 				model.setColumnIdentifiers(headers);
 				table.setModel(model);
 				scrollPane.setViewportView(table);
@@ -130,7 +130,7 @@ public class ListaFacturasCliente extends JDialog {
 			row[0] = auxCliente.getMisFacturas().get(i).getCodeFactura();
 			row[1] = auxCliente.getMisFacturas().get(i).getMiPlan().getNombre();
 			row[2] = auxCliente.getMisFacturas().get(i).getMiPlan().precioPlan();
-			row[3] = auxCliente.getMisFacturas().get(i).getDiaCorte();
+			row[3] = auxCliente.getMisFacturas().get(i).getFechaFactura();
 			row[4] = auxCliente.getMisFacturas().get(i).getEstado();
 			model.addRow(row);
 		}

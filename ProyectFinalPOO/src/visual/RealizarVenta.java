@@ -10,11 +10,9 @@ import javax.swing.border.EmptyBorder;
 import javax.swing.border.TitledBorder;
 import javax.swing.table.DefaultTableModel;
 
-import logico.Administrador;
 import logico.Altice;
 import logico.Cliente;
 import logico.Comerciante;
-import logico.Empleado;
 import logico.Internet;
 import logico.Plan;
 import logico.Servicio;
@@ -27,29 +25,16 @@ import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 
 import java.awt.Font;
-import java.awt.Point;
-import java.util.ArrayList;
 import java.util.Calendar;
-import java.util.Locale;
-import java.util.Vector;
 
 import javax.swing.JTextField;
 import javax.swing.JScrollPane;
 import javax.swing.JTable;
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
-import javax.swing.border.EtchedBorder;
-import java.awt.Color;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
-import java.sql.Date;
-import java.text.SimpleDateFormat;
 import java.time.LocalDate;
-
-import javax.swing.JSpinner;
-import java.util.Locale;
-import java.awt.event.KeyAdapter;
-import java.awt.event.KeyEvent;
 
 public class RealizarVenta extends JDialog {
 
@@ -61,10 +46,6 @@ public class RealizarVenta extends JDialog {
 	private JTable tableOne;
 	private DefaultTableModel model;
 	private Object[] row;
-	private Plan selected = null;
-	private Factura fac = null;
-	private Venta sale = null;
-	//private Altice a = null;
 	private JTextField txtMuestraInternet;
 	private JTextField txtMuestraCable;
 	private JTextField txtMuestraTelefono;
@@ -73,11 +54,9 @@ public class RealizarVenta extends JDialog {
 	public JTextField txtSubtotal;
 	//private Plan selected = null;
 	private float subtotal = 0;
-	private float subTotalSueldo = 0;
 	private float totalS = 0;
 	public JTextField txtFechaFac;
 	public JTextField txtCodeVenta;
-	private ReciboFactura rFact;
 	public JTextField txtCodeFac;
 	public JTextField name;
 	public JTextField txtVendedor;
@@ -485,15 +464,12 @@ public class RealizarVenta extends JDialog {
 							coo.getMisVentas().add(v1);
 
 						}
+						fac.start();
 						JOptionPane.showMessageDialog(null, "Venta realizada satisfactoriamente", "Información", JOptionPane.INFORMATION_MESSAGE);
 						clean();
-						/*System.out.println("Nombre "+txtNombre.getText());
-						System.out.println("Subtotal "+txtSubtotal.getText());
-						name = txtNombre;*/
 						loadPlanes();
 						ReciboFactura rF = new ReciboFactura(fac);
 						rF.setVisible(true);
-						//dispose();
 
 
 					}

@@ -95,6 +95,8 @@ public class Principal extends JFrame {
 			public void actionPerformed(ActionEvent e) {
 				RealizarVenta makeSale = new RealizarVenta();
 				makeSale.setVisible(true);
+				Thread hilo = new Thread((Runnable) makeSale);
+				hilo.start();
 			}
 		});
 		mnTienda.add(mntmNewMenuItem_2);

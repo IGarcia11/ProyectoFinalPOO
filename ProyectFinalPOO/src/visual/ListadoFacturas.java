@@ -54,7 +54,7 @@ public class ListadoFacturas extends JDialog {
 			{
 				table = new JTable();
 				model = new DefaultTableModel();
-				String[] headers = {"Cod. Factura", "Nombre Cliente", "Plan", "Total", "Dia Corte", "Estado"};
+				String[] headers = {"Cod. Factura", "Nombre Cliente", "Plan", "Total", "Fecha", "Estado"};
 				model.setColumnIdentifiers(headers);
 				table.setModel(model);
 				scrollPane.setViewportView(table);

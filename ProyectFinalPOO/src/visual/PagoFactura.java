@@ -137,8 +137,11 @@ public class PagoFactura extends JDialog {
 						if(selected.getEstado().equalsIgnoreCase("Vencida")) {
 							selected.setEstado("Pagada");
 							JOptionPane.showMessageDialog(null, "Pago exitoso", "Información", JOptionPane.INFORMATION_MESSAGE);
-							loadFacturasVencidas(null);
+							loadFacturasVencidas(auxCliente);
+							txtCedula.setText(" ");
+							txtNombre.setText(" ");
 							btnPago.setEnabled(false);
+							btnLimpiar.setEnabled(false);
 						}
 					}
 				});
@@ -158,7 +161,10 @@ public class PagoFactura extends JDialog {
 				btnLimpiar = new JButton("Limpiar Tabla");
 				btnLimpiar.addActionListener(new ActionListener() {
 					public void actionPerformed(ActionEvent e) {
+						txtCedula.setText(" ");
+						txtNombre.setText(" ");
 						limpiarTabla();
+						btnPago.setEnabled(false);
 						btnLimpiar.setEnabled(false);
 					}
 				});

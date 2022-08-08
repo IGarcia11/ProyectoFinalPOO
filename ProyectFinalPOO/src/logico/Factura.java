@@ -4,7 +4,7 @@ import java.io.Serializable;
 import java.time.LocalDate;
 
 
-public class Factura implements Serializable{
+public class Factura extends Thread implements Serializable{
 
 	private String codeFactura;
     Cliente micliente;
@@ -96,6 +96,30 @@ public class Factura implements Serializable{
 			total+= planes.get(i).precioPlan();
 		}*/
 		return total;
+	}
+	
+	@Override
+	public void run(){
+		int i=0; 
+		while(true) {
+			esperar();
+			i++;
+			LocalDate fechaNueva = fechaFactura.plusMonths(i);
+			Factura f1 = new Factura("F-"+Altice.getInstance().generadorCodFactura, this.micliente, this.miPlan, fechaNueva, diaCorte);
+			f1.setEstado("Vencida");
+			micliente.insertarFactura(f1);
+			Altice.getInstance().insertarFactura(f1);
+		}
+	}
+
+	private void esperar() {
+		try {
+			Thread.sleep(60000);
+		} catch (InterruptedException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+
 	}
 	
 	/*public void darFechaActual(Date fechaFactura) {
