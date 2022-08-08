@@ -26,22 +26,11 @@ public class Principal extends JFrame {
 
 	private JPanel contentPane;
 	private Dimension dim;
+	private JMenu mnReportes;
 
 	/**
 	 * Launch the application.
 	 */
-	/*public static void main(String[] args) {
-		EventQueue.invokeLater(new Runnable() {
-			public void run() {
-				try {
-					Principal frame = new Principal();
-					frame.setVisible(true);
-				} catch (Exception e) {
-					e.printStackTrace();
-				}
-			}
-		});
-	}*/
 
 	/**
 	 * Create the frame.
@@ -174,12 +163,24 @@ public class Principal extends JFrame {
 			}
 		});
 		mnEmpleados.add(mntmNewMenuItem_7);
-		//if(Altice.getLoginUser().getTipo().equalsIgnoreCase("Comercial")) {
+		
+		mnReportes = new JMenu("Reporte");
+		menuBar.add(mnReportes);
+		
+		JMenuItem mntmNewMenuItem_9 = new JMenuItem("Abrir Reportes");
+		mntmNewMenuItem_9.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				Reportes rep = new Reportes();
+				rep.setVisible(true);
+			}
+		});
+		mnReportes.add(mntmNewMenuItem_9);
 		if(!Altice.getLoginUser().getTipo().equalsIgnoreCase("Administrador")) {
 			mnClientes.setEnabled(true);
 			mnEmpleados.setEnabled(false);
 			mnPlanes.setEnabled(false);
 			mnTienda.setEnabled(true);
+			mnReportes.setEnabled(false);
 			mntmNewMenuItem_3.setEnabled(false);
 			mntmNewMenuItem_4.setEnabled(false);
 		}else {

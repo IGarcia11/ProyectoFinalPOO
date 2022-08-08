@@ -251,7 +251,7 @@ public class RegistrarPlan extends JDialog {
 						Servicio s1 = null;
 						Servicio s2 = null;
 						Servicio s3 = null;
-						p1 = new Plan(txtNombrePlan.getText());
+						p1 = new Plan(txtNombrePlan.getText(),0);
 						if(cbInternet.isSelected()) {
 							s1 = new Internet(Integer.parseInt(spnVelSubida.getValue().toString()), Integer.parseInt(spnVelBajada.getValue().toString()));
 							p1.insertarServicio(s1);

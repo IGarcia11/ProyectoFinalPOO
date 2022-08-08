@@ -8,15 +8,17 @@ public class Plan implements Serializable{
 	private String nombre;
 	private String estado;
 	private String Disposicion;
+	private float gananciaEachPlan;
 	private ArrayList<Servicio> serviciosPlan;
 	private static final long serialVersionUID = 1L;
 	
-	public Plan(String nombre) {
+	public Plan(String nombre, float gananciaEachPlan) {
 		super();
 		this.nombre = nombre;
 		this.estado = "Activo";
 		this.Disposicion = "Disponible";
 		this.serviciosPlan = new ArrayList<>();
+		this.gananciaEachPlan = gananciaEachPlan;
 	}
 
 	public String getNombre() {
@@ -69,5 +71,13 @@ public class Plan implements Serializable{
 	
 	public void insertarServicio(Servicio se1) {
 		serviciosPlan.add(se1);
+	}
+
+	public float getGananciaEachPlan() {
+		return gananciaEachPlan;
+	}
+
+	public void setGananciaEachPlan(float gananciaEachPlan) {
+		this.gananciaEachPlan += gananciaEachPlan;
 	}
 }

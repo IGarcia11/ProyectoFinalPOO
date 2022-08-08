@@ -54,7 +54,7 @@ public class Acceso extends JFrame {
 					try {
 						empresa2 = new  FileOutputStream("empresa.dat");
 						empresaWrite = new ObjectOutputStream(empresa2);
-						Empleado emp = new Empleado("", "", "", 0, "", "", "", "Administrador", "admin", "admin");//new Empleado(null, null, null, null, null, null, null, "Administrador", "Admin", "Admin");
+						Empleado emp = new Empleado("", "", "", 0, "", "", "", "Administrador", "Admin", "Admin");//new Empleado(null, null, null, null, null, null, null, "Administrador", "Admin", "Admin");
 						Altice.getInstance().insertarEmpleado(emp);
 						/*
 						 * String codeEmpleado, String cedulaEmpleado, String nombreEmpleado, float sueldoBase, String direccion, String telefono, String sexo, 

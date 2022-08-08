@@ -78,6 +78,44 @@ public class Altice implements Serializable{
 		}
 		return null;
 	}
+	/*
+	 * public boolean confirmLogin(String text, String text2) {
+		boolean login = false;
+		for(Empleado emp : misEmpleados) {
+			if(emp.getUserName().equals(text) && emp.getPass().equals(text2)){//getUserName().equals(text) && user.getPass().equals(text2)) {
+				System.out.println("login correct");
+				loginUser = emp;
+				login = true;
+			}
+		}
+		return login;
+	}
+	
+	 */
+	
+	public float gananciaEstimada(String nombrePlan) {
+		float totalGanancia = 0;
+		for(Venta v : misVentas) {
+			if(v.getPlan().getNombre().equals(nombrePlan)) {
+				totalGanancia += v.montoTotal();
+				System.out.println("Total Ganancia  -- "+totalGanancia);
+			}			
+		}
+		return totalGanancia;
+	}
+	
+	public int cantVentasByPlan(String nombrePlan) {
+		int cant = 0;
+		for(Venta sale : misVentas) {
+			if(sale.getPlan().getNombre().equals(nombrePlan)) {
+				cant++;
+				System.out.println("Cant Ventas  -- "+cant);
+			}
+			
+		}
+		return cant;
+	}
+	
 	/*public int cantVentasEmpleado(String nombreU)
 	{
 		

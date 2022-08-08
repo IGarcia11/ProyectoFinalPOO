@@ -14,6 +14,11 @@ import javax.swing.JLabel;
 import javax.swing.JTextField;
 import javax.swing.border.TitledBorder;
 import javax.swing.table.DefaultTableModel;
+
+import logico.Altice;
+import logico.Plan;
+import logico.Venta;
+
 import javax.swing.JScrollPane;
 import javax.swing.JTable;
 import java.awt.event.ActionListener;
@@ -33,6 +38,8 @@ public class Reportes extends JDialog {
 	JComboBox cbxTipoConsulta;
 	JPanel panelGanancia;
 	JPanel panelCantVentas;
+	private String nombre = null;
+	private String name = null;
 
 	/**
 	 * Launch the application.
@@ -69,15 +76,14 @@ public class Reportes extends JDialog {
 		cbxTipoConsulta = new JComboBox();
 		cbxTipoConsulta.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				int selectedValue = cbxTipoConsulta.getSelectedIndex(); 	//.getSelectedItem().toString();
+				int selectedValue = cbxTipoConsulta.getSelectedIndex(); 	
 				if(selectedValue == 1) {
 					panelGanancia.setVisible(true);
 					panelCantVentas.setVisible(false);
 				}else if(selectedValue == 2) {
 					panelGanancia.setVisible(false);
-					panelCantVentas.setVisible(true);					
+					panelCantVentas.setVisible(true);	
 				}
-				//if(cbxTipoConsulta.getSelectedIndex().)
 			}
 		});
 		cbxTipoConsulta.setModel(new DefaultComboBoxModel(new String[] {"<Seleccione>", "Ganancia por Plan", "Cantidad de Ventas por Plan"}));
@@ -138,6 +144,53 @@ public class Reportes extends JDialog {
 				cancelButton.setActionCommand("Cancel");
 				buttonPane.add(cancelButton);
 			}
+		}
+		loadTableCantidad();
+		loadTableGanancias();
+	}
+
+	private void loadTableCantidad() {
+		modelCantidad.setRowCount(0);;
+		rowCant = new Object[modelCantidad.getColumnCount()];
+		
+		for(Plan v : Altice.getInstance().getMisPlanes()) {
+		rowCant[0] = v.getNombre();
+		name = v.getNombre();
+		if(name != null) {							
+			rowCant[1] = Altice.getInstance().cantVentasByPlan(name);	//p.getNombre());
+			System.out.println("rowCant --- "+Altice.getInstance().cantVentasByPlan(name));
+		}					
+		System.out.println(name);
+		modelCantidad.addRow(rowCant);
+		}
+		
+		/*
+		 * 	for(Venta v : Altice.getInstance().getMisVentas()) {
+		rowCant[0] = v.getPlan().getNombre();
+		name = v.getPlan().getNombre();
+		if(name != null) {							
+			rowCant[1] = Altice.getInstance().cantVentasByPlan(name);	//p.getNombre());
+			System.out.println("rowCant --- "+Altice.getInstance().cantVentasByPlan(name));
+		}					
+		System.out.println(name);
+		modelCantidad.addRow(rowCant);
+		}
+		
+		 */		
+	}
+
+
+	private void loadTableGanancias() {
+		modelDinero.setRowCount(0);;
+		rowDinero = new Object[modelDinero.getColumnCount()];
+		for(Plan v : Altice.getInstance().getMisPlanes()) {
+			rowDinero[0] = v.getNombre();
+			nombre = v.getNombre();
+			if(nombre != null) {
+				rowDinero[1] = Altice.getInstance().gananciaEstimada(nombre);
+				System.out.println("rowDinero --- "+Altice.getInstance().gananciaEstimada(nombre));
+			}
+			modelDinero.addRow(rowDinero);
 		}
 	}
 }
