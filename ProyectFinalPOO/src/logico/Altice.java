@@ -98,10 +98,29 @@ public class Altice implements Serializable{
 		for(Venta v : misVentas) {
 			if(v.getPlan().getNombre().equals(nombrePlan)) {
 				totalGanancia += v.montoTotal();
-				System.out.println("Total Ganancia  -- "+totalGanancia);
+				
 			}			
 		}
+		System.out.println("Total Ganancia  -- "+totalGanancia);
 		return totalGanancia;
+	}
+	
+	public float gananciaReal(String nombrePlan) {		
+		float totalGanancia = 0, totalReal = 0;
+		Factura fac = null;
+		for(Venta v : misVentas) {
+			if(v.getPlan().getNombre().equals(nombrePlan)) {			
+				totalGanancia += v.montoTotal();
+				if(fac != null) {
+					if(fac.getEstado().equalsIgnoreCase("Pagada")) {
+						totalReal += fac.totalFactura();	//fac.totalFactura();
+					}
+				}				
+			}			
+		}
+		System.out.println("Total Ganancia Estimada -- "+totalGanancia);
+		System.out.println("Total Ganancia REAL -- "+totalReal);
+		return totalGanancia-totalReal;
 	}
 	
 	public int cantVentasByPlan(String nombrePlan) {

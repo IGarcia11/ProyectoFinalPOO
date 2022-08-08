@@ -11,6 +11,7 @@ public class Venta implements Serializable{
 	Cliente client;
 	Empleado employee;
 	Plan plan;
+	Factura bill;
 	//private ArrayList<Plan> misPlanes;
 	private static final long serialVersionUID = 1L;
 	//private Calendar fechaPrueba; //UTILIZA ESTE ATRIBUTO PARA LA FECHA
@@ -21,8 +22,7 @@ public class Venta implements Serializable{
 		this.diaVenta = diaVenta;//LocalDate.now();
 		this.client = client;
 		this.employee = employee;
-		this.plan = plan;
-		
+		this.plan = plan;		
 	}
 
 	public String getCodeVenta() {

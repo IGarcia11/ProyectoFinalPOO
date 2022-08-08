@@ -189,6 +189,8 @@ public class Reportes extends JDialog {
 			if(nombre != null) {
 				rowDinero[1] = Altice.getInstance().gananciaEstimada(nombre);
 				System.out.println("rowDinero --- "+Altice.getInstance().gananciaEstimada(nombre));
+				rowDinero[2] = Altice.getInstance().gananciaReal(nombre);
+				System.out.println("rowDinero REAL--- "+Altice.getInstance().gananciaReal(nombre));
 			}
 			modelDinero.addRow(rowDinero);
 		}
